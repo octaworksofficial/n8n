@@ -1,0 +1,261 @@
+{
+  "name": "Trendyol QA Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "db27185e-3a82-4d56-8988-f5a670e54c37",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "array",
+                "operation": "lengthGt",
+                "rightType": "number"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        0
+      ],
+      "id": "fa5b7c9f-aeab-4a16-bea6-7b2ea9b383ea",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -400,
+        0
+      ],
+      "id": "61708179-a729-47c1-96f2-1b494680496d",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "=https://apigw.trendyol.com/integration/qna/sellers/{{ $json.sellerID }}/questions/filter?orderByDirection=DESC&status=WAITING_FOR_ANSWER\n",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "aaada628-7563-4b61-a933-74cf52ee704e",
+      "name": "Fetch Trendyol Customer Questions",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fTOAni9xfp35VoWs",
+          "name": "Trendyol Auth - RanBlockGames"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "assistant",
+        "assistantId": {
+          "__rl": true,
+          "value": "asst_8upBTuspnk1s7hBStFChlGFr",
+          "mode": "list",
+          "cachedResultName": "Trendyol_AI_Customer_Support"
+        },
+        "prompt": "define",
+        "text": "=Urun ismi:  {{ $json.content[0].productName }}\n\nMusteri sorusu: {{ $json.content[0].text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        704,
+        -16
+      ],
+      "id": "0b6213d9-e013-4d67-8e40-e2f6f44dae3b",
+      "name": "Generate a Response with Assistant",
+      "credentials": {
+        "openAiApi": {
+          "id": "jWCgx5QEHfHSHOx7",
+          "name": "OpenAI Account iletisim@ranblockgames.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://apigw.trendyol.com/integration/qna/sellers/{{ $('Set Trendyol SellerID').item.json.sellerID }}/questions/{{ $('If').item.json.content[0].id }}/answers",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "text",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1072,
+        -16
+      ],
+      "id": "adeec867-bb1a-4125-8996-77553a196994",
+      "name": "Send Generated Answer",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "fTOAni9xfp35VoWs",
+          "name": "Trendyol Auth - RanBlockGames"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "iletisim@ranblockgames.com",
+        "subject": "Bir Trendyol Sorusu Yapay Zeka ile Yanıtlandı!",
+        "emailType": "text",
+        "message": "=Ran Block Games Trendyol Mağazası'nda aşağıdaki soru yapay zeka tarafından otomatik olarak yanıtlandı!\n\nMüşteri Sorusu:\n{{ $('Fetch Trendyol Customer Questions').item.json.content[0].text }}\n\nÜrün Adı:\n{{ $('Fetch Trendyol Customer Questions').item.json.content[0].productName }}\n\nMüşteri ID:\n{{ $('Fetch Trendyol Customer Questions').item.json.content[0].customerId }}\n\nWebURL:\n{{ $('Fetch Trendyol Customer Questions').item.json.content[0].webUrl }}\n\nYapay Zeka Yanıtı:\n{{ $('Generate a Response with Assistant').item.json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1280,
+        -16
+      ],
+      "id": "47ef4e9f-7f12-4730-ad89-ccc272bbe942",
+      "name": "Notify Team",
+      "webhookId": "f48598e6-6f44-4e83-979d-04f8b04ea87c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { sellerID: 913474 } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "c2f2f97e-42d0-41ec-93fe-b97d8b58998b",
+      "name": "Set Trendyol SellerID"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Generate a Response with Assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Trendyol SellerID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Trendyol Customer Questions": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate a Response with Assistant": {
+      "main": [
+        [
+          {
+            "node": "Send Generated Answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Generated Answer": {
+      "main": [
+        [
+          {
+            "node": "Notify Team",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Trendyol SellerID": {
+      "main": [
+        [
+          {
+            "node": "Fetch Trendyol Customer Questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Istanbul",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "e02e2b67-64b5-4d21-b484-fe0ae9ac6548",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
+  },
+  "id": "yTCPzUxKLeFtkZGX",
+  "tags": []
+}
