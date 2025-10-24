@@ -1,0 +1,98 @@
+{
+  "name": "bebo_get",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "getGeneratedImage",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5a034db9-27d3-4433-b137-c43eed770825",
+      "name": "Webhook",
+      "webhookId": "832a24ef-6328-4050-b7a7-dcf36225b398"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "dd144eac-126c-4b9e-87de-aa823bbbceab",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "PRcNVtQgwLmFJIJm",
+          "mode": "list",
+          "cachedResultName": "bebo_db",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/PRcNVtQgwLmFJIJm"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "generation_id",
+              "keyValue": "={{ $json.body.generation_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "115b04ab-98e6-4b51-879b-36a822ef2c0d",
+      "name": "Get row(s)"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f98df6ad-d603-4e61-9627-0fb1057fd7b6",
+  "meta": {
+    "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
+  },
+  "id": "mtP2kcDx21nEZp0D",
+  "tags": []
+}

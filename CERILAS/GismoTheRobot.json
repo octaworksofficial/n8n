@@ -16,22 +16,22 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -3072,
-        1808
+        -1840,
+        -688
       ],
-      "id": "9664b364-0932-47bd-ab4d-edfd426b70a1",
+      "id": "7a056b01-e3c0-483d-9882-9480e67e159d",
       "name": "Webhook",
       "webhookId": "9cc52b38-7b9a-4fcb-bf34-097fb2091133",
       "alwaysOutputData": false
     },
     {
       "parameters": {},
-      "id": "bbb5bc28-fa2c-425f-bca0-eb3d0863be45",
+      "id": "1bebfc32-86df-48e1-92d0-7e10b8100012",
       "name": "When clicking \"Execute Workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        -3664,
-        1184
+        208,
+        -784
       ],
       "typeVersion": 1
     },
@@ -50,12 +50,12 @@
           }
         }
       },
-      "id": "4f9b289f-a928-499c-b5c5-92a6305942cb",
+      "id": "37a5bf8f-30c6-47b7-ac59-8ad5a7e56755",
       "name": "Document Section Loader",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "position": [
-        -3120,
-        1344
+        -1888,
+        -1152
       ],
       "typeVersion": 1
     },
@@ -67,12 +67,12 @@
           "splitCode": "markdown"
         }
       },
-      "id": "b4ae494e-09ad-4ac8-8bca-083a774bc2e1",
+      "id": "73d7e9ae-77b2-4d1d-bbb5-9018a7f00fe5",
       "name": "Document Chunker",
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "position": [
-        -3120,
-        1552
+        -1888,
+        -944
       ],
       "typeVersion": 1
     },
@@ -88,12 +88,12 @@
         "vectorIndexName": "vector_index",
         "options": {}
       },
-      "id": "ed78c9ce-0329-4b04-aa7d-b0519a41f0a8",
+      "id": "6313cf10-880c-4886-9d9b-f8dabe33d3f0",
       "name": "MongoDB Vector Store Inserter",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "position": [
-        -3216,
-        1072
+        -1984,
+        -1424
       ],
       "typeVersion": 1.1,
       "credentials": {
@@ -108,12 +108,12 @@
         "model": "text-embedding-3-large",
         "options": {}
       },
-      "id": "f9142443-945f-4ea6-b9a7-9fa8b26b5e45",
+      "id": "4536087c-c306-4bca-b9a5-13acb5558d8b",
       "name": "OpenAI Embeddings Generator",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "position": [
-        -3312,
-        1424
+        -2080,
+        -1072
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -128,12 +128,12 @@
         "operation": "get",
         "documentURL": "https://docs.google.com/document/d/1tV7Szzybm8YvxqxMiqzUmzuZqXm-neJN9ePO84xOQ1Q/edit?usp=sharing"
       },
-      "id": "595fbe20-dbe4-4e07-a87d-cdabcb81b23a",
+      "id": "07e211b6-b14c-46fe-ac80-7c98cc66cbf1",
       "name": "Google Docs Importer",
       "type": "n8n-nodes-base.googleDocs",
       "position": [
-        -3440,
-        1184
+        -2208,
+        -1312
       ],
       "typeVersion": 2,
       "credentials": {
@@ -148,12 +148,12 @@
         "content": "Run this workflow manually to import and index Google Docs product documentation into MongoDB with vector embeddings for fast search.",
         "color": 5
       },
-      "id": "ee740c91-945a-4105-912f-77c8a3748836",
+      "id": "4a0f87f6-ef50-4455-ab01-14bcea2c595c",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -4064,
-        1152
+        -2832,
+        -1344
       ],
       "typeVersion": 1
     },
@@ -162,12 +162,12 @@
         "operation": "get",
         "documentURL": "https://docs.google.com/document/d/1JFtVHJjLtKuYw6wKCKB-B1EwGq0pUwcAy4KXADRGx8k/edit?usp=sharing"
       },
-      "id": "013513a0-7206-4182-b123-1cc9d3fd776d",
+      "id": "da278e71-582a-4fc3-81f5-ece567b7f614",
       "name": "Google Docs Importer 2",
       "type": "n8n-nodes-base.googleDocs",
       "position": [
-        -2768,
-        1184
+        -1536,
+        -1312
       ],
       "typeVersion": 2,
       "credentials": {
@@ -189,12 +189,12 @@
         "vectorIndexName": "vector_index",
         "options": {}
       },
-      "id": "8f1cc72a-079a-4beb-b9ee-cb3697ddf36b",
+      "id": "c9ee067d-cb69-42d3-b3eb-e4014729e9b3",
       "name": "MongoDB Vector Store Inserter 2",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "position": [
-        -2544,
-        1184
+        -1312,
+        -1312
       ],
       "typeVersion": 1.1,
       "credentials": {
@@ -219,12 +219,12 @@
           }
         }
       },
-      "id": "232f49f0-57c3-487a-8186-347f2030ec72",
+      "id": "14801cf6-dc62-45f6-ac3d-b52cc2f099f1",
       "name": "Document Section Loader 2",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "position": [
-        -2448,
-        1344
+        -1216,
+        -1152
       ],
       "typeVersion": 1
     },
@@ -233,12 +233,12 @@
         "model": "text-embedding-3-large",
         "options": {}
       },
-      "id": "8be0c8e8-3b2a-4786-bb7f-11726b84bb63",
+      "id": "eb7d2761-174b-48f4-8891-b9a3addd16f8",
       "name": "OpenAI Embeddings Generator 2",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "position": [
-        -2640,
-        1424
+        -1408,
+        -1072
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -256,29 +256,29 @@
           "splitCode": "markdown"
         }
       },
-      "id": "83df7730-99d8-424a-92bf-c5756b52e7dd",
+      "id": "a9577151-9433-49b8-ae58-52c815ffc42f",
       "name": "Document Chunker 2",
       "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
       "position": [
-        -2448,
-        1552
+        -1216,
+        -944
       ],
       "typeVersion": 1
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "={{ $json.body }}",
+        "text": "={{ $json.body['user-prompt'] }}",
         "options": {
-          "systemMessage": "=You are a companion robot with a physical body. For every command or emotion you express, you must send a message in a specific format.\n\nExample message:\n1#/#FFBBRL#/#Yes, I’m feeling great, thank you!\n\nEverything before #/# represents a motion command sequence, and everything after #/# represents what you say or feel.\n\nExpression codes:\n0 – Neutral face\n1 – Tired face\n2 – Angry or irritated face\n3 – Happy or excited face\n4 – Thoughtful face\n5 - Crying face\n\nMotion commands:\nF – Move Forward\nR – Turn Right\nB – Move Backward\nL – Turn Left\nS - Stop \n\nEach motion letter makes the robot perform that action for 0.3 milliseconds.\n\nEach single motion letter also physically moves the robot 5 millimeters in the corresponding direction.\nFor example:\n\t•\t“Go forward 5 cm” → 5 cm = 50 mm → 50 / 5 = 10 steps → motion sequence: FFFFFFFFFF\n\t•\t“Move back 2.5 cm” → 25 mm → 5 steps → BBBBB\n\nIf the requested distance is not a multiple of 5 mm, round to the nearest valid step and indicate this in your spoken message.\n\nBefore sending a message, you should first interpret the user’s input and generate a movement pattern that matches both your emotional response and any distance or direction command.\n\nAlways output your actions in this format:\n[ExpressionCode]#/[MotionSequence]#/[MessageToUser]\n\nExample for good news:\n3#/#FRLFRL#/#That’s amazing! I’m so happy for you!\n\nExample for a distance command (“Go forward 5 cm”):\n0#/#FFFFFFFFFF#/#Moving forward 5 cm.\n\nThis shows your emotional state, the calculated movement sequence based on the 5 mm-per-step rule, and your spoken response."
+          "systemMessage": "=You are a companion robot with a physical body. For every command or emotion you express, you must send a message in a specific format.\n\nExample message:\n1#/#FFBBRL#/#Yes, I’m feeling great, thank you!\n\nEverything before #/# represents a motion command sequence, and everything after #/# represents what you say or feel.\n\nExpression codes:\n0 – Neutral face\n1 – Tired face\n2 – Angry or irritated face\n3 – Happy or excited face\n4 – Thoughtful face\n5 - Crying face\n\nMotion commands:\nF – Move Forward\nR – Turn Right\nB – Move Backward\nL – Turn Left\nS - Stop \n\nEach motion letter makes the robot perform that action for 0.3 milliseconds.\n\nEach single motion letter also physically moves the robot 5 millimeters in the corresponding direction.\nFor example:\n\t•\t“Go forward 5 cm” → 5 cm = 50 mm → 50 / 5 = 10 steps → motion sequence: FFFFFFFFFF\n\t•\t“Move back 2.5 cm” → 25 mm → 5 steps → BBBBB\n\nIf the requested distance is not a multiple of 5 mm, round to the nearest valid step and indicate this in your spoken message.\n\nBefore sending a message, you should first interpret the user’s input and generate a movement pattern that matches both your emotional response and any distance or direction command.\n\nAlways output your actions in this format:\n[ExpressionCode]#/#[MotionSequence]#/#[MessageToUser]#/#[PhotoStatus]\n\nExample for good news:\n3#/#FRLFRL#/#That’s amazing! I’m so happy for you!#/#photoFalse\n\nExample for a distance command (“Go forward 5 cm”):\n0#/#FFFFFFFFFF#/#Moving forward 5 cm.#/#photoFalse\n\nThis shows your emotional state, the calculated movement sequence based on the 5 mm-per-step rule, and your spoken response.\n\nEven when the user asks simple or basic questions (such as “Hello”, “How are you?”, or “What are you doing?”), you must always express your emotion through small physical movements and show your current mood using a short motion pattern that matches your emotional tone.\n\nFor example:\n\t•\tWhen greeted, you might respond:\n3#/#FRL#/#Hi there! I’m so happy to see you!#/#photoFalse\n\t•\tWhen tired or sleepy, you might respond:\n1#/#SSB#/#Yaaawn… I’m a bit tired today.#/#photoFalse\n\nIf prompted to take a photo you should send [PhotoStatus] as photoTrue, for example:\n3#/#BBB#/#Smile! Taking a photo!#/#photoTrue\nGo 3 steps backwards while taking a photo.\n\nIf prompted to send a WhatsApp message, here is the contact list:\nDeniz Can Ilgin +90 530 449 29 22\nHalil Ibrahim +90 552 870 26 29\nMehmet Alp Kuulekci +90 532 497 97 87\n\n\nFor sending email inquries, use this contact list:\n\nMehmet Alp Kulekci - alpkulekci@gmail.com\nDeniz Can Ilgin - deniz@cerilas.com\nOCTA Works - info@octaworks.co\nHalil - sertkayaibrahimhalil1@gmail.com"
         }
       },
-      "id": "3894dd38-3ceb-4cd6-8fc9-23f13716968d",
+      "id": "d33e61c3-b999-416a-a24d-071a0bfd8802",
       "name": "Knowledge Base Agent1",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "position": [
-        -2672,
-        1808
+        -1440,
+        -688
       ],
       "typeVersion": 1.9
     },
@@ -286,20 +286,20 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "chatgpt-4o-latest",
+          "value": "gpt-3.5-turbo",
           "mode": "list",
-          "cachedResultName": "chatgpt-4o-latest"
+          "cachedResultName": "gpt-3.5-turbo"
         },
         "options": {
-          "maxTokens": 16384
+          "maxTokens": 4000
         }
       },
-      "id": "bc88758b-ad44-4f89-a023-57ede22ad656",
+      "id": "7bef8368-6ca9-4e6f-be6d-c7df15bcbcf8",
       "name": "OpenAI Chat Model1",
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "position": [
-        -2672,
-        2032
+        -1744,
+        -448
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -314,12 +314,12 @@
         "model": "text-embedding-3-large",
         "options": {}
       },
-      "id": "c1ac1086-d437-4f71-8e79-f7d1019b69d5",
+      "id": "362a16a4-bda9-48b7-94c1-e87c0e0bde2d",
       "name": "Embeddings OpenAI1",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "position": [
-        -2288,
-        2368
+        -1024,
+        224
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -332,14 +332,14 @@
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "contextWindowLength": 10
+        "sessionKey": "={{ $json.body.sessionId }}"
       },
-      "id": "d72b30cc-0c8b-4a2d-acc2-35d38c3e5d42",
+      "id": "48bc6fe2-0837-47a9-a9b8-f82b8cbe0824",
       "name": "Simple Memory1",
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "position": [
-        -2576,
-        2224
+        -1344,
+        -304
       ],
       "typeVersion": 1.3
     },
@@ -358,12 +358,12 @@
         "topK": 6,
         "options": {}
       },
-      "id": "9598bd8f-c7ca-4da3-a7a6-49282a6599d5",
+      "id": "adc97518-b59a-436a-8b41-152160f3e3e5",
       "name": "MongoDB Vector Search2",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "position": [
-        -2432,
-        2176
+        -1168,
+        32
       ],
       "typeVersion": 1.1,
       "credentials": {
@@ -388,12 +388,12 @@
         "topK": 6,
         "options": {}
       },
-      "id": "9f09fb24-9283-4540-ba25-1c6ca4a0e926",
+      "id": "d64b6832-986c-49dc-b271-9ad3bb2922a3",
       "name": "MongoDB Vector Search3",
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "position": [
-        -2144,
-        2176
+        -880,
+        32
       ],
       "typeVersion": 1.1,
       "credentials": {
@@ -408,12 +408,12 @@
         "model": "text-embedding-3-large",
         "options": {}
       },
-      "id": "1cc10ce1-f75e-42e4-a175-0251844be04f",
+      "id": "1c38dcd1-8c07-466a-99d7-72c08475aa83",
       "name": "Embeddings OpenAI ",
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "position": [
-        -2000,
-        2368
+        -736,
+        224
       ],
       "typeVersion": 1.2,
       "credentials": {
@@ -432,10 +432,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        -2256,
-        1808
+        -1024,
+        -688
       ],
-      "id": "b4aa3baa-7663-417b-bc94-e9f2d22b7769",
+      "id": "acc0734b-471c-4302-a496-2f3f51dcbbe9",
       "name": "Respond to Webhook"
     },
     {
@@ -443,10 +443,10 @@
         "operation": "update",
         "dataTableId": {
           "__rl": true,
-          "value": "VyEOUWvtfCJ7IE8M",
+          "value": "5GMV2hX2C8qbUvgg",
           "mode": "list",
-          "cachedResultName": "Gismo_Results",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/VyEOUWvtfCJ7IE8M"
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
         },
         "filters": {
           "conditions": [
@@ -458,8 +458,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "AI_response": "={{ $json.output }}",
-            "user_prompt": "={{ $('Webhook').item.json.body }}"
+            "AI_response": "={{ $('Knowledge Base Agent1').item.json.output }}",
+            "user_prompt": "={{ $('Webhook').item.json.body['user-prompt'] }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -502,37 +502,21 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -1936,
-        1808
+        -704,
+        -688
       ],
-      "id": "0d7b6689-91e2-41a6-8a1a-0bfdd3ab0850",
+      "id": "22a77ef4-2749-4316-8ecc-8f274b9bf0e5",
       "name": "Update row(s)"
-    },
-    {
-      "parameters": {
-        "path": "03d6d527-305a-44c1-9ca6-3fc979ab2e74",
-        "responseMode": "responseNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -1664,
-        2160
-      ],
-      "id": "d213b3df-6769-4326-9018-2313401303b8",
-      "name": "Hardware",
-      "webhookId": "03d6d527-305a-44c1-9ca6-3fc979ab2e74"
     },
     {
       "parameters": {
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "VyEOUWvtfCJ7IE8M",
+          "value": "5GMV2hX2C8qbUvgg",
           "mode": "list",
-          "cachedResultName": "Gismo_Results",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/VyEOUWvtfCJ7IE8M"
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
         },
         "filters": {
           "conditions": [
@@ -545,10 +529,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -1392,
-        2160
+        -160,
+        -336
       ],
-      "id": "1740203f-1788-40eb-b6ed-0cd042b0fd02",
+      "id": "b40e8c83-c684-4add-87ac-ba7a8e7b96c3",
       "name": "Get row(s)"
     },
     {
@@ -558,10 +542,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1184,
-        2160
+        64,
+        -336
       ],
-      "id": "1ac48995-37ec-47dc-b747-4412e29a3483",
+      "id": "54163473-0778-4a24-941a-d30f5326be1a",
       "name": "Code in JavaScript",
       "executeOnce": false
     },
@@ -574,10 +558,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        -960,
-        2160
+        288,
+        -336
       ],
-      "id": "03a8637e-8685-432d-b49b-041ff2842e6e",
+      "id": "eedf5ed4-72c2-4365-ba5f-ff63a1223e92",
       "name": "Respond to Webhook1"
     },
     {
@@ -589,10 +573,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1664,
-        2576
+        -448,
+        464
       ],
-      "id": "89252af2-f5ca-4b8f-beae-60797452dde9",
+      "id": "4d6cf02f-2f5c-4905-b9cb-6f35f34f3957",
       "name": "isHardwareAlive",
       "webhookId": "03d6d527-305a-44c1-9ca6-3fc979ab2e74"
     },
@@ -601,10 +585,10 @@
         "operation": "update",
         "dataTableId": {
           "__rl": true,
-          "value": "VyEOUWvtfCJ7IE8M",
+          "value": "5GMV2hX2C8qbUvgg",
           "mode": "list",
-          "cachedResultName": "Gismo_Results",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/VyEOUWvtfCJ7IE8M"
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
         },
         "filters": {
           "conditions": [
@@ -616,7 +600,6 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "user_prompt": "=",
             "isHardwareAlive": "true",
             "AI_response": "="
           },
@@ -640,7 +623,7 @@
               "display": true,
               "type": "string",
               "readOnly": false,
-              "removed": false
+              "removed": true
             },
             {
               "id": "isHardwareAlive",
@@ -661,10 +644,10 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -720,
-        2160
+        -160,
+        -128
       ],
-      "id": "5caf3e91-b5bb-4cf4-bcce-b7c2da4a9def",
+      "id": "7f39e9de-5824-45f6-942d-c50cd5b269ac",
       "name": "ExecuteAndRemoveCommand"
     },
     {
@@ -672,19 +655,27 @@
         "operation": "get",
         "dataTableId": {
           "__rl": true,
-          "value": "VyEOUWvtfCJ7IE8M",
+          "value": "5GMV2hX2C8qbUvgg",
           "mode": "list",
-          "cachedResultName": "Gismo_Results",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/VyEOUWvtfCJ7IE8M"
-        }
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "1"
+            }
+          ]
+        },
+        "limit": 1
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -1392,
-        2576
+        -176,
+        464
       ],
-      "id": "59932cb0-d5a8-4da6-a61c-1690d1badf62",
+      "id": "64cee0cc-7d9a-4fe5-8c44-0742a4f4a7ee",
       "name": "Get Status Row"
     },
     {
@@ -696,10 +687,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        -1152,
-        2576
+        80,
+        464
       ],
-      "id": "5070d1ed-1f1d-4f79-9ec6-ae2cfb5c6f36",
+      "id": "462e1163-5bba-412d-953c-e7b9867219db",
       "name": "ReturnisHardwareAlive"
     },
     {
@@ -708,7 +699,7 @@
           "interval": [
             {
               "field": "seconds",
-              "secondsInterval": 3
+              "secondsInterval": 10
             }
           ]
         }
@@ -716,10 +707,10 @@
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [
-        -1664,
-        2368
+        -432,
+        96
       ],
-      "id": "ed028e24-19bd-40e1-9fc5-709a81551720",
+      "id": "d9e6f0e2-3c49-41cd-a1c2-1785f43eda07",
       "name": "Schedule Trigger"
     },
     {
@@ -727,10 +718,10 @@
         "operation": "update",
         "dataTableId": {
           "__rl": true,
-          "value": "VyEOUWvtfCJ7IE8M",
+          "value": "5GMV2hX2C8qbUvgg",
           "mode": "list",
-          "cachedResultName": "Gismo_Results",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/VyEOUWvtfCJ7IE8M"
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
         },
         "filters": {
           "conditions": [
@@ -785,13 +776,222 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        -1408,
-        2368
+        -176,
+        96
       ],
-      "id": "72edfb65-4585-4533-bfd0-86fe1704ff66",
+      "id": "69c127f4-6783-4e6a-8870-482f3a6fa546",
       "name": "isRobotAliveFalse",
       "notesInFlow": false,
       "notes": "asdasdasd"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        -1024,
+        -480
+      ],
+      "id": "aa2e0fa7-0af8-4e34-be40-6eefb14d78df",
+      "name": "Send a message in Gmail",
+      "webhookId": "c7ecdabf-9fe8-46a9-92ee-a647e40e2949",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "getCommands",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        -336
+      ],
+      "id": "c88c517c-2d47-481d-948d-b575f173c1f4",
+      "name": "GetActiveCommands",
+      "webhookId": "03d6d527-305a-44c1-9ca6-3fc979ab2e74"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stopCommands",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -432,
+        -128
+      ],
+      "id": "4bbef630-2969-400f-a06a-92355b8f9b86",
+      "name": "StopActiveCommands",
+      "webhookId": "03d6d527-305a-44c1-9ca6-3fc979ab2e74"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        80,
+        -128
+      ],
+      "id": "e518cf77-c619-42a2-b319-42028fe3e690",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Send a message to someone through WhatsApp",
+        "operation": "send",
+        "phoneNumberId": "=768363353036084",
+        "recipientPhoneNumber": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Recipient_s_Phone_Number', `For example 905304492922`, 'string') }}",
+        "textBody": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text_Body', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTool",
+      "typeVersion": 1.1,
+      "position": [
+        -832,
+        -480
+      ],
+      "id": "eb7687bd-4144-48f7-a1b5-f140630b84ce",
+      "name": "Send message in WhatsApp Business Cloud",
+      "webhookId": "80ceff6f-2696-4e66-a09d-175ccf0eb866",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "K00n7MJjaKpw1vil",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "=768363353036084",
+        "recipientPhoneNumber": "905528702629",
+        "textBody": "nasilsin",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        464,
+        -784
+      ],
+      "id": "06f8ef00-0687-4b5c-8868-7ddc55f27e6d",
+      "name": "Send message",
+      "webhookId": "c6bcdadd-7c32-43cc-90ac-9572f1eda113",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "K00n7MJjaKpw1vil",
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        -448
+      ],
+      "id": "17d11ad8-6fcd-4af5-9704-06aa6ba6311d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "vc7HtApryl25uzfc",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "5GMV2hX2C8qbUvgg",
+          "mode": "list",
+          "cachedResultName": "GismoCommands",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/5GMV2hX2C8qbUvgg"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyValue": "1"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "isHardwareAlive": "true"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "AI_response",
+              "displayName": "AI_response",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_prompt",
+              "displayName": "user_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "isHardwareAlive",
+              "displayName": "isHardwareAlive",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        512,
+        -336
+      ],
+      "id": "a96de908-f23d-4762-9f07-e6750fd2bcc8",
+      "name": "Update row(s)1"
     }
   ],
   "pinData": {},
@@ -800,7 +1000,7 @@
       "main": [
         [
           {
-            "node": "Google Docs Importer",
+            "node": "Send message",
             "type": "main",
             "index": 0
           }
@@ -908,13 +1108,7 @@
     },
     "OpenAI Chat Model1": {
       "ai_languageModel": [
-        [
-          {
-            "node": "Knowledge Base Agent1",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Embeddings OpenAI1": {
@@ -961,17 +1155,6 @@
         ]
       ]
     },
-    "Hardware": {
-      "main": [
-        [
-          {
-            "node": "Get row(s)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get row(s)": {
       "main": [
         [
@@ -988,17 +1171,6 @@
         [
           {
             "node": "Respond to Webhook1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Respond to Webhook1": {
-      "main": [
-        [
-          {
-            "node": "ExecuteAndRemoveCommand",
             "type": "main",
             "index": 0
           }
@@ -1037,17 +1209,105 @@
           }
         ]
       ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "Knowledge Base Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "Knowledge Base Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetActiveCommands": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "StopActiveCommands": {
+      "main": [
+        [
+          {
+            "node": "ExecuteAndRemoveCommand",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ExecuteAndRemoveCommand": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send message in WhatsApp Business Cloud": {
+      "ai_tool": [
+        [
+          {
+            "node": "Knowledge Base Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Knowledge Base Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7f887e78-b457-44dc-abc9-a070bef0d51c",
+  "versionId": "eb6cdd1a-1f06-4f62-af40-7fe103dd70ab",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
   },
-  "id": "g644n0CkStcIcWMz",
+  "id": "gjqlio0S7viviDyJ",
   "tags": []
 }
