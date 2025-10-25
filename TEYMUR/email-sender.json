@@ -1,0 +1,582 @@
+{
+  "name": "email-sender",
+  "nodes": [
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "id": "45018fbc-0787-42d5-be30-b0f2a6a66ed8",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        816,
+        192
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "id": "aaf70090-324a-43a7-8450-553f650c608f",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        592,
+        192
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "8dc5b028-6f5d-4d76-8852-99180bfb4591",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Email Address '] }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97cc9d26-00eb-4335-9f0b-58e64a9bbcf8",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1040,
+        112
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email Address ": "={{ $('Get Emails').item.json['Email Address '] }}",
+            "row_number": 0,
+            "Interaction Count": "={{ $('Increment Interaction Count').item.json.newCount }}",
+            "Last Interaction": "={{ $json.executionDate }}",
+            "Last Sent Template ID": "={{ $('Get Template to Send').item.json['Template ID'] }}"
+          },
+          "matchingColumns": [
+            "Email Address "
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email Address ",
+              "displayName": "Email Address ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sender Email",
+              "displayName": "Sender Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Interaction Count",
+              "displayName": "Interaction Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Interaction",
+              "displayName": "Last Interaction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Sent Template ID",
+              "displayName": "Last Sent Template ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Got Return?",
+              "displayName": "Got Return?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "TODAY",
+              "displayName": "TODAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "DAYS PASSED",
+              "displayName": "DAYS PASSED",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "04b2b9a5-707f-4acf-bfd9-5cff3f99ea61",
+      "name": "Update Records",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        2384,
+        112
+      ],
+      "typeVersion": 4.6,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get Emails').item.json['Email Address '] }}",
+        "subject": "={{ $json['Email Subject'] }}",
+        "message": "={{ $json['Email Body'] }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "d17ec6b5-8c38-48db-91a9-7a5c818bf743",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1712,
+        112
+      ],
+      "webhookId": "2add08f1-0af8-4951-af47-721d2c4302ec",
+      "typeVersion": 2.1,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Got Return?",
+              "lookupValue": "NO"
+            },
+            {
+              "lookupColumn": "DAYS PASSED",
+              "lookupValue": "={{ $json['DAYS PASSED TO SEND NEW EMAIL'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5c8f731e-6000-47fa-b763-763d16def6e2",
+      "name": "Get Emails",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        368,
+        192
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "89f2d6bd-87b2-4589-8329-8512627bb232",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        2608,
+        192
+      ],
+      "webhookId": "c4cf719a-d47f-4761-8a16-aff92b8e9a19",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        192
+      ],
+      "id": "c01ba74b-eaee-4e7f-8e4c-183c647e81de",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Emails\" node'undaki Interaction Count değerini al\nlet interactionCount = $('Get Emails').item.json['Interaction Count'];\n\n// Sayıya dönüştür\ninteractionCount = parseInt(interactionCount, 10);\n\n// Eğer geçerli bir sayı değilse 0 yap\nif (isNaN(interactionCount)) {\n  interactionCount = 0;\n}\n\nlet templateId = 0;\n\n// Switch–case yapısı\nswitch (true) {\n  case (interactionCount === 0):\n    templateId = 1;\n    break;\n  case (interactionCount === 1):\n    templateId = 2;\n    break;\n  case (interactionCount === 2):\n    templateId = 3;\n    break;\n  case (interactionCount > 2):\n   templateId = 4;\n    break;\n  default:\n    templateId = 1;\n}\n\nreturn [\n  {\n    json: {\n      interactionCount,\n      templateId\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        112
+      ],
+      "id": "5dc74ff4-8bc3-4973-beed-1d189454c52d",
+      "name": "Select Template by Interaction Count"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1164818231,
+          "mode": "list",
+          "cachedResultName": "templates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=1164818231"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Template ID",
+              "lookupValue": "={{ $json.templateId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "4a842f87-0b82-4bf6-b403-f1e911dec9c1",
+      "name": "Get Template to Send",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1488,
+        112
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Şu anki tarih ve saati al (execution zamanı)\nconst now = new Date();\n\n// Ay, gün ve yılı al\nconst month = String(now.getMonth() + 1).padStart(2, '0'); // getMonth() 0-11 döner\nconst day = String(now.getDate()).padStart(2, '0');\nconst year = now.getFullYear();\n\n// İstediğin formata dönüştür\nconst formattedDate = `${month}/${day}/${year}`;\n\nreturn [\n  {\n    json: {\n      executionDate: formattedDate\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2160,
+        112
+      ],
+      "id": "d2167af1-0487-481e-a19e-f76a764b2c52",
+      "name": "Get Execution Date"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Emails\" node'undan Interaction Count değerini al\nconst interactionCount = $('Get Emails').item.json['Interaction Count'] || 0;\n\n// +1 artır\nconst newCount = interactionCount + 1;\n\n// Yeni değeri döndür\nreturn [\n  {\n    json: {\n      oldCount: interactionCount,\n      newCount\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        112
+      ],
+      "id": "dd814fd1-8a11-4ddf-aae6-0850a6d6a7b2",
+      "name": "Increment Interaction Count"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 17128778,
+          "mode": "list",
+          "cachedResultName": "settings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=17128778"
+        },
+        "options": {}
+      },
+      "id": "1911ebfa-b77c-4cad-b161-058f84cd70a8",
+      "name": "Get Settings",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        144,
+        192
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Select Template by Interaction Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Emails": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Increment Interaction Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Records": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Template by Interaction Count": {
+      "main": [
+        [
+          {
+            "node": "Get Template to Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Template to Send": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Execution Date": {
+      "main": [
+        [
+          {
+            "node": "Update Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Interaction Count": {
+      "main": [
+        [
+          {
+            "node": "Get Execution Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Settings": {
+      "main": [
+        [
+          {
+            "node": "Get Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "efd53be0-d08c-4b03-ba2d-d90a56a245e5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
+  },
+  "id": "ftK17Jgq1TS5yzI8",
+  "tags": []
+}
