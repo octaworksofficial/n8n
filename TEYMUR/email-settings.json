@@ -1,32 +1,6 @@
 {
-  "name": "email-reader",
+  "name": "email-settings",
   "nodes": [
-    {
-      "parameters": {
-        "pollTimes": {
-          "item": [
-            {
-              "mode": "everyMinute"
-            }
-          ]
-        },
-        "filters": {}
-      },
-      "type": "n8n-nodes-base.gmailTrigger",
-      "typeVersion": 1.3,
-      "position": [
-        64,
-        304
-      ],
-      "id": "4e2d128d-ece2-4c8c-bbe4-1fc032679d90",
-      "name": "Gmail Trigger",
-      "credentials": {
-        "gmailOAuth2": {
-          "id": "YswF3WzzLlvkHfCP",
-          "name": "Gmail account"
-        }
-      }
-    },
     {
       "parameters": {
         "operation": "update",
@@ -39,34 +13,31 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": "gid=0",
+          "value": 17128778,
           "mode": "list",
-          "cachedResultName": "main",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=0"
+          "cachedResultName": "settings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=17128778"
         },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "Email Address ": "={{ $json.email }}",
-            "Got Return?": "YES"
+            "row_number": 2,
+            "CC": "={{ $json.body.CC }}",
+            "BCC": "={{ $json.body.BCC }}",
+            "auto_sending_day_interval": "={{ $json.body.auto_sending_day_interval }}",
+            "max_follow_up_count": "={{ $json.body.max_follow_up_count }}",
+            "is_auto_mailing_active": "={{ $json.body.is_auto_mailing_active }}",
+            "is_auto_reading_active": "={{ $json.body.is_auto_reading_active }}",
+            "is_auto_follow_up_active": "={{ $json.body.is_auto_follow_up_active }}",
+            "notification_email": "={{ $json.body.notification_email }}"
           },
           "matchingColumns": [
-            "Email Address "
+            "row_number"
           ],
           "schema": [
             {
-              "id": "Name",
-              "displayName": "Name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Email Address ",
-              "displayName": "Email Address ",
+              "id": "CUSTOM_ROW",
+              "displayName": "CUSTOM_ROW",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -75,48 +46,8 @@
               "removed": false
             },
             {
-              "id": "Sender Email",
-              "displayName": "Sender Email",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Interaction Count",
-              "displayName": "Interaction Count",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Last Interaction",
-              "displayName": "Last Interaction",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Last Sent Template ID",
-              "displayName": "Last Sent Template ID",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "Got Return?",
-              "displayName": "Got Return?",
+              "id": "auto_sending_day_interval",
+              "displayName": "auto_sending_day_interval",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -125,24 +56,72 @@
               "removed": false
             },
             {
-              "id": "TODAY",
-              "displayName": "TODAY",
+              "id": "max_follow_up_count",
+              "displayName": "max_follow_up_count",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "removed": true
+              "removed": false
             },
             {
-              "id": "DAYS PASSED",
-              "displayName": "DAYS PASSED",
+              "id": "is_auto_mailing_active",
+              "displayName": "is_auto_mailing_active",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "removed": true
+              "removed": false
+            },
+            {
+              "id": "is_auto_reading_active",
+              "displayName": "is_auto_reading_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "is_auto_follow_up_active",
+              "displayName": "is_auto_follow_up_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CC",
+              "displayName": "CC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BCC",
+              "displayName": "BCC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "notification_email",
+              "displayName": "notification_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
               "id": "row_number",
@@ -153,7 +132,7 @@
               "type": "number",
               "canBeUsedToMatch": true,
               "readOnly": true,
-              "removed": true
+              "removed": false
             }
           ],
           "attemptToConvertTypes": false,
@@ -164,10 +143,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1040,
-        288
+        192,
+        0
       ],
-      "id": "2c2c096d-fea4-428b-bdaa-76ebee6c61e8",
+      "id": "d88efbdb-0e3b-46e3-86ef-5dbed4c44d2c",
       "name": "Update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -178,16 +157,17 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $('Gmail Trigger').first().json.From;\n\n// E-posta adresini yakalayan regex\nconst match = input.match(/<([^>]+)>/);\n\n// Eğer eşleşme varsa e-postayı al\nconst email = match ? match[1] : \"\";\n\nreturn [{ json: { email } }];"
+        "respondWith": "allIncomingItems",
+        "options": {}
       },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
       "position": [
-        816,
-        288
+        400,
+        0
       ],
-      "id": "2681370e-9a77-42b1-a07e-4f9a9d777f02",
-      "name": "Extract Sender Email"
+      "id": "20548d49-4f09-4056-bce5-0537da7e784e",
+      "name": "Respond to Webhook"
     },
     {
       "parameters": {
@@ -218,11 +198,11 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        304,
-        304
+        192,
+        224
       ],
-      "id": "99942c64-3e87-49c9-a9af-ee791da86f0d",
-      "name": "Get Settings",
+      "id": "2de5a6ca-523a-4fcc-be42-8dbf7155916b",
+      "name": "Get row(s) in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "RcjOWSi017Oe0LYQ",
@@ -232,53 +212,79 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "671e397e-2cc1-4b61-9d17-66532d3d620c",
-              "leftValue": "={{ $json.is_auto_reading_active }}",
-              "rightValue": "YES",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
+        "respondWith": "allIncomingItems",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        224
+      ],
+      "id": "fc29f1f5-151e-49f9-848d-fd24d2ae4cbe",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "settings",
+        "responseMode": "responseNode",
         "options": {}
       },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
       "position": [
-        512,
-        304
+        0,
+        0
       ],
-      "id": "f5b9f2de-aff9-4305-be72-ced134ad6e53",
-      "name": "If"
+      "id": "6288ceec-5900-4578-9df4-6dce3b71e17e",
+      "name": "POST",
+      "webhookId": "3ed4b2b5-c21a-441b-80eb-1cd4ce28b6b0"
+    },
+    {
+      "parameters": {
+        "path": "settings",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        224
+      ],
+      "id": "3083e4df-404a-452c-807a-55937c6f4a12",
+      "name": "GET",
+      "webhookId": "3ed4b2b5-c21a-441b-80eb-1cd4ce28b6b0"
     }
   ],
   "pinData": {},
   "connections": {
-    "Gmail Trigger": {
+    "Update row in sheet": {
       "main": [
         [
           {
-            "node": "Get Settings",
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Extract Sender Email": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "POST": {
       "main": [
         [
           {
@@ -289,22 +295,11 @@
         ]
       ]
     },
-    "Get Settings": {
+    "GET": {
       "main": [
         [
           {
-            "node": "If",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Extract Sender Email",
+            "node": "Get row(s) in sheet",
             "type": "main",
             "index": 0
           }
@@ -316,11 +311,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b60e199b-e6fe-40f1-8045-11b4e320be4b",
+  "versionId": "c72e140c-6f87-4f16-839e-33c607fba36e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
   },
-  "id": "Lv7FpUM75FgaKu19",
+  "id": "02vaRwbUjxe4cz6x",
   "tags": []
 }

@@ -10,7 +10,7 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        816,
+        1024,
         192
       ],
       "typeVersion": 3
@@ -23,7 +23,7 @@
       "name": "Limit",
       "type": "n8n-nodes-base.limit",
       "position": [
-        592,
+        800,
         192
       ],
       "typeVersion": 1
@@ -57,7 +57,7 @@
       "name": "If",
       "type": "n8n-nodes-base.if",
       "position": [
-        1040,
+        1248,
         112
       ],
       "typeVersion": 2.2
@@ -86,7 +86,7 @@
             "row_number": 0,
             "Interaction Count": "={{ $('Increment Interaction Count').item.json.newCount }}",
             "Last Interaction": "={{ $json.executionDate }}",
-            "Last Sent Template ID": "={{ $('Get Template to Send').item.json['Template ID'] }}"
+            "Last Sent Template ID": "={{ $('Get Template to Send').item.json.template_id }}"
           },
           "matchingColumns": [
             "Email Address "
@@ -203,7 +203,7 @@
       "name": "Update Records",
       "type": "n8n-nodes-base.googleSheets",
       "position": [
-        2384,
+        3008,
         112
       ],
       "typeVersion": 4.6,
@@ -217,17 +217,19 @@
     {
       "parameters": {
         "sendTo": "={{ $('Get Emails').item.json['Email Address '] }}",
-        "subject": "={{ $json['Email Subject'] }}",
-        "message": "={{ $json['Email Body'] }}",
+        "subject": "={{ $('Get Template to Send').item.json.email_subject }}",
+        "message": "={{ $('Replace Variables and Generate Signatured Body').item.json.fullBody }}",
         "options": {
-          "appendAttribution": false
+          "appendAttribution": false,
+          "bccList": "={{ $json.BCC }}",
+          "ccList": "={{ $json.CC }}"
         }
       },
       "id": "d17ec6b5-8c38-48db-91a9-7a5c818bf743",
       "name": "Send Email",
       "type": "n8n-nodes-base.gmail",
       "position": [
-        1712,
+        2336,
         112
       ],
       "webhookId": "2add08f1-0af8-4951-af47-721d2c4302ec",
@@ -263,7 +265,7 @@
             },
             {
               "lookupColumn": "DAYS PASSED",
-              "lookupValue": "={{ $json['DAYS PASSED TO SEND NEW EMAIL'] }}"
+              "lookupValue": "={{ $('Get Settings').item.json.auto_sending_day_interval }}"
             }
           ]
         },
@@ -273,7 +275,7 @@
       "name": "Get Emails",
       "type": "n8n-nodes-base.googleSheets",
       "position": [
-        368,
+        576,
         192
       ],
       "typeVersion": 4.5,
@@ -290,22 +292,11 @@
       "name": "Wait",
       "type": "n8n-nodes-base.wait",
       "position": [
-        2608,
+        3232,
         192
       ],
       "webhookId": "c4cf719a-d47f-4761-8a16-aff92b8e9a19",
       "typeVersion": 1.1
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [
-        -80,
-        192
-      ],
-      "id": "c01ba74b-eaee-4e7f-8e4c-183c647e81de",
-      "name": "When clicking ‘Execute workflow’"
     },
     {
       "parameters": {
@@ -314,7 +305,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1264,
+        1472,
         112
       ],
       "id": "5dc74ff4-8bc3-4973-beed-1d189454c52d",
@@ -339,7 +330,7 @@
         "filtersUI": {
           "values": [
             {
-              "lookupColumn": "Template ID",
+              "lookupColumn": "template_id",
               "lookupValue": "={{ $json.templateId }}"
             }
           ]
@@ -350,7 +341,7 @@
       "name": "Get Template to Send",
       "type": "n8n-nodes-base.googleSheets",
       "position": [
-        1488,
+        1696,
         112
       ],
       "typeVersion": 4.5,
@@ -368,7 +359,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2160,
+        2784,
         112
       ],
       "id": "d2167af1-0487-481e-a19e-f76a764b2c52",
@@ -381,7 +372,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1936,
+        2560,
         112
       ],
       "id": "dd814fd1-8a11-4ddf-aae6-0850a6d6a7b2",
@@ -409,8 +400,8 @@
       "name": "Get Settings",
       "type": "n8n-nodes-base.googleSheets",
       "position": [
-        144,
-        192
+        112,
+        208
       ],
       "typeVersion": 4.5,
       "credentials": {
@@ -419,6 +410,86 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7a36baa7-f3ea-4964-8340-80510248fa2c",
+              "leftValue": "={{ $json.is_auto_mailing_active }}",
+              "rightValue": "YES",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        208
+      ],
+      "id": "eb72264c-2dbd-4fae-bc85-5d2d75cc12ee",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -80,
+        208
+      ],
+      "id": "90cd264c-d073-4533-a80a-7e3870e46161",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Değerleri bir önceki node'dan al (örnek node adı: \"Get Data\")\nconst name = $('Get Emails').first().json.Name || \"\";\n\n// Mail gövdesi (örnek)\nlet mailBody = $input.first().json.email_body;\n\n// İmza (örnek)\nlet signature = $input.first().json.email_signature;\n\n// Değişkenleri mailBody'de değiştir\nmailBody = mailBody\n  .replace(/{{name}}/g, name);\n\n// Gövde ve imzayı alt alta birleştir\nconst fullBody = `${mailBody}\\n\\n${signature}`;\n\nreturn [\n  {\n    json: {\n      name,\n      fullBody\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1904,
+        112
+      ],
+      "id": "7ee20c14-63c8-43b0-b818-78ab9c92dfc1",
+      "name": "Replace Variables and Generate Signatured Body"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Settings\" node'undan al\nconst CC_raw  = $('Get Settings').first().json.CC;\nconst BCC_raw = $('Get Settings').first().json.BCC;\n\nfunction toCommaString(input) {\n  let arr = [];\n\n  // 1) Dizi ise direkt kullan\n  if (Array.isArray(input)) {\n    arr = input;\n  } else if (typeof input === 'string') {\n    const s = input.trim();\n\n    // 2) Stringleştirilmiş JSON dizi mi? => parse et\n    if ((s.startsWith('[') && s.endsWith(']')) || (s.startsWith('[\"') && s.endsWith('\"]'))) {\n      try {\n        const parsed = JSON.parse(s);\n        if (Array.isArray(parsed)) arr = parsed;\n        else arr = [s];\n      } catch {\n        // JSON parse başarısızsa CSV gibi böl\n        arr = s.split(/[,\\s;]+/);\n      }\n    } else {\n      // 3) Normal CSV / boşluk / ; ile böl\n      arr = s.split(/[,\\s;]+/);\n    }\n  } else if (input == null) {\n    arr = [];\n  } else {\n    arr = [String(input)];\n  }\n\n  // 4) Her bir girdiden email'i çıkar (Name <mail@host> formatını da destekler)\n  const emails = arr\n    .map(v => String(v).trim())\n    .map(v => {\n      // <mail@host> varsa içini al\n      const mAngle = v.match(/<([^>]+)>/);\n      if (mAngle) return mAngle[1].trim();\n      return v.replace(/^\"+|\"+$/g, ''); // çevredeki çift tırnakları temizle\n    })\n    // basit e-posta regex doğrulaması\n    .map(v => {\n      const m = v.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})/i);\n      return m ? m[1] : '';\n    })\n    .filter(Boolean);\n\n  // 5) Tekrarsızlaştır + virgül ile ve BOŞLUKSUZ birleştir\n  const unique = Array.from(new Set(emails));\n  return unique.join(',');\n}\n\nconst CC  = toCommaString(CC_raw);\nconst BCC = toCommaString(BCC_raw);\n\nreturn [{ json: { CC, BCC } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        112
+      ],
+      "id": "798419f7-7d70-4aca-87d2-a75b76034479",
+      "name": "Include CC and BCC Emails"
     }
   ],
   "pinData": {},
@@ -501,17 +572,6 @@
         ]
       ]
     },
-    "When clicking ‘Execute workflow’": {
-      "main": [
-        [
-          {
-            "node": "Get Settings",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Select Template by Interaction Count": {
       "main": [
         [
@@ -527,7 +587,7 @@
       "main": [
         [
           {
-            "node": "Send Email",
+            "node": "Replace Variables and Generate Signatured Body",
             "type": "main",
             "index": 0
           }
@@ -560,7 +620,51 @@
       "main": [
         [
           {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
             "node": "Get Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Variables and Generate Signatured Body": {
+      "main": [
+        [
+          {
+            "node": "Include CC and BCC Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Include CC and BCC Emails": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
             "type": "main",
             "index": 0
           }
@@ -568,11 +672,11 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "efd53be0-d08c-4b03-ba2d-d90a56a245e5",
+  "versionId": "9e15b45b-b47d-41db-b4b7-6f0b7666a650",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"

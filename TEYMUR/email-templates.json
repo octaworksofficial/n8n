@@ -1,0 +1,277 @@
+{
+  "name": "email-templates",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1164818231,
+          "mode": "list",
+          "cachedResultName": "templates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=1164818231"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "template_id": "={{ $json.body.template_id }}",
+            "email_subject": "={{ $json.body.email_subject }}",
+            "email_body": "={{ $json.body.email_body }}",
+            "template_purpose": "={{ $json.body.template_purpose }}",
+            "email_signature": "={{ $json.body.email_signature }}"
+          },
+          "matchingColumns": [
+            "template_id"
+          ],
+          "schema": [
+            {
+              "id": "template_id",
+              "displayName": "template_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "template_purpose",
+              "displayName": "template_purpose",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_subject",
+              "displayName": "email_subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_body",
+              "displayName": "email_body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_signature",
+              "displayName": "email_signature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        0
+      ],
+      "id": "448e9cdb-1bca-4225-b9c5-f71d21d37c1b",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        400,
+        0
+      ],
+      "id": "1c4cd139-20ac-4d9f-9df5-d58653c7abac",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1164818231,
+          "mode": "list",
+          "cachedResultName": "templates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=1164818231"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "template_id",
+              "lookupValue": "={{ $json.body.template_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        192,
+        224
+      ],
+      "id": "e21d286a-53ec-450e-b86a-3772ace1f634",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        224
+      ],
+      "id": "44015ce1-216d-4725-8bb7-c94771b07401",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "templates",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7b2605ba-d939-46b8-a075-cb8e5df90bde",
+      "name": "PUT",
+      "webhookId": "c07fbbc0-54c6-489c-8e63-92e308c36ab0"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "templates",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        224
+      ],
+      "id": "2330de4a-8902-4856-9c6d-9f5af1f06f11",
+      "name": "GET-TEMPLATE",
+      "webhookId": "b7ab4295-1ece-4717-a18d-2885fd609c55"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUT": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET-TEMPLATE": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "678aa277-9820-439d-899d-22856d465116",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
+  },
+  "id": "OEJfUsbrmLFmctw2",
+  "tags": []
+}
