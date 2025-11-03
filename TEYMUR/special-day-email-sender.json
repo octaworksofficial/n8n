@@ -1,0 +1,1376 @@
+{
+  "name": "special-day-email-sender",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1072,
+        -320
+      ],
+      "id": "37a1566b-9f91-4396-a517-04775145832c",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "deb65b10-9246-47b2-a59f-16b5a94afd4f",
+              "leftValue": "={{ $json.isMatchedDay }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "94c7e0c5-3056-473f-b624-a76d727f12ba",
+              "leftValue": "={{ $json.special_day_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -320
+      ],
+      "id": "22fe9914-b3f9-4d03-8eb1-1cb29078b1ed",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node\nconst now = new Date();\n\nconst formatter = new Intl.DateTimeFormat('tr-TR', {\n  timeZone: 'Europe/Istanbul',\n  day: '2-digit',\n  month: '2-digit',\n  year: 'numeric',\n});\n\nconst formatted = formatter.format(now);\n\nreturn [\n  {\n    json: {\n      date: formatted, // 16.11.2025\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -848,
+        -384
+      ],
+      "id": "98bd9525-1d6b-4400-878b-085431cc14fe",
+      "name": "Today's Date"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node\nconst currentDate = $input.first().json.date;\nconst itemDate = $('Loop Over Items').first().json.date;\nconst itemIsActive = $('Get Special Day').first().json.is_active;\n\nif (currentDate === itemDate && itemIsActive) {\n  return [\n    {\n      json: {\n        isMatchedDay: true,\n        special_day_id: $('Loop Over Items').first().json.special_day_id,\n        email_title: $('Loop Over Items').first().json.email_title,\n        email_body: $('Loop Over Items').first().json.email_body,\n        email_signature: $('Loop Over Items').first().json.email_signature,\n        CC: $('Loop Over Items').first().json.CC,\n        BCC: $('Loop Over Items').first().json.BCC,\n        is_active: $('Loop Over Items').first().json.is_active,\n      },\n    },\n  ];\n}\n\nreturn [\n  {\n    json: {\n      isMatchedDay: false,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -624,
+        -320
+      ],
+      "id": "dd90f1f8-cc99-4eff-b555-d3d655ecfc1f",
+      "name": "Matched Special Day"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1296,
+        -320
+      ],
+      "id": "ccdc7e89-ba8a-4f6f-a58d-d503e44d22ec",
+      "name": "Get Special Day",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -176,
+        -320
+      ],
+      "id": "f5fb6d55-174d-4a70-b471-8af6c6f9ab6d",
+      "name": "Get Emails",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8ef4b581-b8a6-433e-85c8-488dc0d993f5",
+              "leftValue": "={{ $json['Sent Campaign IDs'] }}",
+              "rightValue": "={{ $('If').item.json.special_day_id }}",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        48,
+        -320
+      ],
+      "id": "6e210662-a567-446f-9c32-9995bb25e2f7",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        272,
+        -320
+      ],
+      "id": "b3fe0142-5fb9-4401-8cf3-7dcd1cce709a",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Değerleri bir önceki node'dan al (örnek node adı: \"Get Data\")\nconst name = $input.first().json.Name || \"\";\n\n// Mail gövdesi (örnek)\nlet mailBody = $('If').first().json.email_body;\n\n// İmza (örnek)\nlet signature = $('If').first().json.email_signature;\n\n// Değişkenleri mailBody'de değiştir\nmailBody = mailBody\n  .replace(/{{name}}/g, name);\n\n// Gövde ve imzayı alt alta birleştir\nconst fullBody = `${mailBody}\\n\\n${signature}`;\n\nreturn [\n  {\n    json: {\n      name,\n      fullBody\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        -384
+      ],
+      "id": "f5b97a93-9f38-415f-825a-d195a72425f9",
+      "name": "Replace Variables and Generate Signatured Body"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Settings\" node'undan al\nconst CC_raw  = $('If').first().json.CC\nconst BCC_raw = $('If').first().json.BCC;\n\nfunction toCommaString(input) {\n  let arr = [];\n\n  // 1) Dizi ise direkt kullan\n  if (Array.isArray(input)) {\n    arr = input;\n  } else if (typeof input === 'string') {\n    const s = input.trim();\n\n    // 2) Stringleştirilmiş JSON dizi mi? => parse et\n    if ((s.startsWith('[') && s.endsWith(']')) || (s.startsWith('[\"') && s.endsWith('\"]'))) {\n      try {\n        const parsed = JSON.parse(s);\n        if (Array.isArray(parsed)) arr = parsed;\n        else arr = [s];\n      } catch {\n        // JSON parse başarısızsa CSV gibi böl\n        arr = s.split(/[,\\s;]+/);\n      }\n    } else {\n      // 3) Normal CSV / boşluk / ; ile böl\n      arr = s.split(/[,\\s;]+/);\n    }\n  } else if (input == null) {\n    arr = [];\n  } else {\n    arr = [String(input)];\n  }\n\n  // 4) Her bir girdiden email'i çıkar (Name <mail@host> formatını da destekler)\n  const emails = arr\n    .map(v => String(v).trim())\n    .map(v => {\n      // <mail@host> varsa içini al\n      const mAngle = v.match(/<([^>]+)>/);\n      if (mAngle) return mAngle[1].trim();\n      return v.replace(/^\"+|\"+$/g, ''); // çevredeki çift tırnakları temizle\n    })\n    // basit e-posta regex doğrulaması\n    .map(v => {\n      const m = v.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})/i);\n      return m ? m[1] : '';\n    })\n    .filter(Boolean);\n\n  // 5) Tekrarsızlaştır + virgül ile ve BOŞLUKSUZ birleştir\n  const unique = Array.from(new Set(emails));\n  return unique.join(',');\n}\n\nconst CC  = toCommaString(CC_raw);\nconst BCC = toCommaString(BCC_raw);\n\nreturn [{ json: { CC, BCC } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -384
+      ],
+      "id": "bca6cf1c-45d9-44e7-9989-73e0ce5d5c8e",
+      "name": "Include CC and BCC Emails",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Loop Over Items1').item.json['Email Address '] }}",
+        "subject": "={{ $('If').item.json.email_title }}",
+        "message": "={{ $('Replace Variables and Generate Signatured Body').item.json.fullBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        944,
+        -384
+      ],
+      "id": "fbd133d0-ba47-46d5-a142-ab351ec89d26",
+      "name": "Send a message",
+      "webhookId": "cb327715-12c3-4a54-abac-c060dc7cfa0c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Sent Campaign IDs": "={{ $json['New Sent Campaign IDs'] }}",
+            "Email Address ": "={{ $('Loop Over Items1').item.json['Email Address '] }}"
+          },
+          "matchingColumns": [
+            "Email Address "
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email Address ",
+              "displayName": "Email Address ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sender Email",
+              "displayName": "Sender Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Interaction Count",
+              "displayName": "Interaction Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sent Campaign IDs",
+              "displayName": "Sent Campaign IDs",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1392,
+        -384
+      ],
+      "id": "baaae7c5-38ec-4929-9a86-93eb997671f2",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1616,
+        -320
+      ],
+      "id": "a60d3e25-361f-4233-995f-aa44fbd9bf5e",
+      "name": "Wait",
+      "webhookId": "48032d1d-267c-4fdb-ad70-171467e2c023"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node\n\n// Burayı sen doldur: başka bir nodelen geliyorsa expression yapabilirsin\nconst newCampaignId = $('If').first().json.special_day_id || '12345';\n\nconst current = $('Loop Over Items1').first().json['Sent Campaign IDs'];\n\nlet updated;\n\nupdated = current + '#' + newCampaignId;\n\n// Bu node'dan dönen veri\nreturn [\n  {\n    json: {\n      'New Sent Campaign IDs': updated,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -384
+      ],
+      "id": "cad8b75e-f6d8-4fb5-b937-37d2c68e4f59",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1520,
+        -320
+      ],
+      "id": "eaed85a7-4f40-40e6-bc58-ca4820ae8278",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "29b2ecf9-e2d0-449a-b68d-c541ac7aea71",
+              "leftValue": "={{ $json.body.special_day_id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1328,
+        48
+      ],
+      "id": "41b4bd8e-3326-4458-972d-eb6054648ad0",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -784,
+        -32
+      ],
+      "id": "28201645-df7d-451d-90fe-4c15cd2904b5",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "special_day_id",
+              "lookupValue": "={{ $('Get Special Day - Hook').item.json.body.special_day_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1024,
+        -32
+      ],
+      "id": "2879aa0b-11d1-4aa2-ad76-d3bce10aeec4",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1024,
+        160
+      ],
+      "id": "6f734354-eeed-45af-854e-cef078c3815c",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "u-special-day",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1536,
+        496
+      ],
+      "id": "fea8a797-9c81-4f7f-bd85-cecce9864860",
+      "name": "Update or Delete Special Day",
+      "webhookId": "8a707d25-8e10-487f-827c-c0ff5528a6c0"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -496,
+        384
+      ],
+      "id": "61d6cc2f-fa33-48cc-b33a-f9d2b2b9777d",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "29b2ecf9-e2d0-449a-b68d-c541ac7aea71",
+              "leftValue": "={{ $json.body.is_delete }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1280,
+        496
+      ],
+      "id": "fbc3d0e1-42f8-4116-ba3d-6efb51eee1c2",
+      "name": "isDelete?"
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "startIndex": "={{ $json.row_number }}"
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -784,
+        384
+      ],
+      "id": "07f4bc20-d1b9-4f6a-99f0-5db703c343d9",
+      "name": "Delete Row",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "special_day_id",
+              "lookupValue": "={{ $json.body.special_day_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -992,
+        384
+      ],
+      "id": "a0703b97-32d4-4483-9949-3286a4ba6c2e",
+      "name": "Get Row Number to Delete",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "special_day_id": "={{ $('Update or Delete Special Day').item.json.body.special_day_id }}",
+            "title": "={{ $('Update or Delete Special Day').item.json.body.title }}",
+            "icon": "={{ $('Update or Delete Special Day').item.json.body.icon }}",
+            "description": "={{ $('Update or Delete Special Day').item.json.body.description }}",
+            "date": "={{ $('Update or Delete Special Day').item.json.body.date }}",
+            "is_active": "={{ $('Update or Delete Special Day').item.json.body.is_active }}",
+            "email_title": "={{ $('Update or Delete Special Day').item.json.body.email_title }}",
+            "email_body": "={{ $('Update or Delete Special Day').item.json.body.email_body }}",
+            "email_signature": "={{ $('Update or Delete Special Day').item.json.body.email_signature }}",
+            "CC": "={{ $('Update or Delete Special Day').item.json.body.CC }}",
+            "BCC": "={{ $('Update or Delete Special Day').item.json.body.BCC }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "special_day_id",
+              "displayName": "special_day_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "icon",
+              "displayName": "icon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_title",
+              "displayName": "email_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_body",
+              "displayName": "email_body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_signature",
+              "displayName": "email_signature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CC",
+              "displayName": "CC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BCC",
+              "displayName": "BCC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -880,
+        624
+      ],
+      "id": "b309884b-8db7-4556-91ab-8d67db09bb63",
+      "name": "Update Special Day",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "special-day",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1536,
+        48
+      ],
+      "id": "670d503a-0b75-44f2-afe1-643c6edb0751",
+      "name": "Get Special Day - Hook",
+      "webhookId": "8a707d25-8e10-487f-827c-c0ff5528a6c0"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "special-day",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1536,
+        848
+      ],
+      "id": "bbe713f1-43c9-4f1c-b2bc-24b58281407a",
+      "name": "Update or Delete Special Day1",
+      "webhookId": "8a707d25-8e10-487f-827c-c0ff5528a6c0"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -1040,
+        848
+      ],
+      "id": "4841a982-f92b-42cd-b440-b83112d47f4c",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 580760091,
+          "mode": "list",
+          "cachedResultName": "special-days",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=580760091"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": 0,
+            "special_day_id": "={{ $json.body.special_day_id }}",
+            "title": "={{ $json.body.title }}",
+            "icon": "={{ $json.body.icon }}",
+            "description": "={{ $json.body.description }}",
+            "date": "={{ $json.body.date }}",
+            "is_active": "={{ $json.body.is_active }}",
+            "email_title": "={{ $json.body.email_title }}",
+            "email_body": "={{ $json.body.email_body }}",
+            "email_signature": "={{ $json.body.email_signature }}",
+            "CC": "={{ $json.body.CC }}",
+            "BCC": "={{ $json.body.BCC }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "special_day_id",
+              "displayName": "special_day_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "icon",
+              "displayName": "icon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "date",
+              "displayName": "date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_title",
+              "displayName": "email_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_body",
+              "displayName": "email_body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email_signature",
+              "displayName": "email_signature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "CC",
+              "displayName": "CC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "BCC",
+              "displayName": "BCC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1280,
+        848
+      ],
+      "id": "ec181762-a19a-4a66-8ecc-454d860d03eb",
+      "name": "Create Special Day",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Today's Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Get Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Today's Date": {
+      "main": [
+        [
+          {
+            "node": "Matched Special Day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Matched Special Day": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Special Day": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Emails": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Replace Variables and Generate Signatured Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Variables and Generate Signatured Body": {
+      "main": [
+        [
+          {
+            "node": "Include CC and BCC Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Include CC and BCC Emails": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Special Day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update or Delete Special Day": {
+      "main": [
+        [
+          {
+            "node": "isDelete?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isDelete?": {
+      "main": [
+        [
+          {
+            "node": "Get Row Number to Delete",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Special Day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Row Number to Delete": {
+      "main": [
+        [
+          {
+            "node": "Delete Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delete Row": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Special Day": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Special Day - Hook": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update or Delete Special Day1": {
+      "main": [
+        [
+          {
+            "node": "Create Special Day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Special Day": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b547a424-5007-47d2-935b-c46109c09071",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1400f02ebab6d226b63e5af9a4cceeb54d8f40163fa278a5f6d2b1bd8d7872df"
+  },
+  "id": "z64QzudgrOt2qZPM",
+  "tags": []
+}
