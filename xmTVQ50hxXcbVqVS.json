@@ -1,0 +1,587 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert row": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start Image Generation": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Start Image Generation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-23T14:58:27.131Z",
+  "id": "xmTVQ50hxXcbVqVS",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "bebo-chat",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        32
+      ],
+      "id": "3ca3b52f-6b88-4600-984c-72a2d005b116",
+      "name": "Webhook",
+      "webhookId": "7a61dd3c-b028-4fa9-94c5-44931d3fe0ba"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ff87862-a531-4c00-8f18-78b29c16fdbe",
+              "name": "body",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        144,
+        32
+      ],
+      "id": "9e00a8db-3f6b-49a8-8181-02fb7ff56f6d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=User Prompt: {{ $json.body['text-prompt'] }}\nUser uploaded this image: {{ $json.body['image-prompt-url'] }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are an AI visual assistant on birebiro.com.\nYou always return only one JSON object and nothing else.\nDo not include explanations, extra text, or formatting outside the JSON.\n\nDefault conversation language is Turkish, unless the user writes in another language.\n\nYour job is to understand if the user intends to create an image.\n\t•\tIf the user wants to generate an image, set user_generation_intent to true.\n\t•\tIf the user’s message contains enough information, create a clear, detailed English prompt and put it in improved_generation_prompt.\n\t•\tIf the message lacks details, ask for clarification in Turkish within reply_to_user, and set user_generation_intent to false.\n\t•\tIf the user is just chatting, set user_generation_intent to false and continue the conversation naturally in Turkish.\n\nOutput Format (always this exact structure):\n{\n  \"reply_to_user\": \"\",\n  \"user_generation_intent\": true,\n  \"improved_generation_prompt\": \"\"\n}\n\nRules:\n\t•\treply_to_user: always in Turkish unless user uses another language.\n\t•\tuser_generation_intent: true only if the user explicitly requests an image and provides enough detail.\n\t•\timproved_generation_prompt: a polished English image prompt (empty if intent is false).\n\t•\tWhen \"user_generation_intent\": true, always reply with a natural Turkish confirmation such as “Harika fikir! Hemen o görseli oluşturmaya başlıyorum 🎨” and similar reactions.\n\t•\tYou are used in a n8n flow and can handle uploaded images. So don't tell users that you can not function images. Just tell you are handling.\n\t•\tNever add or remove fields from this JSON.\n\t•\tNever include anything outside the JSON object.\n\t"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        424,
+        32
+      ],
+      "id": "42b51885-a4dc-446b-bed4-2a4a59b769b8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4-turbo",
+          "mode": "list",
+          "cachedResultName": "gpt-4-turbo"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        256
+      ],
+      "id": "3834f476-2046-42d7-8001-564a8ff6c83c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "jWCgx5QEHfHSHOx7",
+          "name": "OpenAI Account iletisim@ranblockgames.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body['chat-session-id'] }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        496,
+        256
+      ],
+      "id": "41d84c58-0618-4667-bcd7-d0141048a4cc",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9c0ab4e5-e2b2-4565-b06e-8188da5a1aff",
+              "name": "output",
+              "value": "={{ $json.output }}",
+              "type": "object"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        832,
+        32
+      ],
+      "id": "3f36c316-7c50-4ab2-96f3-aa7ec14cd506",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a578a99a-3192-4ee8-be0e-06e34c507447",
+              "leftValue": "={{ $('AI Agent').item.json.output.user_generation_intent }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        32
+      ],
+      "id": "6fc5ef1b-bef9-4172-be32-edb225fe3777",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"reply_to_user\": \"Görseli iyileştirmek için bir resim vermeniz gerekiyor. Lütfen iyileştirmemi istediğiniz bir resim gönderin veya detaylı bir açıklama yapın.\",\n  \"user_generation_intent\": false,\n  \"improved_generation_prompt\": \"\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        624,
+        256
+      ],
+      "id": "35a4cb1e-8e33-4a55-9854-3306f40be2e8",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "PRcNVtQgwLmFJIJm",
+          "mode": "list",
+          "cachedResultName": "bebo_db",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/PRcNVtQgwLmFJIJm"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "image_prompt": "={{ $('Webhook').item.json.body['image-prompt'] }}",
+            "user_id": "={{ $('Webhook').item.json.body['user-id'] }}",
+            "user_session_id": "={{ $('Webhook').item.json.body['chat-session-id'] }}",
+            "user_prompt": "={{ $('Webhook').item.json.body['text-prompt'] }}",
+            "improved_user_prompt": "={{ $('AI Agent').item.json.output.improved_generation_prompt }}",
+            "credit_used": "={{ $('Webhook').item.json.body['credit-used'] }}",
+            "image_prompt_url": "={{ $('Webhook').item.json.body['image-prompt-url'] }}",
+            "resolution": "={{ $('Webhook').item.json.body.resolution }}",
+            "quality": "={{ $('Webhook').item.json.body.quality }}",
+            "user_generation_intent": "={{ $('AI Agent').item.json.output.user_generation_intent }}",
+            "reply_to_user": "={{ $('AI Agent').item.json.output.reply_to_user }}",
+            "generation_id": "={{ $json.combinedID }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_session_id",
+              "displayName": "user_session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_prompt",
+              "displayName": "user_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "improved_user_prompt",
+              "displayName": "improved_user_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "credit_used",
+              "displayName": "credit_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt_url",
+              "displayName": "image_prompt_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "resolution",
+              "displayName": "resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "quality",
+              "displayName": "quality",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "user_generation_intent",
+              "displayName": "user_generation_intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "reply_to_user",
+              "displayName": "reply_to_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "generation_id",
+              "displayName": "generation_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        48
+      ],
+      "id": "95a060f6-ffee-4da5-be68-5a44d3513d0c",
+      "name": "Insert row",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "path": "a1fc0ef4-c089-43f3-9cff-35780a581b18",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        400
+      ],
+      "id": "2e32854a-681d-4ad9-b742-2fb7da3e1d0a",
+      "name": "Webhook1",
+      "webhookId": "a1fc0ef4-c089-43f3-9cff-35780a581b18"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n-production-14b9.up.railway.app/webhook/start-image-generation",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "=user_id",
+              "value": "={{ $('Webhook').item.json.body['user-id'] }}"
+            },
+            {
+              "name": "improved_user_prompt",
+              "value": "={{ $('AI Agent').item.json.output.improved_generation_prompt }}"
+            },
+            {
+              "name": "image_prompt_url",
+              "value": "={{ $('Webhook').item.json.body['image-prompt-url'] }}"
+            },
+            {
+              "name": "resolution",
+              "value": "={{ $('Webhook').item.json.body.resolution }}"
+            },
+            {
+              "name": "quality",
+              "value": "={{ $('Webhook').item.json.body.quality }}"
+            },
+            {
+              "name": "image_prompt",
+              "value": "={{ $('Webhook').item.json.body['image-prompt'] }}"
+            },
+            {
+              "name": "generation_id",
+              "value": "={{ $json.randomNumber }}"
+            },
+            {
+              "name": "generation_id",
+              "value": "={{ $json.combinedID }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1632,
+        224
+      ],
+      "id": "6df8fe1c-82a7-43d4-8ad9-48ce4324e247",
+      "name": "Start Image Generation"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Girişten userID al\nconst userID = $('Webhook').first().json.body['user-id'] || 0;\n\n// 10.000–20.000 arasında rastgele sayı üret\nconst randomNumber = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;\n\n// userID ile birleştir (örnek: 123 + 15732 → 12315732)\nconst combinedID = `${userID}-${randomNumber}`;\n\nreturn [\n  {\n    json: {\n      userID,\n      randomNumber,\n      combinedID\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        -16
+      ],
+      "id": "11222ede-baa6-4955-b744-760d38edebd7",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1840,
+        48
+      ],
+      "id": "cb2d19a5-9295-459e-b2f8-c448d202168c",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "octaworksofficial",
+    "name": "n8n"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-23T14:58:27.136Z",
+      "updatedAt": "2025-10-23T14:58:27.136Z",
+      "role": "workflow:owner",
+      "workflowId": "xmTVQ50hxXcbVqVS",
+      "projectId": "1jTilK588wM2KuJy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2025-11-06T08:26:24.000Z",
+  "versionId": "0b57ba6e-4518-453e-9792-fe3ca9765588"
+}
