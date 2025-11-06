@@ -1,0 +1,478 @@
+{
+  "active": true,
+  "connections": {
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Update row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-24T13:49:46.361Z",
+  "id": "FC6JJCEUa0k5JIuA",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "bebo-generate",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "The user wants to generate an image similar to the one provided. Describe all visible details in the given image as clearly as possible. Your output will be used as input for an image generation model, so include every important visual element such as objects, colors, lighting, composition, and style.",
+        "imageUrls": "={{ $json.body.image_prompt_url }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1824,
+        272
+      ],
+      "id": "479f479f-877e-42d6-904d-90fb5b71d644",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "jWCgx5QEHfHSHOx7",
+          "name": "OpenAI Account iletisim@ranblockgames.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "model": "gpt-image-1",
+        "prompt": "={{ $json.result }}",
+        "options": {
+          "quality": "={{ $('Webhook2').item.json.body.quality }}",
+          "size": "={{ $('Webhook2').item.json.body.resolution }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2496,
+        408
+      ],
+      "id": "e383d961-af97-47a7-9197-fdf25d33792a",
+      "name": "Generate an image",
+      "credentials": {
+        "openAiApi": {
+          "id": "jWCgx5QEHfHSHOx7",
+          "name": "OpenAI Account iletisim@ranblockgames.com"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2048,
+        408
+      ],
+      "id": "f2a1b593-ca8a-4d20-bf63-e3819da2c561",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "54a252cf-9712-4b99-bdf3-31df2b83fef3",
+              "leftValue": "={{ $json.body.image_prompt }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1600,
+        408
+      ],
+      "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "start-image-generation",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        1376,
+        408
+      ],
+      "id": "74809296-8485-42b4-a29f-4a2296d41600",
+      "name": "Webhook2",
+      "webhookId": "5d9c1c8d-7c58-4fa1-bd34-349d019fbae3"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.webContentLink }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        2944,
+        408
+      ],
+      "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "jsCode": "let image_analyze_result = $input.first().json.content || \"\";\nlet improved_user_prompt = $('Webhook2').first().json.body.improved_user_prompt || \"\";\n\n// Her ikisinin uzunluğu 5 karakterden fazlaysa birleştir\nlet result = \"\";\n\n// Eğer text1 doluysa ekle\nif (image_analyze_result && image_analyze_result.trim().length > 0) {\n  result += `User image input description: ${image_analyze_result.trim()}`;\n}\n\n// Eğer text2 doluysa, ve result boş değilse araya boşluk koyarak ekle\nif (improved_user_prompt && improved_user_prompt.trim().length > 0) {\n  result += (result ? \"  \" : \"\") + `User's text prompt: ${improved_user_prompt.trim()}`;\n}\n\n\nreturn [{ json: {result } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2272,
+        408
+      ],
+      "id": "aa812fbc-3062-473e-8f45-fff6ab4312ee",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Webhook2').item.json.body.generation_id }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1Jhxx9JGwr8J7Y4-wFcDKMxRjU0TQyXMU",
+          "mode": "list",
+          "cachedResultName": "bebo-images",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1Jhxx9JGwr8J7Y4-wFcDKMxRjU0TQyXMU"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2720,
+        408
+      ],
+      "id": "94a2ce8e-e883-4463-82da-5e1a961dbf20",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "R2sNOxwbWgfYC1yg",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "dataTableId": {
+          "__rl": true,
+          "value": "PRcNVtQgwLmFJIJm",
+          "mode": "list",
+          "cachedResultName": "bebo_db",
+          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/PRcNVtQgwLmFJIJm"
+        },
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "generation_id",
+              "keyValue": "={{ $('Webhook2').item.json.body.generation_id }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "generated_image_url": "={{ $('Upload file').item.json.webContentLink }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_session_id",
+              "displayName": "user_session_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_prompt",
+              "displayName": "user_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "improved_user_prompt",
+              "displayName": "improved_user_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "credit_used",
+              "displayName": "credit_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "image_prompt_url",
+              "displayName": "image_prompt_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "image_prompt",
+              "displayName": "image_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "resolution",
+              "displayName": "resolution",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "quality",
+              "displayName": "quality",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "user_generation_intent",
+              "displayName": "user_generation_intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "reply_to_user",
+              "displayName": "reply_to_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "generation_id",
+              "displayName": "generation_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "generated_image_url",
+              "displayName": "generated_image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        3168,
+        408
+      ],
+      "id": "bdc6c3b5-2e56-457c-9986-6ab1724671fa",
+      "name": "Update row(s)"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "octaworksofficial",
+    "name": "n8n"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-24T13:49:46.365Z",
+      "updatedAt": "2025-10-24T13:49:46.365Z",
+      "role": "workflow:owner",
+      "workflowId": "FC6JJCEUa0k5JIuA",
+      "projectId": "1jTilK588wM2KuJy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-06T08:26:26.000Z",
+  "versionId": "9f18fdce-4487-4e3a-b37b-09d374408ca8"
+}
