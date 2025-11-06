@@ -1,0 +1,708 @@
+{
+  "active": true,
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Select Template by Interaction Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Emails": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Increment Interaction Count",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Records": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select Template by Interaction Count": {
+      "main": [
+        [
+          {
+            "node": "Get Template to Send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Template to Send": {
+      "main": [
+        [
+          {
+            "node": "Replace Variables and Generate Signatured Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Execution Date": {
+      "main": [
+        [
+          {
+            "node": "Update Records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Interaction Count": {
+      "main": [
+        [
+          {
+            "node": "Get Execution Date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Settings": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Get Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Variables and Generate Signatured Body": {
+      "main": [
+        [
+          {
+            "node": "Include CC and BCC Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Include CC and BCC Emails": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-25T08:12:28.453Z",
+  "id": "ftK17Jgq1TS5yzI8",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "email-sender",
+  "nodes": [
+    {
+      "parameters": {
+        "batchSize": "=1",
+        "options": {}
+      },
+      "id": "dd6b62f7-b53c-467d-9bfd-1b43a24976b9",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        -2416,
+        448
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "id": "f1bdc2fe-e726-4c53-a21f-fdfb44b7b431",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        -2640,
+        448
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "8dc5b028-6f5d-4d76-8852-99180bfb4591",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json['Email Address '] }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a7896d43-57e4-4d25-9f18-dbdbd4b2675c",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -2192,
+        368
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email Address ": "={{ $('Get Emails').item.json['Email Address '] }}",
+            "row_number": 0,
+            "Interaction Count": "={{ $('Increment Interaction Count').item.json.newCount }}",
+            "Last Interaction": "={{ $json.executionDate }}",
+            "Last Sent Template ID": "={{ $('Get Template to Send').item.json.template_id }}"
+          },
+          "matchingColumns": [
+            "Email Address "
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email Address ",
+              "displayName": "Email Address ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Sender Email",
+              "displayName": "Sender Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Interaction Count",
+              "displayName": "Interaction Count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Interaction",
+              "displayName": "Last Interaction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Last Sent Template ID",
+              "displayName": "Last Sent Template ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Got Return?",
+              "displayName": "Got Return?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "TODAY",
+              "displayName": "TODAY",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "DAYS PASSED",
+              "displayName": "DAYS PASSED",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "57dc5045-dc08-4ea3-864b-331a7b1f1f50",
+      "name": "Update Records",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -432,
+        368
+      ],
+      "typeVersion": 4.6,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get Emails').item.json['Email Address '] }}",
+        "subject": "={{ $('Get Template to Send').item.json.email_subject }}",
+        "message": "={{ $('Replace Variables and Generate Signatured Body').item.json.fullBody }}",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "={{ $json.BCC }}",
+          "ccList": "={{ $json.CC }}"
+        }
+      },
+      "id": "9e278c61-b89d-46ed-9291-fbb3e25c95b1",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        -1104,
+        368
+      ],
+      "webhookId": "2add08f1-0af8-4951-af47-721d2c4302ec",
+      "typeVersion": 2.1,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Got Return?",
+              "lookupValue": "NO"
+            },
+            {
+              "lookupColumn": "DAYS PASSED",
+              "lookupValue": "={{ $('Get Settings').item.json.auto_sending_day_interval }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2b1285f8-430a-4252-9088-336e94cdcd74",
+      "name": "Get Emails",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -2864,
+        448
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "3527b0ff-3ca9-407c-b024-c426fe86a65f",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        -208,
+        448
+      ],
+      "webhookId": "c4cf719a-d47f-4761-8a16-aff92b8e9a19",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Emails\" node'undaki Interaction Count değerini al\nlet interactionCount = $('Get Emails').item.json['Interaction Count'];\n\n// Sayıya dönüştür\ninteractionCount = parseInt(interactionCount, 10);\n\n// Eğer geçerli bir sayı değilse 0 yap\nif (isNaN(interactionCount)) {\n  interactionCount = 0;\n}\n\nlet templateId = 0;\n\n// Switch–case yapısı\nswitch (true) {\n  case (interactionCount === 0):\n    templateId = 1;\n    break;\n  case (interactionCount === 1):\n    templateId = 2;\n    break;\n  case (interactionCount === 2):\n    templateId = 3;\n    break;\n  case (interactionCount > 2):\n   templateId = 4;\n    break;\n  default:\n    templateId = 1;\n}\n\nreturn [\n  {\n    json: {\n      interactionCount,\n      templateId\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1968,
+        368
+      ],
+      "id": "eae10158-e398-434d-bfa5-555b073cd3f0",
+      "name": "Select Template by Interaction Count"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1164818231,
+          "mode": "list",
+          "cachedResultName": "templates",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=1164818231"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "template_id",
+              "lookupValue": "={{ $json.templateId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c549df15-545f-4c06-a425-04aca5abc4a7",
+      "name": "Get Template to Send",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -1744,
+        368
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Şu anki tarih ve saati al (execution zamanı)\nconst now = new Date();\n\n// Ay, gün ve yılı al\nconst month = String(now.getMonth() + 1).padStart(2, '0'); // getMonth() 0-11 döner\nconst day = String(now.getDate()).padStart(2, '0');\nconst year = now.getFullYear();\n\n// İstediğin formata dönüştür\nconst formattedDate = `${month}/${day}/${year}`;\n\nreturn [\n  {\n    json: {\n      executionDate: formattedDate\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -656,
+        368
+      ],
+      "id": "dc02c0d3-8a66-40ee-b8d6-d84a2f3dce4b",
+      "name": "Get Execution Date"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Emails\" node'undan Interaction Count değerini al\nconst interactionCount = $('Get Emails').item.json['Interaction Count'] || 0;\n\n// +1 artır\nconst newCount = interactionCount + 1;\n\n// Yeni değeri döndür\nreturn [\n  {\n    json: {\n      oldCount: interactionCount,\n      newCount\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -880,
+        368
+      ],
+      "id": "cfda7f3b-bdd1-442c-bee0-b66543fe0bff",
+      "name": "Increment Interaction Count"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk",
+          "mode": "list",
+          "cachedResultName": "customer-base",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 17128778,
+          "mode": "list",
+          "cachedResultName": "settings",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1H8SuYExdx9eGFWRwrIpEXKQGCScKghq-ttLeSkSssYk/edit#gid=17128778"
+        },
+        "options": {}
+      },
+      "id": "0f53ef82-2ff3-4a63-b11b-abe256e1d0aa",
+      "name": "Get Settings",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        -3328,
+        464
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7a36baa7-f3ea-4964-8340-80510248fa2c",
+              "leftValue": "={{ $json.is_auto_mailing_active }}",
+              "rightValue": "YES",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -3120,
+        464
+      ],
+      "id": "b852b87f-2e86-4cf9-8bf4-44291671768f",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -3520,
+        464
+      ],
+      "id": "cb29b853-982a-4548-8d2e-6e6b1d5300b3",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Değerleri bir önceki node'dan al (örnek node adı: \"Get Data\")\nconst name = $('Get Emails').first().json.Name || \"\";\n\n// Mail gövdesi (örnek)\nlet mailBody = $input.first().json.email_body;\n\n// İmza (örnek)\nlet signature = $input.first().json.email_signature;\n\n// Değişkenleri mailBody'de değiştir\nmailBody = mailBody\n  .replace(/{{name}}/g, name);\n\n// Gövde ve imzayı alt alta birleştir\nconst fullBody = `${mailBody}\\n\\n${signature}`;\n\nreturn [\n  {\n    json: {\n      name,\n      fullBody\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1536,
+        368
+      ],
+      "id": "634c9d40-44f8-467c-8543-31fce52f79d8",
+      "name": "Replace Variables and Generate Signatured Body"
+    },
+    {
+      "parameters": {
+        "jsCode": "// \"Get Settings\" node'undan al\nconst CC_raw  = $('Get Settings').first().json.CC;\nconst BCC_raw = $('Get Settings').first().json.BCC;\n\nfunction toCommaString(input) {\n  let arr = [];\n\n  // 1) Dizi ise direkt kullan\n  if (Array.isArray(input)) {\n    arr = input;\n  } else if (typeof input === 'string') {\n    const s = input.trim();\n\n    // 2) Stringleştirilmiş JSON dizi mi? => parse et\n    if ((s.startsWith('[') && s.endsWith(']')) || (s.startsWith('[\"') && s.endsWith('\"]'))) {\n      try {\n        const parsed = JSON.parse(s);\n        if (Array.isArray(parsed)) arr = parsed;\n        else arr = [s];\n      } catch {\n        // JSON parse başarısızsa CSV gibi böl\n        arr = s.split(/[,\\s;]+/);\n      }\n    } else {\n      // 3) Normal CSV / boşluk / ; ile böl\n      arr = s.split(/[,\\s;]+/);\n    }\n  } else if (input == null) {\n    arr = [];\n  } else {\n    arr = [String(input)];\n  }\n\n  // 4) Her bir girdiden email'i çıkar (Name <mail@host> formatını da destekler)\n  const emails = arr\n    .map(v => String(v).trim())\n    .map(v => {\n      // <mail@host> varsa içini al\n      const mAngle = v.match(/<([^>]+)>/);\n      if (mAngle) return mAngle[1].trim();\n      return v.replace(/^\"+|\"+$/g, ''); // çevredeki çift tırnakları temizle\n    })\n    // basit e-posta regex doğrulaması\n    .map(v => {\n      const m = v.match(/([A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,})/i);\n      return m ? m[1] : '';\n    })\n    .filter(Boolean);\n\n  // 5) Tekrarsızlaştır + virgül ile ve BOŞLUKSUZ birleştir\n  const unique = Array.from(new Set(emails));\n  return unique.join(',');\n}\n\nconst CC  = toCommaString(CC_raw);\nconst BCC = toCommaString(BCC_raw);\n\nreturn [{ json: { CC, BCC } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1328,
+        368
+      ],
+      "id": "1880c41c-788e-4d64-b11b-edf7db26ba35",
+      "name": "Include CC and BCC Emails"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "octaworksofficial",
+    "name": "n8n"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-10-25T08:12:28.463Z",
+      "updatedAt": "2025-10-25T08:12:28.463Z",
+      "role": "workflow:owner",
+      "workflowId": "ftK17Jgq1TS5yzI8",
+      "projectId": "1jTilK588wM2KuJy"
+    }
+  ],
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-03T06:24:04.000Z",
+  "versionId": "36153a02-314b-466d-a310-78e87b85253a"
+}
