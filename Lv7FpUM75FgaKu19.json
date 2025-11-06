@@ -44,6 +44,17 @@
           }
         ]
       ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-25T12:37:08.043Z",
@@ -316,6 +327,29 @@
       ],
       "id": "d210ea01-f068-40b1-8fba-cc954fdc7834",
       "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Get Settings').item.json.notification_email }}",
+        "subject": "Otomasyon ile gönderilmiş bir epostaya YANIT geldi!",
+        "message": "=Otomasyon ile bir müşteriye gönderilmiş bir eposta yanıtlandı. İlgilenmenizi rica ederiz. Müşteri epostası:  {{ $json[\"Email Address \"] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1376,
+        496
+      ],
+      "id": "47e021d5-64ff-4dfa-b7f3-5c6ae7e6632f",
+      "name": "Send a message",
+      "webhookId": "0e8046f8-f20d-42b1-83e0-f8cac821e772",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "origin": "n8n",
@@ -339,16 +373,15 @@
   "staticData": {
     "node:Gmail Trigger": {
       "Gmail Trigger": {
-        "lastTimeChecked": 1762452018,
+        "lastTimeChecked": 1762467849,
         "possibleDuplicates": [
-          "19a5a53eea5c0f5d",
-          "19a5a4e393f75042"
+          "19a5b452ba464202"
         ]
       }
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-03T06:23:13.000Z",
-  "versionId": "d1adcca5-7c77-43f7-bbb9-261b6a978c68"
+  "updatedAt": "2025-11-06T22:28:36.000Z",
+  "versionId": "3f3c3a31-bb37-4d56-944a-02908cc1c9d0"
 }
