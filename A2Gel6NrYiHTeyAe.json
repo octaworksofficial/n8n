@@ -574,7 +574,8 @@
         "rule": {
           "interval": [
             {
-              "triggerAtHour": 7
+              "field": "hours",
+              "hoursInterval": 3
             }
           ]
         }
@@ -1089,8 +1090,8 @@
       "name": "Sticky Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1040,
-        400
+        1056,
+        416
       ],
       "typeVersion": 1
     },
@@ -1113,7 +1114,7 @@
     {
       "parameters": {
         "content": "## Subworkflow",
-        "height": 941,
+        "height": 973,
         "width": 2231,
         "color": 6
       },
@@ -1122,7 +1123,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "position": [
         368,
-        864
+        896
       ],
       "typeVersion": 1
     },
@@ -1167,11 +1168,13 @@
   ],
   "staticData": {
     "node:Schedule Trigger": {
-      "recurrenceRules": []
+      "recurrenceRules": [
+        6
+      ]
     }
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-06T08:19:06.000Z",
-  "versionId": "257150c1-90e0-470d-8e97-6bd0b0317a9b"
+  "updatedAt": "2025-11-06T08:25:47.000Z",
+  "versionId": "87ec70cf-6e56-4fde-b701-cf083931b809"
 }
