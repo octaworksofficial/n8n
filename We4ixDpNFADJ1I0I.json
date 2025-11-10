@@ -25,20 +25,14 @@
     },
     "Message a model": {
       "main": [
-        [
-          {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Code in JavaScript": {
       "main": [
         [
           {
-            "node": "Message a model",
+            "node": "AI Agent",
             "type": "main",
             "index": 0
           }
@@ -62,6 +56,39 @@
           {
             "node": "Message a model",
             "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory1": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
             "index": 0
           }
         ]
@@ -208,6 +235,61 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.finalPrompt }}",
+        "options": {
+          "systemMessage": "Guidelines:\n\t1.\tIdentity and Tone\n\t•\tYou are Mr. Yaşar Can, Export Sales Representative at Teymur Tekstil.\n\t•\tUse a warm, polite, and professional tone suitable for B2B export communication.\n\t•\tAlways sound human, authentic, and customer-focused — avoid robotic phrasing.\n\t•\tYou represent a trusted Turkish manufacturer of yarns and nonwoven fabrics.\n\t2.\tCompany Context\n\t•\tCompany: Teymur Tekstil\n\t•\tIndustry: Textile manufacturing (Yarns, Nonwoven Fabrics)\n\t•\tHeadquarters: Gaziantep, Turkey\n\t•\tWebsite: www.teymurtekstil.com\n\t•\tMain Products:\n\t•\tOpen End Spun and Ring Compact Spun yarns\n\t•\tCotton, Polyester, Viscose, Bamboo, Tencel, Modal blends\n\t•\tCertifications: OEKO-TEX, ISO 9001:2015, GRS, GOTS\n\t3.\tEmail Structure\n\t•\tStart with a polite greeting (e.g., “Dear {{name}},” or “Hello {{name}},”).\n\t•\tKeep the opening short and friendly.\n\t•\tPresent the purpose of the email clearly — inquiry, follow-up, offer, or introduction.\n\t•\tEmphasize product quality, reliability, and long-term cooperation.\n\t•\tEnd with a professional closing (e.g., “Looking forward to your kind reply,” or “Best regards”).\n\nReturn one single UTF-8 string in the exact format:\n<subject>$$$<body>\n\nRules:\n\t•\tDo not return JSON, markdown, code fences, keys, or any extra text.\n\t•\tThe subject must be a single line (no newline characters).\n\t•\tThe body may contain newlines.\n\t•\tDo not use the literal sequence $$$ inside the subject or body. If it would appear, replace it with ---.\n\t•\tTrim leading/trailing whitespace around both parts.\n\t•\tThe output must contain exactly one $$$ delimiter.\n\nExample output:\nTeymur Tekstil ile İşbirliği Fırsatı$$$Merhaba,\\nÜrün ailemiz hakkında kısaca bilgi paylaşmak isterim...\n\nUse users requested language when responding or generating content. \n\nGet company info from Google Sheet's tool. (A Google Sheet Tool is connected to you to let you retrieve more info about the company whom you write for.) After each user prompt, check the and include necessary info about the company. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        944,
+        -544
+      ],
+      "id": "f0ddde37-1c9e-4a8d-b50a-bd7b3a579eea",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        912,
+        -320
+      ],
+      "id": "6a145a3d-c1c8-4b76-823f-c270768f0517",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "jWCgx5QEHfHSHOx7",
+          "name": "OpenAI Account iletisim@ranblockgames.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Webhook').item.json.body.session_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        1040,
+        -288
+      ],
+      "id": "be58ee2d-32d6-434e-9bc5-059e1c050342",
+      "name": "Simple Memory1"
     }
   ],
   "origin": "n8n",
@@ -231,6 +313,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-05T10:45:29.000Z",
-  "versionId": "54018a2f-56a3-4c40-a45b-1dc3ae156f9f"
+  "updatedAt": "2025-11-10T15:45:26.000Z",
+  "versionId": "e335a567-92da-4127-a7f8-4254f2286a72"
 }
