@@ -144,7 +144,7 @@
       "main": [
         [
           {
-            "node": "Loop Over Items1",
+            "node": "Get row(s) in sheet2",
             "type": "main",
             "index": 0
           }
@@ -167,6 +167,39 @@
         [
           {
             "node": "Get Special Day",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
             "type": "main",
             "index": 0
           }
@@ -326,6 +359,30 @@
           "mode": "list",
           "cachedResultName": "main",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Field1",
+              "lookupValue": "={{ $('Get Special Day').item.json.Field1 }}"
+            },
+            {
+              "lookupColumn": "Field2",
+              "lookupValue": "={{ $('Get Special Day').item.json.Field2 }}"
+            },
+            {
+              "lookupColumn": "Field3",
+              "lookupValue": "={{ $('Get Special Day').item.json.Field3 }}"
+            },
+            {
+              "lookupColumn": "Field4",
+              "lookupValue": "={{ $('Get Special Day').item.json.Field4 }}"
+            },
+            {
+              "lookupColumn": "Field5",
+              "lookupValue": "={{ $('Get Special Day').item.json.Field5 }}"
+            }
+          ]
         },
         "options": {}
       },
@@ -603,6 +660,298 @@
       ],
       "id": "23dcdfb3-e622-4912-915b-d1c001145798",
       "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function\nconst n =  $input.first().json.sent_count || 0; // örn: 5\nconst inc = Number(n) + 1;\n\nreturn [\n  {\n    json: {\n      number: inc,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        -80
+      ],
+      "id": "953e64d3-35b0-4d91-89fc-3803a2223a82",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 8709831,
+          "mode": "list",
+          "cachedResultName": "sent-campaigns",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=8709831"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "special_day_id",
+              "lookupValue": "={{ $('If').item.json.special_day_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        928,
+        -80
+      ],
+      "id": "48fab2d3-c72c-43f8-93dc-8a57ce3848e7",
+      "name": "Get row(s) in sheet2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 8709831,
+          "mode": "list",
+          "cachedResultName": "sent-campaigns",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=8709831"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "special_day_id": "={{ $('If').item.json.special_day_id }}",
+            "sent_count": "={{ $json.number }}",
+            "sent_date": "={{ $('Today\\'s Date').item.json.date }}",
+            "Field5": "={{ $('Get Special Day').item.json.Field5 }}",
+            "Field4": "={{ $('Get Special Day').item.json.Field4 }}",
+            "Field3": "={{ $('Get Special Day').item.json.Field3 }}",
+            "Field2": "={{ $('Get Special Day').item.json.Field2 }}",
+            "Field1": "={{ $('Get Special Day').item.json.Field1 }}",
+            "email_body": "={{ $('Replace Variables and Generate Signatured Body').item.json.fullBody }}",
+            "email_title": "={{ $('Get Special Day').item.json.email_title }}",
+            "recurring_type": "={{ $('Get Special Day').item.json.recurring_type }}",
+            "icon": "={{ $('Get Special Day').item.json.icon }}",
+            "description": "={{ $('Get Special Day').item.json.description }}",
+            "title": "={{ $('Get Special Day').item.json.title }}",
+            "BCC": "={{ $('Get Special Day').item.json.BCC }}",
+            "CC": "={{ $('Get Special Day').item.json.CC }}",
+            "email_signature": "={{ $('Get Special Day').item.json.email_signature }}"
+          },
+          "matchingColumns": [
+            "special_day_id"
+          ],
+          "schema": [
+            {
+              "id": "special_day_id",
+              "displayName": "special_day_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sent_count",
+              "displayName": "sent_count",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "sent_date",
+              "displayName": "sent_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "title",
+              "displayName": "title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "icon",
+              "displayName": "icon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recurring_type",
+              "displayName": "recurring_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "is_active",
+              "displayName": "is_active",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email_title",
+              "displayName": "email_title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_body",
+              "displayName": "email_body",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email_signature",
+              "displayName": "email_signature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "CC",
+              "displayName": "CC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BCC",
+              "displayName": "BCC",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Field1",
+              "displayName": "Field1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Field2",
+              "displayName": "Field2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Field3",
+              "displayName": "Field3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Field4",
+              "displayName": "Field4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Field5",
+              "displayName": "Field5",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1424,
+        -80
+      ],
+      "id": "683e91d0-8583-4ae9-ae76-e0cfd90f8a38",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "origin": "n8n",
@@ -630,6 +979,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-10T07:31:27.000Z",
-  "versionId": "4418efcc-093d-4ea0-856e-c011ab5825c6"
+  "updatedAt": "2025-11-10T10:53:03.000Z",
+  "versionId": "f51a1140-6bc7-4127-81de-949318ef9779"
 }
