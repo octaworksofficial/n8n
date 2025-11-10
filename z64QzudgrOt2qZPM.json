@@ -1634,11 +1634,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1824,
+        1840,
         -320
       ],
       "id": "47e8865a-534e-4664-ab8c-a1802a65a092",
       "name": "Get row(s) in sheet2",
+      "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "RcjOWSi017Oe0LYQ",
@@ -1910,6 +1911,6 @@
   },
   "tags": [],
   "triggerCount": 4,
-  "updatedAt": "2025-11-10T10:52:43.000Z",
-  "versionId": "997bf92e-2793-4b54-a43d-82ef7da4d037"
+  "updatedAt": "2025-11-10T11:34:32.000Z",
+  "versionId": "41c8c1a6-76b4-4f4f-a9b5-83ae8cd2b94f"
 }
