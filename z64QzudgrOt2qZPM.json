@@ -340,6 +340,61 @@
           }
         ]
       ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet4": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Sent Campaigns": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Campaign Receivers": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-11-03T06:28:11.840Z",
@@ -1884,6 +1939,178 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        128
+      ],
+      "id": "cfa57f01-4660-4801-ad78-d102530cca28",
+      "name": "Respond to Webhook3"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 8709831,
+          "mode": "list",
+          "cachedResultName": "sent-campaigns",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=8709831"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        128
+      ],
+      "id": "e25d777a-b23f-444e-a6b2-7b58c6762968",
+      "name": "Get row(s) in sheet3",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        512,
+        320
+      ],
+      "id": "c1d88133-7ce4-43ea-8510-8ddae51388be",
+      "name": "Respond to Webhook4"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        48,
+        320
+      ],
+      "id": "e53edd08-5b7e-41bb-b953-8cabe66f2d3c",
+      "name": "Get row(s) in sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "get-sent-campaigns",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -192,
+        128
+      ],
+      "id": "7cfdc228-79e7-4f0a-ab6a-ddf3933c83ab",
+      "name": "Get Sent Campaigns",
+      "webhookId": "6d5d9ee1-5e09-4cdc-9834-515fec19fa9a"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "get-campaign-receivers",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -192,
+        320
+      ],
+      "id": "7a03023f-cccd-4f61-ae13-62def715c133",
+      "name": "Get Campaign Receivers",
+      "webhookId": "6d5d9ee1-5e09-4cdc-9834-515fec19fa9a"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "62750cfd-610d-435c-8759-b9f11e3e036b",
+              "leftValue": "={{ $json['Sent Campaign IDs'] }}",
+              "rightValue": "={{ $('Get Campaign Receivers').item.json.body.special_day_id }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "6ced4f71-9926-4552-b1f5-3908d5c0605a",
+              "leftValue": "={{ $json['Sent Recurring Campaign IDs'] }}",
+              "rightValue": "={{ $('Get Campaign Receivers').item.json.body.special_day_id }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        256,
+        320
+      ],
+      "id": "87004230-2f92-45fa-8481-ffeceb8b748f",
+      "name": "Filter1"
     }
   ],
   "origin": "n8n",
@@ -1910,7 +2137,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 4,
-  "updatedAt": "2025-11-10T11:34:32.000Z",
-  "versionId": "41c8c1a6-76b4-4f4f-a9b5-83ae8cd2b94f"
+  "triggerCount": 6,
+  "updatedAt": "2025-11-10T14:31:45.000Z",
+  "versionId": "2b7ffe57-52c9-4d61-9284-ae2aa04eba81"
 }
