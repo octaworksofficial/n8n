@@ -122,7 +122,7 @@
       "main": [
         [
           {
-            "node": "Code in JavaScript",
+            "node": "New Sent CampaignID",
             "type": "main",
             "index": 0
           }
@@ -144,18 +144,7 @@
       "main": [
         [
           {
-            "node": "Get row(s) in sheet2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        [
-          {
-            "node": "Update row in sheet",
+            "node": "CampaignID",
             "type": "main",
             "index": 0
           }
@@ -200,6 +189,28 @@
         [
           {
             "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New Sent CampaignID": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CampaignID": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet2",
             "type": "main",
             "index": 0
           }
@@ -300,7 +311,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Function node\nconst currentDate = $input.first().json.date;\nconst itemDate = $('Get Special Day').first().json.recurring_dates;\nconst itemIsActive = $('Get Special Day').first().json.is_active;\n\nif (itemDate.includes(currentDate) && itemIsActive) {\n  return [\n    {\n      json: {\n        isMatchedDay: true,\n        special_day_id: $('Loop Over Items').first().json.special_day_id,\n        email_title: $('Loop Over Items').first().json.email_title,\n        email_body: $('Loop Over Items').first().json.email_body,\n        email_signature: $('Loop Over Items').first().json.email_signature,\n        CC: $('Loop Over Items').first().json.CC,\n        BCC: $('Loop Over Items').first().json.BCC,\n        is_active: $('Loop Over Items').first().json.is_active,\n        is_recurring: $('Loop Over Items').first().json.is_recurring,\n        recurring_dates: $('Loop Over Items').first().json.recurring_dates,\n        recurring_type: $('Loop Over Items').first().json.recurring_type,\n        today: $input.first().json.date\n      },\n    },\n  ];\n}\n\nreturn [\n  {\n    json: {\n      isMatchedDay: false,\n    },\n  },\n];"
+        "jsCode": "// Function node\nconst currentDate = $input.first().json.date;\nconst itemDate = $('Loop Over Items').first().json.recurring_dates;\nconst itemIsActive = $('Loop Over Items').first().json.is_active;\n\nif (itemDate.trim().toString().includes(currentDate.toString().trim()) && itemIsActive) {\n  return [\n    {\n      json: {\n        isMatchedDay: true,\n        special_day_id: $('Loop Over Items').first().json.special_day_id,\n        email_title: $('Loop Over Items').first().json.email_title,\n        email_body: $('Loop Over Items').first().json.email_body,\n        email_signature: $('Loop Over Items').first().json.email_signature,\n        CC: $('Loop Over Items').first().json.CC,\n        BCC: $('Loop Over Items').first().json.BCC,\n        is_active: $('Loop Over Items').first().json.is_active,\n        is_recurring: $('Loop Over Items').first().json.is_recurring,\n        recurring_dates: $('Loop Over Items').first().json.recurring_dates,\n        recurring_type: $('Loop Over Items').first().json.recurring_type,\n        today: $input.first().json.date\n      },\n    },\n  ];\n}\n\nreturn [\n  {\n    json: {\n      isMatchedDay: false,\n      itemDate: itemDate,\n      currentDate: currentDate,\n    },\n  },\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -631,19 +642,6 @@
     },
     {
       "parameters": {
-        "jsCode": "// Function node\n\n// Burayı sen doldur: başka bir nodelen geliyorsa expression yapabilirsin\nlet newCampaignId = $('If').first().json.special_day_id || '12345';\nnewCampaignId = newCampaignId + \"-\" + $('If').first().json.today\n\nconst current = $('Loop Over Items1').first().json['Sent Recurring Campaign IDs'];\n\nlet updated;\n\nupdated = current + '#' + newCampaignId;\n\n// Bu node'dan dönen veri\nreturn [\n  {\n    json: {\n      'New Sent Campaign IDs': updated,\n    },\n  },\n];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1168,
-        -384
-      ],
-      "id": "6c3867b8-1457-48bc-8372-d2a2c4dca7ac",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
         "rule": {
           "interval": [
             {
@@ -668,10 +666,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1184,
-        -80
+        1232,
+        -64
       ],
-      "id": "953e64d3-35b0-4d91-89fc-3803a2223a82",
+      "id": "490c27ae-678c-4bf3-bbcc-be12cd67990c",
       "name": "Code in JavaScript1"
     },
     {
@@ -694,7 +692,7 @@
           "values": [
             {
               "lookupColumn": "special_day_id",
-              "lookupValue": "={{ $('If').item.json.special_day_id }}"
+              "lookupValue": "={{ $json.CampaignIDtoLOG }}"
             }
           ]
         },
@@ -703,11 +701,12 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        928,
-        -80
+        992,
+        -64
       ],
-      "id": "48fab2d3-c72c-43f8-93dc-8a57ce3848e7",
+      "id": "394bc0be-64ac-40a8-94a3-5ae8cb67ccd4",
       "name": "Get row(s) in sheet2",
+      "alwaysOutputData": true,
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "RcjOWSi017Oe0LYQ",
@@ -735,7 +734,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "special_day_id": "={{ $('If').item.json.special_day_id }}",
+            "special_day_id": "={{ $('CampaignID').item.json.CampaignIDtoLOG }}",
             "sent_count": "={{ $json.number }}",
             "sent_date": "={{ $('Today\\'s Date').item.json.date }}",
             "Field5": "={{ $('Get Special Day').item.json.Field5 }}",
@@ -941,10 +940,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        1424,
-        -80
+        1472,
+        -64
       ],
-      "id": "683e91d0-8583-4ae9-ae76-e0cfd90f8a38",
+      "id": "6c70fc76-6a7a-4b9d-9166-bf47f2bfe6ee",
       "name": "Append or update row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -952,6 +951,32 @@
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node\n\n// Burayı sen doldur: başka bir nodelen geliyorsa expression yapabilirsin\nlet newCampaignId = $('If').first().json.special_day_id || '12345';\nnewCampaignId = newCampaignId + \"-\" + $('If').first().json.today\n\nconst current = $('Loop Over Items1').first().json['Sent Recurring Campaign IDs'];\n\nlet updated;\n\nupdated = current + '#' + newCampaignId;\n\n// Bu node'dan dönen veri\nreturn [\n  {\n    json: {\n      'New Sent Campaign IDs': updated,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        -384
+      ],
+      "id": "6c3867b8-1457-48bc-8372-d2a2c4dca7ac",
+      "name": "New Sent CampaignID"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst today = $('Today\\'s Date').first().json.date;\nconst special_day_id = $('If').first().json.special_day_id;\nlet updated;\n\n\nupdated = special_day_id + '-' + today;\n\n// Bu node'dan dönen veri\nreturn [\n  {\n    json: {\n      'CampaignIDtoLOG': updated,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        -304
+      ],
+      "id": "04294079-fa95-4db9-9080-b74ceefceb94",
+      "name": "CampaignID"
     }
   ],
   "origin": "n8n",
@@ -979,6 +1004,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-10T10:53:03.000Z",
-  "versionId": "f51a1140-6bc7-4127-81de-949318ef9779"
+  "updatedAt": "2025-11-10T12:03:06.000Z",
+  "versionId": "f87873d9-5397-450f-a123-fd7bd5a0742b"
 }
