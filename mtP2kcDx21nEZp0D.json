@@ -5,18 +5,58 @@
       "main": [
         [
           {
-            "node": "Get row(s)",
+            "node": "If",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Get row(s)": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Select User Singe Generation",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Select User All Generations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select User All Generations": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select User Singe Generation": {
       "main": [
         [
           {
             "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
             "type": "main",
             "index": 0
           }
@@ -27,7 +67,9 @@
   "createdAt": "2025-10-24T15:05:50.105Z",
   "id": "mtP2kcDx21nEZp0D",
   "isArchived": false,
-  "meta": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
   "name": "bebo_get",
   "nodes": [
     {
@@ -40,8 +82,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        0
+        -416,
+        32
       ],
       "id": "5a034db9-27d3-4433-b137-c43eed770825",
       "name": "Webhook",
@@ -49,12 +91,13 @@
     },
     {
       "parameters": {
+        "respondWith": "allIncomingItems",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        416,
+        704,
         0
       ],
       "id": "dd144eac-126c-4b9e-87de-aa823bbbceab",
@@ -62,32 +105,195 @@
     },
     {
       "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "value": "PRcNVtQgwLmFJIJm",
-          "mode": "list",
-          "cachedResultName": "bebo_db",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/PRcNVtQgwLmFJIJm"
-        },
-        "matchType": "allConditions",
-        "filters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
           "conditions": [
             {
-              "keyName": "generation_id",
-              "keyValue": "={{ $json.body['generation-id'] }}"
+              "id": "1c5391b1-9fd7-4c12-9cb4-47817b07bf2f",
+              "leftValue": "={{ $json.body['generation-id'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "eb7e36cd-3149-4198-950f-391f487529c6",
+              "leftValue": "={{ $json.body['generation-id'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -208,
+        32
+      ],
+      "id": "cf3cf281-20be-42a0-bf9a-9c7e2618d40b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        928,
+        272
+      ],
+      "id": "06341273-978d-4a6b-a4f1-247566ec54ab",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "generated_image",
+          "mode": "list",
+          "cachedResultName": "generated_image"
+        },
+        "limit": 25,
+        "where": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Webhook').item.json.body.user_id }}"
             }
           ]
-        }
+        },
+        "options": {}
       },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
       "position": [
-        224,
-        0
+        288,
+        256
       ],
-      "id": "115b04ab-98e6-4b51-879b-36a822ef2c0d",
-      "name": "Get row(s)"
+      "id": "702ffed4-c6ab-488b-9544-dcc2025d81ed",
+      "name": "Select User All Generations",
+      "credentials": {
+        "postgres": {
+          "id": "FTyohjDEtaJCpf9r",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "generated_image",
+          "mode": "list",
+          "cachedResultName": "generated_image"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.body['generation-id'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        304,
+        32
+      ],
+      "id": "501bb443-fb19-464c-b945-ed86c3af8bfd",
+      "name": "Select User Singe Generation",
+      "credentials": {
+        "postgres": {
+          "id": "FTyohjDEtaJCpf9r",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a00dba2f-6b57-494b-9e06-d11892489a60",
+              "leftValue": "={{ $json.image_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "ea12a410-d7c3-4c66-be7e-85223e79d30a",
+              "leftValue": "={{ $json.image_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "3dabdf9e-e538-4ecc-b6fb-b2b944e59f7c",
+              "leftValue": "={{ $json.image_url }}",
+              "rightValue": "[null]",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        272
+      ],
+      "id": "6e4e608e-1e87-4374-8782-e144372adfb8",
+      "name": "Filter"
     }
   ],
   "origin": "n8n",
@@ -111,6 +317,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-11T13:09:50.000Z",
-  "versionId": "dffedf31-af61-48cb-80a3-a3df9fc9ba57"
+  "updatedAt": "2025-11-11T19:55:35.000Z",
+  "versionId": "8a5c125c-cbad-4a9b-8bae-ddb0a0d12b9d"
 }
