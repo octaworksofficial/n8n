@@ -45,7 +45,7 @@
       "main": [
         [
           {
-            "node": "Upload file",
+            "node": "HTTP Request",
             "type": "main",
             "index": 0
           }
@@ -74,22 +74,22 @@
         ]
       ]
     },
-    "Upload file": {
+    "Respond to Webhook1": {
       "main": [
         [
           {
-            "node": "Respond to Webhook1",
+            "node": "Update rows in a table",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Respond to Webhook1": {
+    "HTTP Request": {
       "main": [
         [
           {
-            "node": "Update row(s)",
+            "node": "Respond to Webhook1",
             "type": "main",
             "index": 0
           }
@@ -244,13 +244,13 @@
     {
       "parameters": {
         "respondWith": "text",
-        "responseBody": "={{ $json.webContentLink }}",
+        "responseBody": "={{ $json.data.image.url }}",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        3248,
+        3072,
         416
       ],
       "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
@@ -271,149 +271,136 @@
     },
     {
       "parameters": {
-        "name": "={{ $('Webhook2').item.json.body.generation_id }}",
-        "driveId": {
-          "__rl": true,
-          "mode": "list",
-          "value": "My Drive"
-        },
-        "folderId": {
-          "__rl": true,
-          "value": "1Jhxx9JGwr8J7Y4-wFcDKMxRjU0TQyXMU",
-          "mode": "list",
-          "cachedResultName": "bebo-images",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1Jhxx9JGwr8J7Y4-wFcDKMxRjU0TQyXMU"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleDrive",
-      "typeVersion": 3,
-      "position": [
-        2832,
-        416
-      ],
-      "id": "94a2ce8e-e883-4463-82da-5e1a961dbf20",
-      "name": "Upload file",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "R2sNOxwbWgfYC1yg",
-          "name": "Google Drive account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "operation": "update",
-        "dataTableId": {
+        "schema": {
           "__rl": true,
-          "value": "PRcNVtQgwLmFJIJm",
           "mode": "list",
-          "cachedResultName": "bebo_db",
-          "cachedResultUrl": "/projects/1jTilK588wM2KuJy/datatables/PRcNVtQgwLmFJIJm"
+          "value": "public"
         },
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "generation_id",
-              "keyValue": "={{ $('Webhook2').item.json.body.generation_id }}"
-            }
-          ]
+        "table": {
+          "__rl": true,
+          "value": "generated_image",
+          "mode": "list",
+          "cachedResultName": "generated_image"
         },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "generated_image_url": "={{ $('Upload file').item.json.webContentLink }}"
+            "id": "={{ $('Webhook2').item.json.body.generation_id }}",
+            "image_url": "={{ $json.data.image.url }}"
           },
-          "matchingColumns": [],
+          "matchingColumns": [
+            "id"
+          ],
           "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
             {
               "id": "user_id",
               "displayName": "user_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "chat_session_id",
+              "displayName": "chat_session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "generation_id",
+              "displayName": "generation_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_size_id",
+              "displayName": "product_size_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_frame_id",
+              "displayName": "product_frame_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "text_prompt",
+              "displayName": "text_prompt",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "improved_prompt",
+              "displayName": "improved_prompt",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
+              "canBeUsedToMatch": true,
               "removed": true
             },
             {
-              "id": "user_session_id",
-              "displayName": "user_session_id",
+              "id": "image_url",
+              "displayName": "image_url",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
-              "removed": true
+              "canBeUsedToMatch": true,
+              "removed": false
             },
             {
-              "id": "user_prompt",
-              "displayName": "user_prompt",
+              "id": "uploaded_image_url",
+              "displayName": "uploaded_image_url",
               "required": false,
               "defaultMatch": false,
               "display": true,
               "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "improved_user_prompt",
-              "displayName": "improved_user_prompt",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "credit_used",
-              "displayName": "credit_used",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "image_prompt_url",
-              "displayName": "image_prompt_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "image_prompt",
-              "displayName": "image_prompt",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "resolution",
-              "displayName": "resolution",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": true
-            },
-            {
-              "id": "quality",
-              "displayName": "quality",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
+              "canBeUsedToMatch": true,
               "removed": true
             },
             {
@@ -422,39 +409,57 @@
               "required": false,
               "defaultMatch": false,
               "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_generate_mode",
+              "displayName": "is_generate_mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
               "type": "boolean",
-              "readOnly": false,
+              "canBeUsedToMatch": true,
               "removed": true
             },
             {
-              "id": "reply_to_user",
-              "displayName": "reply_to_user",
+              "id": "credit_used",
+              "displayName": "credit_used",
               "required": false,
               "defaultMatch": false,
               "display": true,
-              "type": "string",
-              "readOnly": false,
+              "type": "number",
+              "canBeUsedToMatch": true,
               "removed": true
             },
             {
-              "id": "generation_id",
-              "displayName": "generation_id",
+              "id": "is_selected",
+              "displayName": "is_selected",
               "required": false,
               "defaultMatch": false,
               "display": true,
-              "type": "string",
-              "readOnly": false,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
               "removed": true
             },
             {
-              "id": "generated_image_url",
-              "displayName": "generated_image_url",
+              "id": "updated_at",
+              "displayName": "updated_at",
               "required": false,
               "defaultMatch": false,
               "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -462,14 +467,63 @@
         },
         "options": {}
       },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
       "position": [
-        3472,
+        3312,
         416
       ],
-      "id": "bdc6c3b5-2e56-457c-9986-6ab1724671fa",
-      "name": "Update row(s)"
+      "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
+      "name": "Update rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "FTyohjDEtaJCpf9r",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.imgbb.com/1/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "expiration",
+              "value": "600"
+            },
+            {
+              "name": "key",
+              "value": "7070f656649ac694eaf61d47a7f2d976"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2784,
+        416
+      ],
+      "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
+      "name": "HTTP Request"
     }
   ],
   "origin": "n8n",
@@ -493,6 +547,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-11T16:23:58.000Z",
-  "versionId": "60526b63-9dae-435a-81a8-4ce54d4d0f75"
+  "updatedAt": "2025-11-11T19:30:24.000Z",
+  "versionId": "b56430fd-47ff-4237-98b7-beb7961a41e4"
 }
