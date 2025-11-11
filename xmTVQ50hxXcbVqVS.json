@@ -78,7 +78,7 @@
         ],
         [
           {
-            "node": "Edit Fields2",
+            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -105,11 +105,6 @@
       "main": [
         [
           {
-            "node": "Start Image Generation",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Insert generation request",
             "type": "main",
             "index": 0
@@ -121,7 +116,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields2",
+            "node": "Respond to Webhook1",
             "type": "main",
             "index": 0
           }
@@ -130,14 +125,9 @@
     },
     "Respond to Webhook1": {
       "main": [
-        []
-      ]
-    },
-    "Edit Fields2": {
-      "main": [
         [
           {
-            "node": "Respond to Webhook1",
+            "node": "Start Image Generation",
             "type": "main",
             "index": 0
           }
@@ -199,7 +189,7 @@
         "text": "=User Prompt: {{ $json.body['text-prompt'] }}\nUser uploaded this image: {{ $json.body['image-prompt-url'] }}\nUser image generation intent: {{ $json.body['is-generate-mode'] }}",
         "hasOutputParser": true,
         "options": {
-          "systemMessage": "You are an AI visual assistant on birebiro.com.\nYou always return only one JSON object and nothing else.\nDo not include explanations, extra text, or formatting outside the JSON.\n\nDefault conversation language is Turkish, unless the user writes in another language.\n\nYour job is to understand if the user intends to create an image.\n\t•\tIf the user wants to generate an image, set user_generation_intent to true.\n\t•\tIf the user’s message contains enough information, create a clear, detailed English prompt and put it in improved_generation_prompt.\n\t•\tIf the message lacks details, ask for clarification in Turkish within reply_to_user, and set user_generation_intent to false.\n\t•\tIf the user is just chatting, set user_generation_intent to false and continue the conversation naturally in Turkish.\n\nOutput Format (always this exact structure):\n{\n  \"reply_to_user\": \"\",\n  \"user_generation_intent\": true,\n  \"improved_generation_prompt\": \"\"\n}\n\nRules:\n\t•\treply_to_user: always in Turkish unless user uses another language.\n\t•\tuser_generation_intent: true only if the user explicitly requests an image and provides enough detail.\n\t•\timproved_generation_prompt: a polished English image prompt (empty if intent is false).\n\t•\tWhen \"user_generation_intent\": true, always reply with a natural Turkish confirmation such as “Harika fikir! Hemen o görseli oluşturmaya başlıyorum 🎨” and similar reactions.\n\t•\tYou are used in a n8n flow and can handle uploaded images. So don't tell users that you can not function images. Just tell you are handling.\n\t•\tNever add or remove fields from this JSON.\n\t•\tNever include anything outside the JSON object.\n\t"
+          "systemMessage": "You are an AI visual assistant on birebiro.com.\nYou always return only one JSON object and nothing else.\nDo not include explanations, extra text, or formatting outside the JSON.\n\nDefault conversation language is Turkish, unless the user writes in another language.\n\nYour job is to understand if the user intends to create an image.\n\t•\tIf the user wants to generate an image, set user_generation_intent to true.\n\t•\tIf the user’s message contains enough information, create a clear, detailed English prompt and put it in improved_generation_prompt.\n\t•\tIf the message lacks details, ask for clarification in Turkish within reply_to_user, and set user_generation_intent to false.\n\t•\tIf the user is just chatting, and User image generation intent: is false, continue the conversation naturally in the users language.\n\nOutput Format (always this exact structure):\n{\n  \"reply_to_user\": \"\",\n  \"user_generation_intent\": true,\n  \"improved_generation_prompt\": \"\"\n}\n\nRules:\n\t•\treply_to_user: always in Turkish unless user uses another language.\n\t•\tuser_generation_intent: true only if the user explicitly requests an image and provides enough detail.\n\t•\timproved_generation_prompt: a polished English image prompt (empty if intent is false).\n\t•\tWhen \"User image generation intent\": true, always reply with a natural Turkish confirmation such as “Harika fikir! Hemen o görseli oluşturmaya başlıyorum 🎨” and similar reactions.\n\t•\tYou are used in a n8n flow and can handle uploaded images. So don't tell users that you can not function images. Just tell you are handling.\n\t•\tNever add or remove fields from this JSON.\n\t•\tNever include anything outside the JSON object.\n- IF user persist you to generate an image, but user image generation intent is false, tell user to activate image generation button on the right corner of the page and tell you are currently in inspiration mode.\n\t"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -353,11 +343,7 @@
             },
             {
               "name": "generation_id",
-              "value": "={{ $json.randomNumber }}"
-            },
-            {
-              "name": "generation_id",
-              "value": "={{ $json.combinedID }}"
+              "value": "={{ $json.id }}"
             }
           ]
         },
@@ -366,8 +352,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        1776,
-        -432
+        2288,
+        -368
       ],
       "id": "6df8fe1c-82a7-43d4-8ad9-48ce4324e247",
       "name": "Start Image Generation"
@@ -388,14 +374,14 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={\n  \"myField\": \"{{ $('AI Agent').item.json.output.reply_to_user }}\"\n} ",
+        "responseBody": "={\n  \"reply_to_user\": \"{{ $('AI Agent').item.json.output.reply_to_user }}\",\n  \"image_generation\": true,\n  \"generation_id\": \"{{ $json.id }}\"\n} ",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        2448,
-        48
+        2048,
+        -128
       ],
       "id": "cb2d19a5-9295-459e-b2f8-c448d202168c",
       "name": "Respond to Webhook1"
@@ -426,10 +412,9 @@
             "uploaded_image_url": "={{ $('Webhook').item.json.body['image-prompt-url'] }}",
             "generation_id": "={{ $json.combinedID }}",
             "user_id": "={{ $('Webhook').item.json.body['user-id'] }}",
-            "product_frame_id": "={{ $('Webhook').item.json.body['frame-slug'] }}",
-            "product_size_id": "={{ $('Webhook').item.json.body['size-slug'] }}",
-            "product_id": "={{ $('Webhook').item.json.body['product-slug'] }}",
-            "id": 0
+            "product_frame_id": "={{ $('Webhook').item.json.body['product-frame-id'] }}",
+            "product_size_id": "={{ $('Webhook').item.json.body['product-size-id'] }}",
+            "product_id": "={{ $('Webhook').item.json.body['product-id'] }}"
           },
           "matchingColumns": [
             "id"
@@ -443,7 +428,7 @@
               "display": true,
               "type": "number",
               "canBeUsedToMatch": true,
-              "removed": false
+              "removed": true
             },
             {
               "id": "user_id",
@@ -616,26 +601,18 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "e5301c44-0909-49e4-92d8-ee55337a26f9",
-              "name": "reply_to_user",
-              "value": "={{ $json.output.reply_to_user }}",
-              "type": "string"
-            }
-          ]
-        },
+        "respondWith": "json",
+        "responseBody": "={\n  \"reply_to_user\": \"{{ $('AI Agent').item.json.output.reply_to_user }}\",\n  \"image_generation\": false,\n  \"generation_id\": \"\"\n} ",
         "options": {}
       },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
       "position": [
-        2160,
+        2048,
         48
       ],
-      "id": "17402269-3750-411a-9978-e8311dbf8683",
-      "name": "Edit Fields2"
+      "id": "4c1f0407-e671-4516-82d2-909003351a67",
+      "name": "Respond to Webhook"
     }
   ],
   "origin": "n8n",
@@ -659,6 +636,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-11T16:55:25.000Z",
-  "versionId": "f79230f5-8066-4b59-8176-05e83ab26b7f"
+  "updatedAt": "2025-11-11T18:06:00.000Z",
+  "versionId": "3ce37d4b-a7b7-4247-a173-07ae7aacf2d1"
 }
