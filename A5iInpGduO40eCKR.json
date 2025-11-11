@@ -1,0 +1,132 @@
+{
+  "active": true,
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-11T20:06:28.307Z",
+  "id": "A5iInpGduO40eCKR",
+  "isArchived": false,
+  "meta": null,
+  "name": "bebo-upload-image",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "upload-image",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f61d6e4c-743d-4f42-85f1-fb294e506573",
+      "name": "Webhook",
+      "webhookId": "d585d44a-fb18-4069-b8f9-4729c5140fec"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"image_url\": \"{{ $json.data.image.url }}\",\n  \"thumb_url\": \"{{ $json.data.thumb.url }}\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        544,
+        0
+      ],
+      "id": "b380fb3a-8977-4856-9f6d-09a3689151de",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.imgbb.com/1/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "expiration",
+              "value": "600"
+            },
+            {
+              "name": "key",
+              "value": "7070f656649ac694eaf61d47a7f2d976"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "image"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        256,
+        0
+      ],
+      "id": "67a1d9fc-6785-40e4-93c3-e0c43c7299ca",
+      "name": "HTTP Request"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "octaworksofficial",
+    "name": "n8n"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-11-11T20:06:28.315Z",
+      "updatedAt": "2025-11-11T20:06:28.315Z",
+      "role": "workflow:owner",
+      "workflowId": "A5iInpGduO40eCKR",
+      "projectId": "1jTilK588wM2KuJy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-11T20:47:35.000Z",
+  "versionId": "3b0b13c7-5502-4870-8216-05f76cf5e086"
+}
