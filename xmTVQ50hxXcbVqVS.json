@@ -180,7 +180,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=User Prompt: {{ $json.body['text-prompt'] }}\nUser uploaded this image: {{ $json.body['image-prompt-url'] }}",
+        "text": "=User Prompt: {{ $json.body['text-prompt'] }}\nUser uploaded this image: {{ $json.body['image-prompt-url'] }}\nUser image generation intent: {{ $json.body['is-generate-mode'] }}",
         "hasOutputParser": true,
         "options": {
           "systemMessage": "You are an AI visual assistant on birebiro.com.\nYou always return only one JSON object and nothing else.\nDo not include explanations, extra text, or formatting outside the JSON.\n\nDefault conversation language is Turkish, unless the user writes in another language.\n\nYour job is to understand if the user intends to create an image.\n\t•\tIf the user wants to generate an image, set user_generation_intent to true.\n\t•\tIf the user’s message contains enough information, create a clear, detailed English prompt and put it in improved_generation_prompt.\n\t•\tIf the message lacks details, ask for clarification in Turkish within reply_to_user, and set user_generation_intent to false.\n\t•\tIf the user is just chatting, set user_generation_intent to false and continue the conversation naturally in Turkish.\n\nOutput Format (always this exact structure):\n{\n  \"reply_to_user\": \"\",\n  \"user_generation_intent\": true,\n  \"improved_generation_prompt\": \"\"\n}\n\nRules:\n\t•\treply_to_user: always in Turkish unless user uses another language.\n\t•\tuser_generation_intent: true only if the user explicitly requests an image and provides enough detail.\n\t•\timproved_generation_prompt: a polished English image prompt (empty if intent is false).\n\t•\tWhen \"user_generation_intent\": true, always reply with a natural Turkish confirmation such as “Harika fikir! Hemen o görseli oluşturmaya başlıyorum 🎨” and similar reactions.\n\t•\tYou are used in a n8n flow and can handle uploaded images. So don't tell users that you can not function images. Just tell you are handling.\n\t•\tNever add or remove fields from this JSON.\n\t•\tNever include anything outside the JSON object.\n\t"
@@ -189,7 +189,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.2,
       "position": [
-        424,
+        432,
         32
       ],
       "id": "42b51885-a4dc-446b-bed4-2a4a59b769b8",
@@ -269,7 +269,7 @@
           "conditions": [
             {
               "id": "a578a99a-3192-4ee8-be0e-06e34c507447",
-              "leftValue": "={{ $('AI Agent').item.json.output.user_generation_intent }}",
+              "leftValue": "={{ $('Webhook').item.json.body['is-generate-mode'] }}",
               "rightValue": "true",
               "operator": {
                 "type": "boolean",
@@ -469,21 +469,6 @@
     },
     {
       "parameters": {
-        "path": "a1fc0ef4-c089-43f3-9cff-35780a581b18",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        -80,
-        400
-      ],
-      "id": "2e32854a-681d-4ad9-b742-2fb7da3e1d0a",
-      "name": "Webhook1",
-      "webhookId": "a1fc0ef4-c089-43f3-9cff-35780a581b18"
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "https://n8n-production-14b9.up.railway.app/webhook/start-image-generation",
         "sendBody": true,
@@ -581,7 +566,7 @@
   ],
   "staticData": null,
   "tags": [],
-  "triggerCount": 2,
-  "updatedAt": "2025-11-06T08:26:24.000Z",
-  "versionId": "0b57ba6e-4518-453e-9792-fe3ca9765588"
+  "triggerCount": 1,
+  "updatedAt": "2025-11-11T13:04:46.000Z",
+  "versionId": "9e413a09-51c7-4d94-b539-44f7d0bb8b92"
 }
