@@ -148,7 +148,7 @@
       "typeVersion": 1.8,
       "position": [
         2496,
-        408
+        416
       ],
       "id": "e383d961-af97-47a7-9197-fdf25d33792a",
       "name": "Generate an image",
@@ -165,7 +165,7 @@
       "typeVersion": 3.2,
       "position": [
         2048,
-        408
+        416
       ],
       "id": "f2a1b593-ca8a-4d20-bf63-e3819da2c561",
       "name": "Merge"
@@ -176,7 +176,7 @@
           "options": {
             "caseSensitive": true,
             "leftValue": "",
-            "typeValidation": "strict",
+            "typeValidation": "loose",
             "version": 2
           },
           "conditions": [
@@ -189,17 +189,37 @@
                 "operation": "true",
                 "singleValue": true
               }
+            },
+            {
+              "id": "0ee20498-3ac9-4a0a-a4c5-f91185cd8414",
+              "leftValue": "={{ $json.body.image_prompt }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "faeaaa9e-771b-4c5c-87bb-db3c775df597",
+              "leftValue": "={{ $json.body.image_prompt }}",
+              "rightValue": "http",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
             }
           ],
           "combinator": "and"
         },
+        "looseTypeValidation": true,
         "options": {}
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
         1600,
-        408
+        416
       ],
       "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
       "name": "If1"
@@ -215,7 +235,7 @@
       "typeVersion": 2.1,
       "position": [
         1376,
-        408
+        416
       ],
       "id": "74809296-8485-42b4-a29f-4a2296d41600",
       "name": "Webhook2",
@@ -230,8 +250,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        2944,
-        408
+        3248,
+        416
       ],
       "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
       "name": "Respond to Webhook1"
@@ -244,7 +264,7 @@
       "typeVersion": 2,
       "position": [
         2272,
-        408
+        416
       ],
       "id": "aa812fbc-3062-473e-8f45-fff6ab4312ee",
       "name": "Code in JavaScript"
@@ -269,8 +289,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        2720,
-        408
+        2832,
+        416
       ],
       "id": "94a2ce8e-e883-4463-82da-5e1a961dbf20",
       "name": "Upload file",
@@ -445,8 +465,8 @@
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
       "position": [
-        3168,
-        408
+        3472,
+        416
       ],
       "id": "bdc6c3b5-2e56-457c-9986-6ab1724671fa",
       "name": "Update row(s)"
@@ -473,6 +493,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-06T08:26:26.000Z",
-  "versionId": "9f18fdce-4487-4e3a-b37b-09d374408ca8"
+  "updatedAt": "2025-11-11T16:23:58.000Z",
+  "versionId": "60526b63-9dae-435a-81a8-4ce54d4d0f75"
 }
