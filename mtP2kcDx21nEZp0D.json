@@ -32,6 +32,7 @@
   "nodes": [
     {
       "parameters": {
+        "httpMethod": "POST",
         "path": "getGeneratedImage",
         "responseMode": "responseNode",
         "options": {}
@@ -74,7 +75,7 @@
           "conditions": [
             {
               "keyName": "generation_id",
-              "keyValue": "={{ $json.body.generation_id }}"
+              "keyValue": "={{ $json.body['generation-id'] }}"
             }
           ]
         }
@@ -110,6 +111,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-06T08:26:22.000Z",
-  "versionId": "f98df6ad-d603-4e61-9627-0fb1057fd7b6"
+  "updatedAt": "2025-11-11T13:09:50.000Z",
+  "versionId": "dffedf31-af61-48cb-80a3-a3df9fc9ba57"
 }
