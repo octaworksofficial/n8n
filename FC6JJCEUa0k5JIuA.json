@@ -192,7 +192,7 @@
             },
             {
               "id": "0ee20498-3ac9-4a0a-a4c5-f91185cd8414",
-              "leftValue": "={{ $json.body.image_prompt }}",
+              "leftValue": "={{ $json.body.image_prompt_url }}",
               "rightValue": "",
               "operator": {
                 "type": "string",
@@ -202,11 +202,12 @@
             },
             {
               "id": "faeaaa9e-771b-4c5c-87bb-db3c775df597",
-              "leftValue": "={{ $json.body.image_prompt }}",
+              "leftValue": "={{ $json.body.image_prompt_url }}",
               "rightValue": "http",
               "operator": {
                 "type": "string",
-                "operation": "contains"
+                "operation": "exists",
+                "singleValue": true
               }
             }
           ],
@@ -547,6 +548,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-11T19:30:24.000Z",
-  "versionId": "b56430fd-47ff-4237-98b7-beb7961a41e4"
+  "updatedAt": "2025-11-11T20:51:10.000Z",
+  "versionId": "f6b3cf5d-9ecb-4523-a826-de1572449350"
 }
