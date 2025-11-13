@@ -491,10 +491,6 @@
         "queryParameters": {
           "parameters": [
             {
-              "name": "expiration",
-              "value": "600"
-            },
-            {
               "name": "key",
               "value": "7070f656649ac694eaf61d47a7f2d976"
             }
@@ -548,6 +544,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-11T20:51:10.000Z",
-  "versionId": "f6b3cf5d-9ecb-4523-a826-de1572449350"
+  "updatedAt": "2025-11-13T08:44:52.000Z",
+  "versionId": "ba10e4db-4f12-4baa-9054-27cd7ad5750d"
 }
