@@ -395,6 +395,39 @@
           }
         ]
       ]
+    },
+    "Get Emails1": {
+      "main": [
+        [
+          {
+            "node": "Filter with email exists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Filtered Audience": {
+      "main": [
+        [
+          {
+            "node": "Get Emails1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter with email exists": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-11-03T06:28:11.840Z",
@@ -2111,6 +2144,129 @@
       ],
       "id": "87004230-2f92-45fa-8481-ffeceb8b748f",
       "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "filtered-audience",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1520,
+        1088
+      ],
+      "id": "0ff7fa30-cc0b-420c-8630-378617257d85",
+      "name": "Get Filtered Audience",
+      "webhookId": "8a707d25-8e10-487f-827c-c0ff5528a6c0"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI",
+          "mode": "list",
+          "cachedResultName": "customer-base-special-day",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "main",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Field1",
+              "lookupValue": "={{ $json.body.Field1 }}"
+            },
+            {
+              "lookupColumn": "Field2",
+              "lookupValue": "={{ $json.body.Field2 }}"
+            },
+            {
+              "lookupColumn": "Field3",
+              "lookupValue": "={{ $json.body.Field3 }}"
+            },
+            {
+              "lookupColumn": "Field4",
+              "lookupValue": "={{ $json.body.Field4 }}"
+            },
+            {
+              "lookupColumn": "Field5",
+              "lookupValue": "={{ $json.body.Field5 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1296,
+        1088
+      ],
+      "id": "487a2d39-e943-4eb8-b9aa-e0ceda1701bc",
+      "name": "Get Emails1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "RcjOWSi017Oe0LYQ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        -880,
+        1088
+      ],
+      "id": "ae9bef43-d682-41a0-a220-3abb9cc53023",
+      "name": "Respond to Webhook5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8ef4b581-b8a6-433e-85c8-488dc0d993f5",
+              "leftValue": "={{ $json['Email Address '] }}",
+              "rightValue": "=",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -1088,
+        1088
+      ],
+      "id": "a91a2cb5-d28c-4e02-a967-2d4fea2e5e2b",
+      "name": "Filter with email exists"
     }
   ],
   "origin": "n8n",
@@ -2137,7 +2293,7 @@
     }
   },
   "tags": [],
-  "triggerCount": 6,
-  "updatedAt": "2025-11-10T14:31:45.000Z",
-  "versionId": "2b7ffe57-52c9-4d61-9284-ae2aa04eba81"
+  "triggerCount": 7,
+  "updatedAt": "2025-11-13T10:41:02.000Z",
+  "versionId": "9aad5967-11a1-44ef-a0a3-17f548a767b2"
 }
