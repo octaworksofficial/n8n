@@ -66,18 +66,7 @@
       "main": [
         [
           {
-            "node": "Filter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "Loop Over Items1",
+            "node": "Filter with email exists & conditions1",
             "type": "main",
             "index": 0
           }
@@ -400,7 +389,7 @@
       "main": [
         [
           {
-            "node": "Filter with email exists",
+            "node": "Filter",
             "type": "main",
             "index": 0
           }
@@ -418,11 +407,11 @@
         ]
       ]
     },
-    "Filter with email exists": {
+    "Filter with email exists & conditions1": {
       "main": [
         [
           {
-            "node": "Respond to Webhook5",
+            "node": "Loop Over Items1",
             "type": "main",
             "index": 0
           }
@@ -610,40 +599,6 @@
           "name": "Google Sheets account"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "8ef4b581-b8a6-433e-85c8-488dc0d993f5",
-              "leftValue": "={{ $json['Sent Campaign IDs'] }}",
-              "rightValue": "={{ $('If').item.json.special_day_id }}",
-              "operator": {
-                "type": "string",
-                "operation": "notContains"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "looseTypeValidation": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2.2,
-      "position": [
-        48,
-        -320
-      ],
-      "id": "6e210662-a567-446f-9c32-9995bb25e2f7",
-      "name": "Filter"
     },
     {
       "parameters": {
@@ -2178,36 +2133,12 @@
           "cachedResultName": "main",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ec_vpDTgdcZqVfqp6fBseSXPEv83VZu5x6gcaudEDaI/edit#gid=0"
         },
-        "filtersUI": {
-          "values": [
-            {
-              "lookupColumn": "Field1",
-              "lookupValue": "={{ $json.body.Field1 }}"
-            },
-            {
-              "lookupColumn": "Field2",
-              "lookupValue": "={{ $json.body.Field2 }}"
-            },
-            {
-              "lookupColumn": "Field3",
-              "lookupValue": "={{ $json.body.Field3 }}"
-            },
-            {
-              "lookupColumn": "Field4",
-              "lookupValue": "={{ $json.body.Field4 }}"
-            },
-            {
-              "lookupColumn": "Field5",
-              "lookupValue": "={{ $json.body.Field5 }}"
-            }
-          ]
-        },
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -1296,
+        -1248,
         1088
       ],
       "id": "487a2d39-e943-4eb8-b9aa-e0ceda1701bc",
@@ -2227,8 +2158,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        -880,
-        1088
+        -320,
+        1008
       ],
       "id": "ae9bef43-d682-41a0-a220-3abb9cc53023",
       "name": "Respond to Webhook5"
@@ -2252,6 +2183,55 @@
                 "operation": "notEmpty",
                 "singleValue": true
               }
+            },
+            {
+              "id": "1f916fb1-8f12-46df-9e7b-223bc5e66a85",
+              "leftValue": "={{ $('Get Filtered Audience').item.json.body.Field1.trim() }}",
+              "rightValue": "={{ $json.Field1.trim() }}",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            },
+            {
+              "id": "69c06f45-0866-40ae-ae7f-58d01eb85690",
+              "leftValue": "={{ $('Get Filtered Audience').item.json.body.Field2.trim() }}",
+              "rightValue": "={{ $json.Field2.trim() }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "6d0eed6d-57bc-4c1f-8f83-5e6aa3ddc87f",
+              "leftValue": "={{ $('Get Filtered Audience').item.json.body.Field3.trim() }}",
+              "rightValue": "={{ $json.Field3.trim() }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "18db633e-2def-4556-8a5c-a83352e69e2c",
+              "leftValue": "={{ $('Get Filtered Audience').item.json.body.Field4.trim() }}",
+              "rightValue": "={{ $json.Field4.trim() }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "37baeecb-a9eb-465e-be40-f4c5d5fcc662",
+              "leftValue": "={{ $('Get Filtered Audience').item.json.body.Field5.trim() }}",
+              "rightValue": "={{ $json.Field5.trim() }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
           "combinator": "and"
@@ -2262,11 +2242,45 @@
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2.2,
       "position": [
-        -1088,
+        48,
+        -320
+      ],
+      "id": "93db9ba5-cb05-4655-aae8-c3cdd79cb4c5",
+      "name": "Filter with email exists & conditions1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "8f5e52f5-75fd-46a3-b145-4663dfcb217a",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        -512,
         1088
       ],
-      "id": "a91a2cb5-d28c-4e02-a967-2d4fea2e5e2b",
-      "name": "Filter with email exists"
+      "id": "423b189d-5f6a-4ffe-8126-9e21324e10ad",
+      "name": "Filter"
     }
   ],
   "origin": "n8n",
@@ -2294,6 +2308,6 @@
   },
   "tags": [],
   "triggerCount": 7,
-  "updatedAt": "2025-11-13T10:41:02.000Z",
-  "versionId": "9aad5967-11a1-44ef-a0a3-17f548a767b2"
+  "updatedAt": "2025-11-13T12:47:21.000Z",
+  "versionId": "676a200d-f5b7-472b-975a-90b85d8207fa"
 }
