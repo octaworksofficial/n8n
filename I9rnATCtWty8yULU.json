@@ -1,17 +1,6 @@
 {
   "active": true,
   "connections": {
-    "HTML": {
-      "main": [
-        [
-          {
-            "node": "Send a message",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "HTML1": {
       "main": [
         [
@@ -55,6 +44,17 @@
           }
         ]
       ]
+    },
+    "HTML": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-11-16T20:50:14.855Z",
@@ -67,25 +67,12 @@
   "nodes": [
     {
       "parameters": {
-        "html": "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>birebiro - Siparişiniz alındı</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <style>\n    body {\n      margin: 0;\n      padding: 0;\n      background-color: #f5f5f7;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif;\n      color: #222222;\n    }\n\n    .wrapper {\n      width: 100%;\n      background-color: #f5f5f7;\n      padding: 20px 0;\n    }\n\n    .container {\n      max-width: 600px;\n      margin: 0 auto;\n      background-color: #ffffff;\n      border-radius: 12px;\n      overflow: hidden;\n      border: 1px solid #e5e5ea;\n    }\n\n    .header {\n      background: #111827;\n      color: #ffffff;\n      padding: 24px 32px;\n      text-align: left;\n    }\n\n    .logo {\n      font-size: 24px;\n      font-weight: 700;\n      letter-spacing: 0.5px;\n    }\n\n    .tagline {\n      font-size: 13px;\n      margin-top: 4px;\n      opacity: 0.85;\n    }\n\n    .hero {\n      padding: 24px 32px 16px 32px;\n    }\n\n    .hero-title {\n      font-size: 20px;\n      font-weight: 700;\n      margin: 0 0 8px 0;\n      color: #111827;\n    }\n\n    .hero-subtitle {\n      font-size: 14px;\n      line-height: 1.6;\n      margin: 0;\n      color: #4b5563;\n    }\n\n    .section {\n      padding: 16px 32px;\n      font-size: 14px;\n      line-height: 1.6;\n    }\n\n    .section-title {\n      font-weight: 600;\n      font-size: 15px;\n      margin-bottom: 8px;\n      color: #111827;\n    }\n\n    .order-info-table {\n      width: 100%;\n      border-collapse: collapse;\n      margin-top: 8px;\n    }\n\n    .order-info-table td {\n      padding: 4px 0;\n      font-size: 13px;\n      color: #4b5563;\n    }\n\n    .order-info-table td.label {\n      width: 35%;\n      font-weight: 600;\n      color: #111827;\n    }\n\n    .summary-box {\n      margin-top: 12px;\n      padding: 12px;\n      background-color: #f9fafb;\n      border-radius: 8px;\n      border: 1px solid #e5e7eb;\n    }\n\n    .summary-row {\n      display: flex;\n      justify-content: space-between;\n      font-size: 13px;\n      margin-bottom: 4px;\n    }\n\n    .summary-row.total {\n      font-weight: 700;\n      margin-top: 6px;\n      border-top: 1px solid #e5e7eb;\n      padding-top: 6px;\n    }\n\n    .items-table {\n      width: 100%;\n      border-collapse: collapse;\n      margin-top: 8px;\n      font-size: 13px;\n    }\n\n    .items-table th,\n    .items-table td {\n      text-align: left;\n      padding: 8px 0;\n      border-bottom: 1px solid #f3f4f6;\n    }\n\n    .items-table th {\n      font-size: 12px;\n      color: #6b7280;\n      font-weight: 600;\n    }\n\n    .art-preview {\n      margin-top: 12px;\n      text-align: center;\n    }\n\n    .art-preview img {\n      max-width: 100%;\n      border-radius: 10px;\n      border: 1px solid #e5e7eb;\n    }\n\n    .cta {\n      padding: 8px 32px 16px 32px;\n      text-align: center; /* BUTON ORTADA */\n    }\n\n    .cta-button {\n      display: inline-block;\n      padding: 10px 20px;\n      background-color: #111827;\n      color: #ffffff !important;\n      text-decoration: none;\n      border-radius: 999px;\n      font-size: 13px;\n      font-weight: 600;\n    }\n\n    .note {\n      font-size: 11px;\n      color: #6b7280;\n      margin-top: 8px;\n      text-align: left; /* Açıklama metni sola hizalı */\n    }\n\n    /* QR kod bölümü */\n    .qr-section {\n      padding: 0 32px 24px 32px;\n      text-align: center;\n    }\n\n    .qr-title {\n      font-size: 14px;\n      font-weight: 600;\n      color: #111827;\n      margin-bottom: 4px;\n    }\n\n    .qr-description {\n      font-size: 12px;\n      color: #6b7280;\n      margin: 0 0 8px 0;\n    }\n\n    .qr-section img {\n      width: 140px;\n      height: 140px;\n      max-width: 100%;\n      border-radius: 12px;\n      border: 1px solid #e5e7eb;\n      display: block;\n      margin: 0 auto;\n    }\n\n    .qr-note {\n      font-size: 11px;\n      color: #9ca3af;\n      margin-top: 6px;\n    }\n\n    .footer {\n      text-align: center;\n      font-size: 11px;\n      color: #9ca3af;\n      padding: 16px;\n    }\n\n    .footer a {\n      color: #6b7280;\n      text-decoration: underline;\n    }\n\n    @media (max-width: 600px) {\n      .container {\n        border-radius: 0;\n      }\n      .header,\n      .hero,\n      .section,\n      .cta,\n      .qr-section {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"wrapper\">\n    <div class=\"container\">\n      <!-- Header -->\n      <div class=\"header\">\n        <div class=\"logo\">birebiro</div>\n        <div class=\"tagline\">Kendi sanat eserini evine taşı.</div>\n      </div>\n\n      <!-- Hero -->\n      <div class=\"hero\">\n        <h1 class=\"hero-title\">Siparişiniz alındı, {{$json.body.variables.customer_first_name}} 🎉</h1>\n        <p class=\"hero-subtitle\">\n          birebiro’da oluşturduğunuz tasarımı fiziksel bir ürüne dönüştürme adımını başarıyla tamamladınız.\n          Siparişinizin detaylarını aşağıda bulabilirsiniz. Ürününüz hazır olduğunda size yeniden haber vereceğiz.\n        </p>\n      </div>\n\n      <!-- Order Info -->\n      <div class=\"section\">\n        <div class=\"section-title\">Sipariş Özeti</div>\n        <table class=\"order-info-table\">\n          <tr>\n            <td class=\"label\">Sipariş numarası</td>\n            <td>#{{$json.body.variables.order_number}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Sipariş tarihi</td>\n            <td>{{$json.body.variables.order_date}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Ödeme durumu</td>\n            <td>{{$json.body.variables.payment_status}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Teslimat tipi</td>\n            <td>{{$json.body.variables.shipping_method}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Teslimat adresi</td>\n            <td>{{$json.body.variables.shipping_address}}</td>\n          </tr>\n        </table>\n\n        <div class=\"summary-box\">\n          <div class=\"summary-row\">\n            <span>Ürün ara toplamı</span>\n            <span>{{$json.body.variables.subtotal_amount}}</span>\n          </div>\n          <div class=\"summary-row\">\n            <span>Kargo</span>\n            <span>{{$json.body.variables.shipping_amount}}</span>\n          </div>\n          <div class=\"summary-row\">\n            <span>Vergiler</span>\n            <span>{{$json.body.variables.total_amount}}</span>\n          </div>\n          <div class=\"summary-row total\">\n            <span>Toplam</span>\n            <span>{{$json.body.variables.total_amount}}</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Items -->\n      <div class=\"section\">\n        <div class=\"section-title\">Siparişinizdeki ürünler</div>\n        <table class=\"items-table\">\n          <thead>\n            <tr>\n              <th>Ürün</th>\n              <th>Boyut / Seçenek</th>\n              <th>Adet</th>\n              <th>Toplam</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>{{$json.body.variables.item_product_name}}</td>\n              <td>{{$json.body.variables.item_variant_name}}</td>\n              <td>{{$json.body.variables.item_quantity}}</td>\n              <td>{{$json.body.variables.item_line_total}}</td>\n            </tr>\n          </tbody>\n        </table>\n\n        <div class=\"art-preview\">\n          <img src=\"{{{{ $json.body.variables.artwork_image_url }}}}\" alt=\"Tasarladığınız görselin önizlemesi\" />\n          <p style=\"font-size: 11px; color: #6b7280; margin-top: 6px;\">\n            Bu görsel, sipariş ettiğiniz ürünün baskısında kullanılacaktır.\n          </p>\n        </div>\n      </div>\n\n      <!-- CTA -->\n      <div class=\"cta\">\n        <a class=\"cta-button\" href=\"{{$json.body.variables.order_detail_url}}\" target=\"_blank\" rel=\"noopener\">\n          Sipariş detaylarını görüntüle\n        </a>\n        <p class=\"note\">\n          Üretim sürecinizde her adımda size e-posta ile bilgi vereceğiz. Herhangi bir sorunuz olursa\n          bu e-postayı yanıtlayabilir veya\n          <a href=\"{{ $json.body.variables.support_email }}\" style=\"color:#111827; text-decoration:underline;\">destek ekibimizle iletişime geçebilirsiniz</a>.\n        </p>\n      </div>\n\n      <!-- QR Kod Bölümü -->\n      <div class=\"qr-section\">\n        <p class=\"qr-title\">QR kod ile hızlı erişim</p>\n        <p class=\"qr-description\">\n          Aşağıdaki QR kodu telefonunuzun kamerasıyla okutarak sipariş sayfanıza direkt erişebilirsiniz.\n        </p>\n        <img src=\"{{ $json.body.variables.order_qr_image_url }}\" alt=\"Sipariş sayfanız için QR kodu\" />\n        <p class=\"qr-note\">\n          QR kod sizi doğrudan sipariş detay sayfanıza yönlendirecektir: {{$json.body.variables.order_date}}.\n        </p>\n      </div>\n\n      <!-- Footer -->\n      <div class=\"footer\">\n        Bu e-posta size birebiro üzerinden oluşturduğunuz bir sipariş hakkında gönderilmiştir.<br />\n        İletişim: <a href=\"mailto={{support_email}}\">{{$json.body.variables.support_email}}</a><br /><br />\n        birebiro © {{$json.body.variables.current_year}} – Her ev için biricik sanat.\n      </div>\n    </div>\n  </div>\n</body>\n</html>"
-      },
-      "type": "n8n-nodes-base.html",
-      "typeVersion": 1.2,
-      "position": [
-        208,
-        0
-      ],
-      "id": "1e88ca3a-05e0-4d79-bddc-088733e727b1",
-      "name": "HTML"
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        640,
+        848,
         0
       ],
       "id": "df41fb35-248a-4065-954a-d27fbdffa7bf",
@@ -96,8 +83,8 @@
       "type": "n8n-nodes-base.html",
       "typeVersion": 1.2,
       "position": [
-        208,
-        224
+        304,
+        240
       ],
       "id": "fdb647f8-28b5-4814-8bcf-be12542f130a",
       "name": "HTML1"
@@ -109,8 +96,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        624,
-        224
+        720,
+        240
       ],
       "id": "d076978e-6679-4593-88a2-c3df110d8f92",
       "name": "Respond to Webhook1"
@@ -125,7 +112,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -32,
+        96,
         0
       ],
       "id": "b081bb9e-eb9b-4759-b054-ea9b8ab5c79d",
@@ -135,15 +122,15 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "send-post-order-email",
+        "path": "send-order-shipped-email",
         "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        224
+        96,
+        240
       ],
       "id": "51155e2f-610a-4641-ada9-c3dacb8d4546",
       "name": "Order-Shipped",
@@ -155,13 +142,13 @@
         "subject": "={{ $('Post-Order').item.json.body.subject }}",
         "message": "={{ $json.html }}",
         "options": {
-          "bccList": "denizcanilgin@gmail.com"
+          "bccList": "denizcanilgin@gmail.com,birebiro@ozboyagroup.com,erdemozboya@gmail.com"
         }
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        416,
+        624,
         0
       ],
       "id": "5292dcdf-ed05-4bae-b7fc-6a58267c990c",
@@ -173,6 +160,19 @@
           "name": "Gmail account"
         }
       }
+    },
+    {
+      "parameters": {
+        "html": "<!DOCTYPE html>\n<html lang=\"tr\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>birebiro - Siparişiniz alındı</title>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <style>\n    body {\n      margin: 0;\n      padding: 0;\n      background-color: #f5f5f7;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Arial, sans-serif;\n      color: #222222;\n    }\n\n    .wrapper {\n      width: 100%;\n      background-color: #f5f5f7;\n      padding: 20px 0;\n    }\n\n    .container {\n      max-width: 600px;\n      margin: 0 auto;\n      background-color: #ffffff;\n      border-radius: 12px;\n      overflow: hidden;\n      border: 1px solid #e5e5ea;\n    }\n\n    .header {\n      background: #111827;\n      color: #ffffff;\n      padding: 24px 32px;\n      text-align: left;\n    }\n\n    .logo {\n      font-size: 24px;\n      font-weight: 700;\n      letter-spacing: 0.5px;\n    }\n\n    .tagline {\n      font-size: 13px;\n      margin-top: 4px;\n      opacity: 0.85;\n    }\n\n    .hero {\n      padding: 24px 32px 16px 32px;\n    }\n\n    .hero-title {\n      font-size: 20px;\n      font-weight: 700;\n      margin: 0 0 8px 0;\n      color: #111827;\n    }\n\n    .hero-subtitle {\n      font-size: 14px;\n      line-height: 1.6;\n      margin: 0;\n      color: #4b5563;\n    }\n\n    .section {\n      padding: 16px 32px;\n      font-size: 14px;\n      line-height: 1.6;\n    }\n\n    .section-title {\n      font-weight: 600;\n      font-size: 15px;\n      margin-bottom: 8px;\n      color: #111827;\n    }\n\n    .order-info-table {\n      width: 100%;\n      border-collapse: collapse;\n      margin-top: 8px;\n    }\n\n    .order-info-table td {\n      padding: 4px 0;\n      font-size: 13px;\n      color: #4b5563;\n    }\n\n    .order-info-table td.label {\n      width: 35%;\n      font-weight: 600;\n      color: #111827;\n    }\n\n    .summary-box {\n      margin-top: 12px;\n      padding: 12px;\n      background-color: #f9fafb;\n      border-radius: 8px;\n      border: 1px solid #e5e7eb;\n    }\n\n    .summary-row {\n      display: flex;\n      justify-content: space-between;\n      font-size: 13px;\n      margin-bottom: 4px;\n    }\n\n    .summary-row.total {\n      font-weight: 700;\n      margin-top: 6px;\n      border-top: 1px solid #e5e7eb;\n      padding-top: 6px;\n    }\n\n    .items-table {\n      width: 100%;\n      border-collapse: collapse;\n      margin-top: 8px;\n      font-size: 13px;\n    }\n\n    .items-table th,\n    .items-table td {\n      text-align: left;\n      padding: 8px 0;\n      border-bottom: 1px solid #f3f4f6;\n    }\n\n    .items-table th {\n      font-size: 12px;\n      color: #6b7280;\n      font-weight: 600;\n    }\n\n    .art-preview {\n      margin-top: 12px;\n      text-align: center;\n    }\n\n    .art-preview img {\n      max-width: 100%;\n      border-radius: 10px;\n      border: 1px solid #e5e7eb;\n    }\n\n    .cta {\n      padding: 8px 32px 16px 32px;\n      text-align: center; /* BUTON ORTADA */\n    }\n\n    .cta-button {\n      display: inline-block;\n      padding: 10px 20px;\n      background-color: #111827;\n      color: #ffffff !important;\n      text-decoration: none;\n      border-radius: 999px;\n      font-size: 13px;\n      font-weight: 600;\n    }\n\n    .note {\n      font-size: 11px;\n      color: #6b7280;\n      margin-top: 8px;\n      text-align: left; /* Açıklama metni sola hizalı */\n    }\n\n    /* QR kod bölümü */\n    .qr-section {\n      padding: 0 32px 24px 32px;\n      text-align: center;\n    }\n\n    .qr-title {\n      font-size: 14px;\n      font-weight: 600;\n      color: #111827;\n      margin-bottom: 4px;\n    }\n\n    .qr-description {\n      font-size: 12px;\n      color: #6b7280;\n      margin: 0 0 8px 0;\n    }\n\n    .qr-section img {\n      width: 140px;\n      height: 140px;\n      max-width: 100%;\n      border-radius: 12px;\n      border: 1px solid #e5e7eb;\n      display: block;\n      margin: 0 auto;\n    }\n\n    .qr-note {\n      font-size: 11px;\n      color: #9ca3af;\n      margin-top: 6px;\n    }\n\n    .footer {\n      text-align: center;\n      font-size: 11px;\n      color: #9ca3af;\n      padding: 16px;\n    }\n\n    .footer a {\n      color: #6b7280;\n      text-decoration: underline;\n    }\n\n    @media (max-width: 600px) {\n      .container {\n        border-radius: 0;\n      }\n      .header,\n      .hero,\n      .section,\n      .cta,\n      .qr-section {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n    }\n  </style>\n</head>\n<body>\n  <div class=\"wrapper\">\n    <div class=\"container\">\n      <!-- Header -->\n      <div class=\"header\">\n        <div class=\"logo\">birebiro</div>\n        <div class=\"tagline\">Kendi sanat eserini evine taşı.</div>\n      </div>\n\n      <!-- Hero -->\n      <div class=\"hero\">\n        <h1 class=\"hero-title\">Siparişiniz alındı, {{$json.body.variables.customer_first_name}} 🎉</h1>\n        <p class=\"hero-subtitle\">\n          birebiro’da oluşturduğunuz tasarımı fiziksel bir ürüne dönüştürme adımını başarıyla tamamladınız.\n          Siparişinizin detaylarını aşağıda bulabilirsiniz. Ürününüz hazır olduğunda size yeniden haber vereceğiz.\n        </p>\n      </div>\n\n      <!-- Order Info -->\n      <div class=\"section\">\n        <div class=\"section-title\">Sipariş Özeti</div>\n        <table class=\"order-info-table\">\n          <tr>\n            <td class=\"label\">Sipariş numarası</td>\n            <td>#{{$json.body.variables.order_number}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Sipariş tarihi</td>\n            <td>{{$json.body.variables.order_date}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Ödeme durumu</td>\n            <td>{{$json.body.variables.payment_status}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Teslimat tipi</td>\n            <td>{{$json.body.variables.shipping_method}}</td>\n          </tr>\n          <tr>\n            <td class=\"label\">Teslimat adresi</td>\n            <td>{{$json.body.variables.shipping_address}}</td>\n          </tr>\n        </table>\n\n        <div class=\"summary-box\">\n          <div class=\"summary-row\">\n            <span>Ürün ara toplamı</span>\n            <span>{{$json.body.variables.subtotal_amount}}</span>\n          </div>\n          <div class=\"summary-row\">\n            <span>Kargo</span>\n            <span>{{$json.body.variables.shipping_amount}}</span>\n          </div>\n          <div class=\"summary-row\">\n            <span>Vergiler</span>\n            <span>{{$json.body.variables.total_amount}}</span>\n          </div>\n          <div class=\"summary-row total\">\n            <span>Toplam</span>\n            <span>{{$json.body.variables.total_amount}}</span>\n          </div>\n        </div>\n      </div>\n\n      <!-- Items -->\n      <div class=\"section\">\n        <div class=\"section-title\">Siparişinizdeki ürünler</div>\n        <table class=\"items-table\">\n          <thead>\n            <tr>\n              <th>Ürün</th>\n              <th>Boyut / Seçenek</th>\n              <th>Adet</th>\n              <th>Toplam</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>{{$json.body.variables.item_product_name}}</td>\n              <td>{{$json.body.variables.item_variant_name}}</td>\n              <td>{{$json.body.variables.item_quantity}}</td>\n              <td>{{$json.body.variables.item_line_total}}</td>\n            </tr>\n          </tbody>\n        </table>\n\n        <div class=\"art-preview\">\n          <img src=\"{{ $json.body.variables.artwork_image_url }}\" alt=\"Tasarladığınız görselin önizlemesi\" />\n          <p style=\"font-size: 11px; color: #6b7280; margin-top: 6px;\">\n            Bu görsel, sipariş ettiğiniz ürünün baskısında kullanılacaktır.\n          </p>\n        </div>\n      </div>\n\n      <!-- CTA -->\n      <div class=\"cta\">\n        <a class=\"cta-button\" href=\"{{ $json.body.variables.order_detail_url }}\" target=\"_blank\" rel=\"noopener\">\n          Sipariş detaylarını görüntüle\n        </a>\n        <p class=\"note\">\n          Üretim sürecinizde her adımda size e-posta ile bilgi vereceğiz. Herhangi bir sorunuz olursa\n          bu e-postayı yanıtlayabilir veya\n          <a href=\"\" style=\"color:#111827; text-decoration:underline;\">destek ekibimizle iletişime geçebilirsiniz</a>.\n        </p>\n      </div>\n\n      <!-- QR Kod Bölümü -->\n      <div class=\"qr-section\">\n        <p class=\"qr-title\">QR kod ile hızlı erişim</p>\n        <p class=\"qr-description\">\n          Aşağıdaki QR kodu telefonunuzun kamerasıyla okutarak sipariş sayfanıza direkt erişebilirsiniz.\n        </p>\n        <img src=\"{{ $json.body.variables.order_qr_image_url }}\" alt=\"Sipariş sayfanız için QR kodu\" />\n        <p class=\"qr-note\">\n          QR kod sizi doğrudan sipariş detay sayfanıza yönlendirecektir: {{$json.body.variables.order_date}}.\n        </p>\n      </div>\n\n      <!-- Footer -->\n      <div class=\"footer\">\n        Bu e-posta size birebiro üzerinden oluşturduğunuz bir sipariş hakkında gönderilmiştir.<br />\n        İletişim: <a href=\"mailto={{support_email}}\">{{$json.body.variables.support_email}}</a><br /><br />\n        birebiro © {{$json.body.variables.current_year}} – Her ev için biricik sanat.\n      </div>\n    </div>\n  </div>\n</body>\n</html>"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        0
+      ],
+      "id": "1e88ca3a-05e0-4d79-bddc-088733e727b1",
+      "name": "HTML"
     }
   ],
   "origin": "n8n",
@@ -196,6 +196,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-11-16T22:56:49.000Z",
-  "versionId": "630a4714-a32e-4183-bdec-fb49d5bcf7eb"
+  "updatedAt": "2025-11-17T00:35:36.000Z",
+  "versionId": "ce384947-6624-4339-aac4-80b180c2c1a2"
 }
