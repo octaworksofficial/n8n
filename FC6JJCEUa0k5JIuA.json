@@ -49,6 +49,13 @@
             "type": "main",
             "index": 0
           }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
@@ -59,6 +66,11 @@
             "node": "If1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
           }
         ]
       ]
@@ -127,6 +139,7 @@
       ],
       "id": "479f479f-877e-42d6-904d-90fb5b71d644",
       "name": "Analyze image",
+      "alwaysOutputData": false,
       "credentials": {
         "openAiApi": {
           "id": "jWCgx5QEHfHSHOx7",
@@ -140,15 +153,15 @@
         "model": "gpt-image-1",
         "prompt": "={{ $json.result }}",
         "options": {
-          "quality": "={{ $('Webhook2').item.json.body.quality }}",
-          "size": "={{ $('Webhook2').item.json.body.resolution }}"
+          "quality": "low",
+          "size": "=1024x1024"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        2496,
-        416
+        2512,
+        432
       ],
       "id": "e383d961-af97-47a7-9197-fdf25d33792a",
       "name": "Generate an image",
@@ -157,15 +170,18 @@
           "id": "jWCgx5QEHfHSHOx7",
           "name": "OpenAI Account iletisim@ranblockgames.com"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "numberInputs": 3
+      },
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
         2048,
-        416
+        480
       ],
       "id": "f2a1b593-ca8a-4d20-bf63-e3819da2c561",
       "name": "Merge"
@@ -544,6 +560,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-13T08:44:52.000Z",
-  "versionId": "ba10e4db-4f12-4baa-9054-27cd7ad5750d"
+  "updatedAt": "2025-11-18T08:26:37.000Z",
+  "versionId": "4b33b6b3-ce2a-4138-b117-6faca6293abd"
 }
