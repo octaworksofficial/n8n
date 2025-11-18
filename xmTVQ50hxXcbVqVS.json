@@ -38,7 +38,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields1",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -51,17 +51,6 @@
           {
             "node": "AI Agent",
             "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields1": {
-      "main": [
-        [
-          {
-            "node": "If",
-            "type": "main",
             "index": 0
           }
         ]
@@ -205,9 +194,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-5-nano",
+          "value": "gpt-4o",
           "mode": "list",
-          "cachedResultName": "gpt-5-nano"
+          "cachedResultName": "gpt-4o"
         },
         "options": {
           "responseFormat": "text"
@@ -244,29 +233,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "9c0ab4e5-e2b2-4565-b06e-8188da5a1aff",
-              "name": "output",
-              "value": "={{ $json.output }} ",
-              "type": "object"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        832,
-        32
-      ],
-      "id": "3f36c316-7c50-4ab2-96f3-aa7ec14cd506",
-      "name": "Edit Fields1"
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "caseSensitive": true,
@@ -277,7 +243,7 @@
           "conditions": [
             {
               "id": "a578a99a-3192-4ee8-be0e-06e34c507447",
-              "leftValue": "={{ $('Webhook').item.json.body['is-generate-mode'] }}",
+              "leftValue": "={{ $json.output.user_generation_intent }}",
               "rightValue": "true",
               "operator": {
                 "type": "boolean",
@@ -293,7 +259,7 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        1056,
+        912,
         32
       ],
       "id": "6fc5ef1b-bef9-4172-be32-edb225fe3777",
@@ -618,54 +584,7 @@
     }
   ],
   "origin": "n8n",
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "n8n-production-14b9.up.railway.app",
-            "user-agent": "node",
-            "content-length": "412",
-            "accept": "*/*",
-            "accept-encoding": "br, gzip, deflate",
-            "accept-language": "*",
-            "content-type": "application/json",
-            "sec-fetch-mode": "cors",
-            "x-forwarded-for": "208.77.244.73",
-            "x-forwarded-host": "n8n-production-14b9.up.railway.app",
-            "x-forwarded-proto": "https",
-            "x-railway-edge": "railway/europe-west4-drams3a",
-            "x-railway-request-id": "3zXnWn2cRFqZd7Oj0-QtfA",
-            "x-real-ip": "208.77.244.73",
-            "x-request-start": "1763455592690"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "user-id": "user_35KE8gZDXTK8MyLneuFhVqrAS71",
-            "chat-session-id": "anonymous-wall-art-1763455588114",
-            "credit-used": 1,
-            "image-prompt": false,
-            "image-prompt-url": "",
-            "text-prompt": "naber nasılsın,",
-            "ai-model": "gpt1",
-            "is-generate-mode": false,
-            "resolution": "1024x1024",
-            "quality": "low",
-            "style": "",
-            "product-slug": "wall-art",
-            "size-slug": "small",
-            "frame-slug": "black",
-            "product-id": 7,
-            "product-size-id": 13,
-            "product-frame-id": 14
-          },
-          "webhookUrl": "https://n8n-production-14b9.up.railway.app/webhook/chat",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "repo": {
     "owner": "octaworksofficial",
     "name": "n8n"
@@ -685,6 +604,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-18T10:48:45.000Z",
-  "versionId": "62abb9be-9e99-4bb7-a512-b16fcb4b89a1"
+  "updatedAt": "2025-11-18T11:55:28.000Z",
+  "versionId": "6dd8757c-84e3-48e9-910c-3bf4ecf63398"
 }
