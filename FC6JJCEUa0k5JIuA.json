@@ -45,12 +45,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Edit Image",
+            "node": "Add Watermark",
             "type": "main",
             "index": 0
           }
@@ -106,6 +101,17 @@
           }
         ]
       ]
+    },
+    "Add Watermark": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-24T13:49:46.361Z",
@@ -151,13 +157,15 @@
         "resource": "image",
         "model": "gpt-image-1",
         "prompt": "={{ $json.result }}",
-        "options": {}
+        "options": {
+          "size": "1536x1024"
+        }
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        2512,
-        432
+        2496,
+        416
       ],
       "id": "e383d961-af97-47a7-9197-fdf25d33792a",
       "name": "Generate an image",
@@ -176,7 +184,7 @@
       "typeVersion": 3.2,
       "position": [
         2048,
-        480
+        400
       ],
       "id": "f2a1b593-ca8a-4d20-bf63-e3819da2c561",
       "name": "Merge"
@@ -231,7 +239,7 @@
       "typeVersion": 2.2,
       "position": [
         1600,
-        416
+        344
       ],
       "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
       "name": "If1"
@@ -262,7 +270,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        3072,
+        3168,
         416
       ],
       "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
@@ -482,7 +490,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        3312,
+        3392,
         416
       ],
       "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
@@ -527,31 +535,35 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2784,
-        288
+        2944,
+        416
       ],
       "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
       "name": "HTTP Request"
     },
     {
       "parameters": {
-        "operation": "text",
-        "text": "birebiro",
-        "fontSize": 136,
-        "fontColor": "#B4B4B4",
-        "positionX": 285,
-        "positionY": 750,
-        "lineLength": 250,
+        "operation": "multiStep",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text",
+              "text": "birebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com\nbirebiro.com birebiro.com",
+              "fontSize": 64,
+              "font": "/usr/share/fonts/truetype/msttcorefonts/Verdana_Italic.ttf"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2816,
-        576
+        2720,
+        416
       ],
-      "id": "5f119d1e-3319-48ae-92c8-cecb10fa1c94",
-      "name": "Edit Image"
+      "id": "eadfeeb9-8d22-4d7b-ab1c-1ce3a387bded",
+      "name": "Add Watermark"
     }
   ],
   "origin": "n8n",
@@ -575,6 +587,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-19T01:07:18.000Z",
-  "versionId": "3a6c723a-60d9-4871-b47f-06d83ecb83fe"
+  "updatedAt": "2025-11-19T16:33:45.000Z",
+  "versionId": "d652a264-7ae5-4260-881c-d695e3f925a7"
 }
