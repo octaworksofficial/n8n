@@ -48,15 +48,14 @@
             "node": "HTTP Request",
             "type": "main",
             "index": 0
-          }
-        ],
-        [
+          },
           {
-            "node": "Respond to Webhook1",
+            "node": "Edit Image",
             "type": "main",
             "index": 0
           }
-        ]
+        ],
+        []
       ]
     },
     "Webhook2": {
@@ -152,10 +151,7 @@
         "resource": "image",
         "model": "gpt-image-1",
         "prompt": "={{ $json.result }}",
-        "options": {
-          "quality": "low",
-          "size": "=1024x1024"
-        }
+        "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
@@ -170,8 +166,7 @@
           "id": "jWCgx5QEHfHSHOx7",
           "name": "OpenAI Account iletisim@ranblockgames.com"
         }
-      },
-      "onError": "continueErrorOutput"
+      }
     },
     {
       "parameters": {
@@ -303,7 +298,7 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "id": "={{ $('Webhook2').item.json.body.generation_id }}",
+            "id": "={{ $('Webhook2').first().json.body.generation_id }}",
             "image_url": "={{ $json.data.image.url }}"
           },
           "matchingColumns": [
@@ -533,10 +528,30 @@
       "typeVersion": 4.2,
       "position": [
         2784,
-        416
+        288
       ],
       "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
       "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "text": "birebiro",
+        "fontSize": 136,
+        "fontColor": "#B4B4B4",
+        "positionX": 285,
+        "positionY": 750,
+        "lineLength": 250,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        2816,
+        576
+      ],
+      "id": "5f119d1e-3319-48ae-92c8-cecb10fa1c94",
+      "name": "Edit Image"
     }
   ],
   "origin": "n8n",
@@ -560,6 +575,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-18T08:26:37.000Z",
-  "versionId": "4b33b6b3-ce2a-4138-b117-6faca6293abd"
+  "updatedAt": "2025-11-19T01:07:18.000Z",
+  "versionId": "3a6c723a-60d9-4871-b47f-06d83ecb83fe"
 }
