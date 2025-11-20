@@ -212,8 +212,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "jWCgx5QEHfHSHOx7",
-          "name": "OpenAI Account iletisim@ranblockgames.com"
+          "id": "vYrqMk8SXBQDctdA",
+          "name": "BireBiro-NEW"
         }
       }
     },
@@ -604,6 +604,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-18T11:55:28.000Z",
-  "versionId": "6dd8757c-84e3-48e9-910c-3bf4ecf63398"
+  "updatedAt": "2025-11-20T10:44:45.000Z",
+  "versionId": "b0619243-9444-4d8b-878d-5e8322f06429"
 }
