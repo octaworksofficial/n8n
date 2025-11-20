@@ -50,7 +50,13 @@
             "index": 0
           }
         ],
-        []
+        [
+          {
+            "node": "Generate an image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Webhook2": {
@@ -216,6 +222,17 @@
       "main": [
         []
       ]
+    },
+    "Generate an image1": {
+      "main": [
+        [
+          {
+            "node": "Add Watermark",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-10-24T13:49:46.361Z",
@@ -244,15 +261,15 @@
       "typeVersion": 1.8,
       "position": [
         1824,
-        272
+        -192
       ],
       "id": "479f479f-877e-42d6-904d-90fb5b71d644",
       "name": "Analyze image",
       "alwaysOutputData": false,
       "credentials": {
         "openAiApi": {
-          "id": "88TWvWVRDnIvBSWD",
-          "name": "Birebiro OpenAI"
+          "id": "vYrqMk8SXBQDctdA",
+          "name": "BireBiro-NEW"
         }
       }
     },
@@ -268,17 +285,18 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        2448,
-        416
+        2496,
+        -48
       ],
       "id": "e383d961-af97-47a7-9197-fdf25d33792a",
       "name": "Generate an image",
       "credentials": {
         "openAiApi": {
-          "id": "jWCgx5QEHfHSHOx7",
-          "name": "OpenAI Account iletisim@ranblockgames.com"
+          "id": "vYrqMk8SXBQDctdA",
+          "name": "BireBiro-NEW"
         }
-      }
+      },
+      "onError": "continueErrorOutput"
     },
     {
       "parameters": {
@@ -288,7 +306,7 @@
       "typeVersion": 3.2,
       "position": [
         2048,
-        400
+        -64
       ],
       "id": "f2a1b593-ca8a-4d20-bf63-e3819da2c561",
       "name": "Merge"
@@ -343,7 +361,7 @@
       "typeVersion": 2.2,
       "position": [
         1600,
-        352
+        -120
       ],
       "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
       "name": "If1"
@@ -359,7 +377,7 @@
       "typeVersion": 2.1,
       "position": [
         1376,
-        432
+        -48
       ],
       "id": "74809296-8485-42b4-a29f-4a2296d41600",
       "name": "Webhook2",
@@ -374,8 +392,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        3040,
-        416
+        3392,
+        -48
       ],
       "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
       "name": "Respond to Webhook1"
@@ -387,8 +405,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2224,
-        416
+        2272,
+        -48
       ],
       "id": "aa812fbc-3062-473e-8f45-fff6ab4312ee",
       "name": "Code in JavaScript"
@@ -594,8 +612,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        3264,
-        416
+        3616,
+        -48
       ],
       "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
       "name": "Update rows in a table",
@@ -639,8 +657,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        2848,
-        416
+        3168,
+        -48
       ],
       "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
       "name": "HTTP Request"
@@ -656,8 +674,8 @@
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2656,
-        416
+        2944,
+        -48
       ],
       "id": "eadfeeb9-8d22-4d7b-ab1c-1ce3a387bded",
       "name": "Add Watermark"
@@ -670,8 +688,8 @@
       "name": "Get Meta BG",
       "type": "n8n-nodes-base.editImage",
       "position": [
-        3152,
-        -608
+        1600,
+        -416
       ],
       "typeVersion": 1
     },
@@ -695,8 +713,8 @@
       "name": "Nest Top Meta",
       "type": "n8n-nodes-base.set",
       "position": [
-        3328,
-        -352
+        1824,
+        -608
       ],
       "typeVersion": 3.3
     },
@@ -720,8 +738,8 @@
       "name": "Nest Bg Meta",
       "type": "n8n-nodes-base.set",
       "position": [
-        3328,
-        -608
+        1824,
+        -416
       ],
       "typeVersion": 3.3
     },
@@ -734,8 +752,8 @@
       "name": "Calculate Center",
       "type": "n8n-nodes-base.code",
       "position": [
-        4128,
-        -480
+        2496,
+        -512
       ],
       "typeVersion": 2
     },
@@ -748,8 +766,8 @@
       "name": "Get Logo for the Watermark",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        3008,
-        -352
+        1376,
+        -608
       ],
       "typeVersion": 4.2
     },
@@ -763,8 +781,8 @@
       "name": "Wait for both Images and merge Binary in one Item",
       "type": "n8n-nodes-base.merge",
       "position": [
-        3824,
-        -480
+        2272,
+        -512
       ],
       "typeVersion": 2.1
     },
@@ -777,8 +795,8 @@
       "name": "Rename Image Binary Top Image",
       "type": "n8n-nodes-base.code",
       "position": [
-        3504,
-        -352
+        2048,
+        -608
       ],
       "typeVersion": 2
     },
@@ -791,8 +809,8 @@
       "name": "Rename Image Binary Background Image",
       "type": "n8n-nodes-base.code",
       "position": [
-        3504,
-        -608
+        2048,
+        -416
       ],
       "typeVersion": 2
     },
@@ -804,8 +822,8 @@
       "name": "Get Meta Top",
       "type": "n8n-nodes-base.editImage",
       "position": [
-        3152,
-        -352
+        1600,
+        -608
       ],
       "typeVersion": 1
     },
@@ -825,8 +843,8 @@
       "name": "Let \"top\" overlay \"bg\"",
       "type": "n8n-nodes-base.editImage",
       "position": [
-        4448,
-        -480
+        2720,
+        -512
       ],
       "typeVersion": 1
     },
@@ -840,8 +858,8 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2864,
-        -736
+        1349.5,
+        -868
       ],
       "typeVersion": 1
     },
@@ -855,8 +873,8 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        4032,
-        -608
+        2395.5,
+        -920
       ],
       "typeVersion": 1
     },
@@ -875,6 +893,29 @@
         -304
       ],
       "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "prompt": "={{ $json.result }}",
+        "options": {
+          "size": "1792x1024"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        2720,
+        24
+      ],
+      "id": "9fe79500-9378-4546-9a22-806a505f9f73",
+      "name": "Generate an image1",
+      "credentials": {
+        "openAiApi": {
+          "id": "vYrqMk8SXBQDctdA",
+          "name": "BireBiro-NEW"
+        }
+      }
     }
   ],
   "origin": "n8n",
@@ -898,6 +939,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-20T07:25:50.000Z",
-  "versionId": "f9c7fb84-d543-4b88-8a22-12ac2d095e73"
+  "updatedAt": "2025-11-20T10:58:22.000Z",
+  "versionId": "fc9e04d8-2cc7-4d0a-9491-b834b2602ad0"
 }
