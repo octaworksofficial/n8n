@@ -48,16 +48,6 @@
             "node": "Add Watermark",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Get Meta BG",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Get Logo for the Watermark",
-            "type": "main",
-            "index": 0
           }
         ],
         []
@@ -224,13 +214,7 @@
     },
     "Let \"top\" overlay \"bg\"": {
       "main": [
-        [
-          {
-            "node": "Add Watermark",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
@@ -267,8 +251,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "openAiApi": {
-          "id": "jWCgx5QEHfHSHOx7",
-          "name": "OpenAI Account iletisim@ranblockgames.com"
+          "id": "88TWvWVRDnIvBSWD",
+          "name": "Birebiro OpenAI"
         }
       }
     },
@@ -284,7 +268,7 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 1.8,
       "position": [
-        2496,
+        2448,
         416
       ],
       "id": "e383d961-af97-47a7-9197-fdf25d33792a",
@@ -359,7 +343,7 @@
       "typeVersion": 2.2,
       "position": [
         1600,
-        344
+        352
       ],
       "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
       "name": "If1"
@@ -375,7 +359,7 @@
       "typeVersion": 2.1,
       "position": [
         1376,
-        416
+        432
       ],
       "id": "74809296-8485-42b4-a29f-4a2296d41600",
       "name": "Webhook2",
@@ -390,7 +374,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        3584,
+        3040,
         416
       ],
       "id": "82beae8e-3219-4aad-8340-07b46a2ffad6",
@@ -403,7 +387,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2272,
+        2224,
         416
       ],
       "id": "aa812fbc-3062-473e-8f45-fff6ab4312ee",
@@ -610,7 +594,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        3808,
+        3264,
         416
       ],
       "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
@@ -655,7 +639,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        3360,
+        2848,
         416
       ],
       "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
@@ -663,23 +647,16 @@
     },
     {
       "parameters": {
-        "operation": "multiStep",
-        "operations": {
-          "operations": [
-            {
-              "operation": "text",
-              "fontSize": 64,
-              "fontColor": "#00FF04",
-              "font": "/usr/share/fonts/truetype/msttcorefonts/Verdana_Italic.ttf"
-            }
-          ]
-        },
+        "operation": "text",
+        "text": "birebiro.com",
+        "fontSize": 224,
+        "fontColor": "#EBEBEB",
         "options": {}
       },
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2976,
+        2656,
         416
       ],
       "id": "eadfeeb9-8d22-4d7b-ab1c-1ce3a387bded",
@@ -921,6 +898,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-19T17:52:55.000Z",
-  "versionId": "1f860b81-9562-4db8-a79e-ac541702cba0"
+  "updatedAt": "2025-11-20T07:25:50.000Z",
+  "versionId": "f9c7fb84-d543-4b88-8a22-12ac2d095e73"
 }
