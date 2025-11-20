@@ -669,6 +669,8 @@
         "text": "birebiro.com",
         "fontSize": 224,
         "fontColor": "#EBEBEB",
+        "positionX": 200,
+        "positionY": 200,
         "options": {}
       },
       "type": "n8n-nodes-base.editImage",
@@ -939,6 +941,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-20T10:58:22.000Z",
-  "versionId": "fc9e04d8-2cc7-4d0a-9491-b834b2602ad0"
+  "updatedAt": "2025-11-20T11:02:17.000Z",
+  "versionId": "5394ffff-b314-40da-9284-c32c93436be3"
 }
