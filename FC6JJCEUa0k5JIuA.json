@@ -48,6 +48,11 @@
             "node": "Add Watermark",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Upload Production Image",
+            "type": "main",
+            "index": 0
           }
         ],
         [
@@ -90,18 +95,7 @@
       "main": [
         [
           {
-            "node": "Update rows in a table",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook1",
+            "node": "Update watermarked image in a table",
             "type": "main",
             "index": 0
           }
@@ -112,7 +106,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Upload Watermarked Image",
             "type": "main",
             "index": 0
           }
@@ -228,6 +222,33 @@
         [
           {
             "node": "Add Watermark",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Upload Production Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Watermarked Image": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Production Image": {
+      "main": [
+        [
+          {
+            "node": "Update production image",
             "type": "main",
             "index": 0
           }
@@ -361,7 +382,7 @@
       "typeVersion": 2.2,
       "position": [
         1600,
-        -120
+        -128
       ],
       "id": "63e26186-8d85-4feb-ae2c-4c599f50dbbc",
       "name": "If1"
@@ -413,258 +434,6 @@
     },
     {
       "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "generated_image",
-          "mode": "list",
-          "cachedResultName": "generated_image"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $('Webhook2').first().json.body.generation_id }}",
-            "image_url": "={{ $json.data.image.url }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "user_id",
-              "displayName": "user_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "chat_session_id",
-              "displayName": "chat_session_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "generation_id",
-              "displayName": "generation_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "product_id",
-              "displayName": "product_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "product_size_id",
-              "displayName": "product_size_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "product_frame_id",
-              "displayName": "product_frame_id",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "text_prompt",
-              "displayName": "text_prompt",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "improved_prompt",
-              "displayName": "improved_prompt",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "image_url",
-              "displayName": "image_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "uploaded_image_url",
-              "displayName": "uploaded_image_url",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "user_generation_intent",
-              "displayName": "user_generation_intent",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "is_generate_mode",
-              "displayName": "is_generate_mode",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "credit_used",
-              "displayName": "credit_used",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "is_selected",
-              "displayName": "is_selected",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "updated_at",
-              "displayName": "updated_at",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "created_at",
-              "displayName": "created_at",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.6,
-      "position": [
-        3616,
-        -48
-      ],
-      "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
-      "name": "Update rows in a table",
-      "credentials": {
-        "postgres": {
-          "id": "FTyohjDEtaJCpf9r",
-          "name": "Postgres account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://api.imgbb.com/1/upload",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "key",
-              "value": "7070f656649ac694eaf61d47a7f2d976"
-            }
-          ]
-        },
-        "sendBody": true,
-        "contentType": "multipart-form-data",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "parameterType": "formBinaryData",
-              "name": "image",
-              "inputDataFieldName": "data"
-            }
-          ]
-        },
-        "options": {
-          "redirect": {
-            "redirect": {}
-          }
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        3168,
-        -48
-      ],
-      "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
-      "name": "HTTP Request"
-    },
-    {
-      "parameters": {
         "operation": "text",
         "text": "birebiro.com",
         "fontSize": 224,
@@ -676,7 +445,7 @@
       "type": "n8n-nodes-base.editImage",
       "typeVersion": 1,
       "position": [
-        2944,
+        2960,
         -48
       ],
       "id": "eadfeeb9-8d22-4d7b-ab1c-1ce3a387bded",
@@ -852,52 +621,6 @@
     },
     {
       "parameters": {
-        "content": "## Retrieve the Background Image and fetch Meta from the File\n### Like Sizes, to properly place the \"Top Image\" a.k.a \"Watermark\" a.k.a \"Overlay\" above the \"Background\"-Image",
-        "height": 612.1135700636542,
-        "width": 820.7320856852112
-      },
-      "id": "08625d87-b209-4718-9510-551d6dfafde1",
-      "name": "Sticky Note",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        1349.5,
-        -868
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
-        "content": "## Calculate the Position for the \"Top\" Image\n\n\n\n\n\n\n\n\n\n\n\n\n\nWe want to place the \"Top\"-Image it dead-center on the \"Background\"-Image. But the upper-left-corner is the origin for the operation. \n\nYou may adjust it to your needs, to – for example adjust the size of your Overlay-Image, or place it in some corner. Adjust the Formular to your needs.\n\n**⚠️ Limitation:** The Image that Overlays the Background-Image has to be <= the size of the background image to work properly.",
-        "height": 568.2663488290325,
-        "width": 296.5141962579569
-      },
-      "id": "1c78a473-247d-4c95-b871-9fddcf5c814f",
-      "name": "Sticky Note1",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        2395.5,
-        -920
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
-        "content": "### 🖼️ Binary Property *bg* should now be the composite image and be overlayed by *top*",
-        "height": 99.86957475347333,
-        "width": 257.68541919015513,
-        "color": 4
-      },
-      "id": "d3983d65-cedf-4e15-8c01-c8207114d580",
-      "name": "Sticky Note2",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        4368,
-        -304
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
         "resource": "image",
         "prompt": "={{ $json.result }}",
         "options": {
@@ -908,7 +631,7 @@
       "typeVersion": 1.8,
       "position": [
         2720,
-        24
+        64
       ],
       "id": "9fe79500-9378-4546-9a22-806a505f9f73",
       "name": "Generate an image1",
@@ -916,6 +639,557 @@
         "openAiApi": {
           "id": "vYrqMk8SXBQDctdA",
           "name": "BireBiro-NEW"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.imgbb.com/1/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "7070f656649ac694eaf61d47a7f2d976"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3024,
+        -304
+      ],
+      "id": "87fa6b84-94e0-4033-bcfe-26db64c00ec8",
+      "name": "Upload Production Image"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.imgbb.com/1/upload",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "7070f656649ac694eaf61d47a7f2d976"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "image",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3168,
+        -48
+      ],
+      "id": "9f2a40c3-8d73-471b-962a-b3b620753988",
+      "name": "Upload Watermarked Image"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "generated_image",
+          "mode": "list",
+          "cachedResultName": "generated_image"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Webhook2').first().json.body.generation_id }}",
+            "production_image_url": "={{ $json.data.image.url }}",
+            "updated_at": "={{ $now }}",
+            "thumbnail_url": "={{ $json.data.thumb.url }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "chat_session_id",
+              "displayName": "chat_session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "generation_id",
+              "displayName": "generation_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_size_id",
+              "displayName": "product_size_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_frame_id",
+              "displayName": "product_frame_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "text_prompt",
+              "displayName": "text_prompt",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "improved_prompt",
+              "displayName": "improved_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "uploaded_image_url",
+              "displayName": "uploaded_image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "user_generation_intent",
+              "displayName": "user_generation_intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_generate_mode",
+              "displayName": "is_generate_mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "credit_used",
+              "displayName": "credit_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_selected",
+              "displayName": "is_selected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "production_image_url",
+              "displayName": "production_image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "thumbnail_url",
+              "displayName": "thumbnail_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3616,
+        -304
+      ],
+      "id": "d53a4bdf-e5d1-4e14-8adc-acb852057ae6",
+      "name": "Update production image",
+      "credentials": {
+        "postgres": {
+          "id": "FTyohjDEtaJCpf9r",
+          "name": "Postgres account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "generated_image",
+          "mode": "list",
+          "cachedResultName": "generated_image"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Webhook2').first().json.body.generation_id }}",
+            "image_url": "={{ $json.data.image.url }}",
+            "updated_at": "={{ $now }}",
+            "thumbnail_url": "={{ $json.data.thumb.url }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "user_id",
+              "displayName": "user_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "chat_session_id",
+              "displayName": "chat_session_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "generation_id",
+              "displayName": "generation_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_size_id",
+              "displayName": "product_size_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product_frame_id",
+              "displayName": "product_frame_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "text_prompt",
+              "displayName": "text_prompt",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "improved_prompt",
+              "displayName": "improved_prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "image_url",
+              "displayName": "image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "uploaded_image_url",
+              "displayName": "uploaded_image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "user_generation_intent",
+              "displayName": "user_generation_intent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_generate_mode",
+              "displayName": "is_generate_mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "credit_used",
+              "displayName": "credit_used",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_selected",
+              "displayName": "is_selected",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "production_image_url",
+              "displayName": "production_image_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "thumbnail_url",
+              "displayName": "thumbnail_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        3616,
+        -48
+      ],
+      "id": "065f3f99-697c-4c88-ad37-3b0c9f174f19",
+      "name": "Update watermarked image in a table",
+      "credentials": {
+        "postgres": {
+          "id": "FTyohjDEtaJCpf9r",
+          "name": "Postgres account"
         }
       }
     }
@@ -941,6 +1215,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-20T11:02:17.000Z",
-  "versionId": "5394ffff-b314-40da-9284-c32c93436be3"
+  "updatedAt": "2025-11-20T21:28:53.000Z",
+  "versionId": "9ef324e6-85c8-427a-a7ea-2175dbfe77a9"
 }
