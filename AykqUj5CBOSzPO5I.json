@@ -1,0 +1,116 @@
+{
+  "active": true,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-23T09:50:59.926Z",
+  "id": "AykqUj5CBOSzPO5I",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "send-email",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3fe03690-4288-4ce1-b597-08a02fa1e460",
+      "name": "Webhook",
+      "webhookId": "3a2ae739-a071-419b-8a54-e1f9ff1b35c4"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.body.to }}",
+        "subject": "={{ $json.body.subject }}",
+        "message": "={{ $json.body.html_body }}",
+        "options": {
+          "bccList": "={{ $json.body.bcc }}",
+          "ccList": "={{ $json.body.cc }}",
+          "senderName": "={{ $json.body.sender_name }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "87e2f6fa-4938-40a1-b53b-80cc6dac7123",
+      "name": "Send a message",
+      "webhookId": "0bd9590b-2247-41e6-badc-4c3070b4a600",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "289bf885-3616-4ac6-b3a2-840cc6fba1a8",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "octaworksofficial",
+    "name": "n8n"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "createdAt": "2025-11-23T09:50:59.930Z",
+      "updatedAt": "2025-11-23T09:50:59.930Z",
+      "role": "workflow:owner",
+      "workflowId": "AykqUj5CBOSzPO5I",
+      "projectId": "1jTilK588wM2KuJy"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-23T10:12:44.000Z",
+  "versionId": "bfdcd1f1-f000-4dec-8de7-750613baef24"
+}
