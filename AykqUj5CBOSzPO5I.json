@@ -30,7 +30,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "My workflow 3",
+  "name": "send-mail-new",
   "nodes": [
     {
       "parameters": {
@@ -111,6 +111,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-23T10:12:44.000Z",
-  "versionId": "bfdcd1f1-f000-4dec-8de7-750613baef24"
+  "updatedAt": "2025-11-23T17:19:18.000Z",
+  "versionId": "7bb49b7c-b881-4c5e-a527-8669cebfb7ec"
 }
