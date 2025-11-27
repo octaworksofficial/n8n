@@ -30,7 +30,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "send-mail-new",
+  "name": "email-handler-new",
   "nodes": [
     {
       "parameters": {
@@ -111,6 +111,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-11-23T17:19:18.000Z",
-  "versionId": "7bb49b7c-b881-4c5e-a527-8669cebfb7ec"
+  "updatedAt": "2025-11-27T08:59:55.000Z",
+  "versionId": "31c18877-3fec-40b7-8d4b-5e93f19b213a"
 }
