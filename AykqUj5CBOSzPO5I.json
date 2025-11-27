@@ -22,6 +22,72 @@
           }
         ]
       ]
+    },
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a message": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "createdAt": "2025-11-23T09:50:59.926Z",
@@ -53,7 +119,7 @@
       "parameters": {
         "sendTo": "={{ $json.body.to }}",
         "subject": "={{ $json.body.subject }}",
-        "message": "={{ $json.body.html_body }}",
+        "message": "={{ $json.body.html_body }} RFRNO:##{{ $json.body.tracking_info.tracking_id }}##",
         "options": {
           "bccList": "={{ $json.body.bcc }}",
           "ccList": "={{ $json.body.cc }}",
@@ -83,15 +149,495 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        416,
+        400,
         0
       ],
       "id": "289bf885-3616-4ac6-b3a2-840cc6fba1a8",
       "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyX",
+              "value": 5,
+              "unit": "minutes"
+            }
+          ]
+        },
+        "simple": false,
+        "filters": {},
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        272
+      ],
+      "id": "b1c3471e-ab94-4529-817c-6079430cb785",
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "aa28b95b-5179-4887-8a0b-30206041dc57",
+              "leftValue": "={{ $json.html }}",
+              "rightValue": "RFRNO:",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        272
+      ],
+      "id": "5b61b259-2303-41a9-9d61-b44e2f9f4376",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "campaign_sends",
+          "mode": "list",
+          "cachedResultName": "campaign_sends"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "is_replied": true,
+            "tracking_id": "={{ $json.extractedText }}",
+            "replied_at": "={{ $now }}"
+          },
+          "matchingColumns": [
+            "tracking_id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "campaign_id",
+              "displayName": "campaign_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "contact_id",
+              "displayName": "contact_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "template_id",
+              "displayName": "template_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "sequence_index",
+              "displayName": "sequence_index",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "scheduled_date",
+              "displayName": "scheduled_date",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "sent_date",
+              "displayName": "sent_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "rendered_subject",
+              "displayName": "rendered_subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "rendered_body_html",
+              "displayName": "rendered_body_html",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "rendered_body_text",
+              "displayName": "rendered_body_text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_sent",
+              "displayName": "is_sent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_opened",
+              "displayName": "is_opened",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_clicked",
+              "displayName": "is_clicked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_replied",
+              "displayName": "is_replied",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "is_failed",
+              "displayName": "is_failed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "is_cancelled",
+              "displayName": "is_cancelled",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "opened_at",
+              "displayName": "opened_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "clicked_at",
+              "displayName": "clicked_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "replied_at",
+              "displayName": "replied_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "failed_at",
+              "displayName": "failed_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "failure_reason",
+              "displayName": "failure_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tracking_pixel_url",
+              "displayName": "tracking_pixel_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "unsubscribe_url",
+              "displayName": "unsubscribe_url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tracking_id",
+              "displayName": "tracking_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1024,
+        192
+      ],
+      "id": "49dadd35-0a63-42d3-91d9-0223f13d1952",
+      "name": "Update rows in a table",
+      "credentials": {
+        "postgres": {
+          "id": "sW1fpaCSMle73wL5",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Uzun metnin geldiği alanın adı (ör: \"text\")\nconst fullText = $input.first().json.html || '';\n\n// Regex ile ilk ##...## arasını yakala\nconst match = fullText.match(/##(.*?)##/s);\n\n// Elde edilen metin (yoksa boş string döner)\nconst extractedText = match ? match[1] : '';\n\n// Sadece string dönen basit bir json döndürüyoruz\nreturn [\n  {\n    json: {\n      extractedText,  // Örn: \"ALINACAK METİN\"\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        192
+      ],
+      "id": "385ee88b-10b3-4e8f-91bc-3d259c059ef3",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.threadId }}",
+        "simple": false,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        272
+      ],
+      "id": "c34bd185-dd74-40f1-91fc-c38f8fc35a4b",
+      "name": "Get a message",
+      "webhookId": "a828581b-74e1-4da1-ae00-5c88e0aded6b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "email_campaigns",
+          "mode": "list",
+          "cachedResultName": "email_campaigns"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "status",
+              "value": "active"
+            },
+            {
+              "column": "id",
+              "value": "={{ $json.campaign_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1248,
+        192
+      ],
+      "id": "6fb87f45-3ab3-43bc-a291-3ae62ad6ba00",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "sW1fpaCSMle73wL5",
+          "name": "Postgres account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.reply_notification_email }}",
+        "subject": "=Otomasyon ile gönderilmiş bir epostanıza yanıt geldi! (CID: {{ $json.id }})",
+        "emailType": "text",
+        "message": "=Otomasyon ile gönderilmiş bir epostanıza yanıt geldi! (Kampanya ID: {{ $json.id }})\n\nYanıtı gönderen e-posta: {{ $('Gmail Trigger').item.json.headers.from }}\n\nKonu: {{ $('Gmail Trigger').item.json.headers.subject }}\n\nİçerik: {{ $('Gmail Trigger').item.json.text }}\n\nTakip numarası: {{ $('Code in JavaScript').item.json.extractedText }}\n\n-\n\nCerilas Email Otomasyonu",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1456,
+        192
+      ],
+      "id": "d3b350f6-e337-4c00-8041-55c419df1853",
+      "name": "Send a message1",
+      "webhookId": "8600423b-9605-4f3c-a986-52e1459e4ddb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YswF3WzzLlvkHfCP",
+          "name": "Gmail account"
+        }
+      }
     }
   ],
   "origin": "n8n",
-  "pinData": {},
+  "pinData": {
+    "Code in JavaScript": [
+      {
+        "json": {
+          "extractedText": "87ea55b2-92ad-47c6-bd0e-c1ed8789e1bc"
+        }
+      }
+    ]
+  },
   "repo": {
     "owner": "octaworksofficial",
     "name": "n8n"
@@ -108,9 +654,19 @@
       "projectId": "1jTilK588wM2KuJy"
     }
   ],
-  "staticData": null,
+  "staticData": {
+    "node:Gmail Trigger": {
+      "Gmail Trigger": {
+        "lastTimeChecked": 1764251425,
+        "possibleDuplicates": [
+          "19ac5945d3c8e172",
+          "19ac5904df5342e8"
+        ]
+      }
+    }
+  },
   "tags": [],
-  "triggerCount": 1,
-  "updatedAt": "2025-11-27T08:59:55.000Z",
-  "versionId": "31c18877-3fec-40b7-8d4b-5e93f19b213a"
+  "triggerCount": 2,
+  "updatedAt": "2025-11-27T13:49:37.000Z",
+  "versionId": "17eb5985-e9f1-4b05-8e9a-6fc9783dff89"
 }
