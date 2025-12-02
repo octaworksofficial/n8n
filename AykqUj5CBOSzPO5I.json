@@ -121,6 +121,7 @@
         "subject": "={{ $json.body.subject }}",
         "message": "={{ $json.body.html_body }}\n<span style=\"font-size:1px; color:#f5f5f5; line-height:0; display:block;\">\n  RFRNO:##{{ $json.body.tracking_info.tracking_id }}##\n</span>",
         "options": {
+          "appendAttribution": false,
           "bccList": "={{ $json.body.bcc }}",
           "ccList": "={{ $json.body.cc }}",
           "senderName": "={{ $json.body.sender_name }}"
@@ -648,16 +649,15 @@
   "staticData": {
     "node:Gmail Trigger": {
       "Gmail Trigger": {
-        "lastTimeChecked": 1764671277,
+        "lastTimeChecked": 1764679719,
         "possibleDuplicates": [
-          "19ade9ad0de3b4a5",
-          "19ade842cd47da3b"
+          "19adf1b9d865414b"
         ]
       }
     }
   },
   "tags": [],
   "triggerCount": 2,
-  "updatedAt": "2025-11-28T05:58:19.000Z",
-  "versionId": "4745e0cd-ab2d-42a1-94cc-9c2c97e3bf60"
+  "updatedAt": "2025-12-02T12:52:18.000Z",
+  "versionId": "10717484-e0ed-4f26-9101-672d75a895d3"
 }
